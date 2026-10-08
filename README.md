@@ -23,9 +23,10 @@ Open http://localhost:3000. Set `PORT` to use a different port.
 ### The chart
 
 - **Gridlines**: horizontal lines at round percentages, vertical lines at each presidential election's first round (1989, 1994, then every 4 years from 1998). Election dates are in the `ELECTIONS` array in `index.html`.
+- **Adaptive axes**: the percentage step (from 100% down to 0.05%) follows the visible range. The time axis labels election years when zoomed out, then every year, half-year, quarter and month as space allows (at least `MIN_GAP` pixels between labels), adding lighter gridlines for those finer steps. Gridlines and labels fade in and out as you cross each level.
 - **Hover**: a dashed crosshair snaps to the nearest month, with a tooltip showing its value.
 - **Time ranges**: All, Since 1995 (the default), 10Y and 5Y buttons. The vertical scale fits whatever range is visible.
-- **Zoom**: drag across a span to zoom into it; double-click to go back to the full history.
+- **Zoom**: pinch on a trackpad or touchscreen, or drag across a span to zoom into it; double-click to go back to the full history.
 - **Transitions**: changing the range or zooming animates the view over 280ms (`DURATION` in `index.html`), with gridlines and labels fading between scales. With the system's reduced-motion setting on, it switches instantly with a short fade.
 - **Performance**: the gridlines and line are drawn on a `<canvas>`, which only redraws when the view changes (during a transition or a resize), and only the visible months are drawn. The crosshair, zoom selection, labels and tooltip are HTML elements moved with transforms, so hovering never repaints the chart. Hover updates run at most once per frame.
 
