@@ -10,6 +10,7 @@ export const state = {
   palette: null,
   pointerX: null,
   pointerY: 0,
+  touch: false, // whether the pointer is a finger, so the tooltip keeps clear of it
   shown: { i: -1, view: null }, // what the crosshair last drew
   dragStart: null,
 };

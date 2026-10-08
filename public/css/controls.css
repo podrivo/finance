@@ -17,7 +17,18 @@
   background: var(--bg);
   color: #888;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: color 150ms ease, border-color 150ms ease;
+}
+@media (max-width: 480px) {
+  #controls { top: 16px; right: 16px; gap: 8px; }
+  #controls button { padding: 0 10px; }
+}
+/* Taller hit areas for fingers, without changing how the buttons look. */
+@media (pointer: coarse) {
+  #controls button { position: relative; }
+  #controls button::after { content: ''; position: absolute; inset: -6px -2px; }
 }
 #controls button.active { border-color: var(--fg); color: var(--fg); }
 #controls #theme { display: grid; place-items: center; width: 32px; padding: 0; }

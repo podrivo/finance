@@ -7,6 +7,9 @@ export const percent = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2
 export const MIN_GAP = 48; // px between time labels
 export const LABEL_WIDTH = 1280; // px; wider screens show the same time labels as this width, spaced further apart
 export const MIN_SPAN = 6; // months
+export const HOLD = 300; // ms a finger must stay still before it scrubs instead of panning
+export const TAP_SLOP = 8; // px a finger can drift and still count as still
+export const DOUBLE_TAP = 300; // ms
 
 export const PALETTES = {
   light: { line: '#171717', zero: '#ccc', election: '#e8e8e8', year: '#e0e0e0', month: '#efefef' },

@@ -1,3 +1,4 @@
+import { DOUBLE_TAP, HOLD, TAP_SLOP } from './constants.js';
 import { canvas, rangeButtons, selection } from './dom.js';
 import { hideHover, queueHover } from './hover.js';
 import { RANGES, setActive } from './ranges.js';
@@ -15,6 +16,7 @@ export function bindInput() {
 
   canvas.addEventListener('mousedown', (e) => (state.dragStart = indexAt(e.clientX)));
   canvas.addEventListener('mousemove', (e) => {
+    state.touch = false;
     state.pointerX = e.clientX;
     state.pointerY = e.clientY;
     queueHover();
@@ -62,21 +64,73 @@ export function bindInput() {
   });
 
   // One finger pans, two fingers pinch (and pan by their midpoint).
+  // A tap shows the month under the finger and a double tap shows everything.
+  // Touching and holding still scrubs through months instead of panning.
+  // The tooltip stays up after lifting the finger, until the next touch.
   let pinch = null;
+  let press = null; // a single finger that hasn't moved yet: { x, y, timer }
+  let scrubbing = false;
+  let lastTap = 0;
   const pinchOf = (touches) => {
     if (touches.length === 1) return { x: touches[0].clientX, d: 1 };
     const [p, q] = touches;
     return { x: (p.clientX + q.clientX) / 2, d: Math.hypot(p.clientX - q.clientX, p.clientY - q.clientY) };
   };
-  const startTouch = (e) => {
+  const showAt = (x, y) => {
+    state.touch = true;
+    state.pointerX = x;
+    state.pointerY = y;
+    queueHover();
+  };
+  const release = () => {
+    clearTimeout(press?.timer);
+    press = null;
+  };
+  const resetTouch = (e) => {
     pinch = e.touches.length ? pinchOf(e.touches) : null;
     state.dragStart = null;
     selection.style.visibility = 'hidden';
   };
-  canvas.addEventListener('touchstart', startTouch);
-  canvas.addEventListener('touchend', startTouch);
-  canvas.addEventListener('touchcancel', startTouch);
+  // Cancelling touchstart stops the browser from also firing emulated mouse events.
+  canvas.addEventListener(
+    'touchstart',
+    (e) => {
+      e.preventDefault();
+      release();
+      hideHover();
+      scrubbing = false;
+      resetTouch(e);
+      if (e.touches.length !== 1) return;
+      const { clientX: x, clientY: y } = e.touches[0];
+      press = { x, y, timer: setTimeout(() => ((scrubbing = true), showAt(x, y)), HOLD) };
+    },
+    { passive: false }
+  );
+  const endTouch = (e) => {
+    if (press && !e.touches.length) {
+      if (e.timeStamp - lastTap < DOUBLE_TAP) {
+        lastTap = 0;
+        hideHover();
+        setActive('all');
+        animateTo(windowFor(...RANGES.all()));
+      } else {
+        lastTap = e.timeStamp;
+        showAt(press.x, press.y);
+      }
+    }
+    release();
+    if (!e.touches.length) scrubbing = false;
+    resetTouch(e);
+  };
+  canvas.addEventListener('touchend', endTouch);
+  canvas.addEventListener('touchcancel', endTouch);
   canvas.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    if (scrubbing) return showAt(t.clientX, t.clientY);
+    if (press) {
+      if (Math.hypot(t.clientX - press.x, t.clientY - press.y) < TAP_SLOP) return;
+      release();
+    }
     if (!pinch) return;
     const next = pinchOf(e.touches);
     zoom(pinch.x, next.x, pinch.d / Math.max(1, next.d));

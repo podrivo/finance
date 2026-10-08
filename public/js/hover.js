@@ -8,11 +8,11 @@ let hoverQueued = false;
 // Above-right of the pointer, flipping at the screen edges. Hidden rather than
 // moved when it would crowd the controls. Returns whether it's shown.
 function placeTooltip() {
-  const GAP = 12;
+  const GAP = state.touch ? 32 : 12;
   const { pointerX, pointerY, controlsBox: c } = state;
   const [w, h] = [tooltip.offsetWidth, tooltip.offsetHeight];
   const x = pointerX + GAP + w > innerWidth ? pointerX - GAP - w : pointerX + GAP;
-  const y = pointerY - GAP - h < 0 ? pointerY + 16 : pointerY - GAP - h;
+  const y = pointerY - GAP - h < 0 ? pointerY + Math.max(16, GAP) : pointerY - GAP - h;
   const crowded = x < c.right + GAP && x + w > c.left - GAP && y < c.bottom + GAP && y + h > c.top - GAP;
   tooltip.classList.toggle('visible', !crowded);
   if (!crowded) tooltip.style.transform = `translate(${x}px, ${y}px)`;
