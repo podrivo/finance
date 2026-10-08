@@ -1,4 +1,4 @@
-import { MIN_GAP, MONTHS, MONTH_STEPS, STEPS } from './constants.js';
+import { LABEL_WIDTH, MIN_GAP, MONTHS, MONTH_STEPS, STEPS } from './constants.js';
 import { state } from './state.js';
 
 export function valueTicks() {
@@ -15,7 +15,7 @@ export function valueTicks() {
 // Election years when zoomed out; every year, then quarters, then months as there's room.
 export function timeTicks() {
   const { view, box, series, n, elections } = state;
-  const perMonth = box.width / (view.x1 - view.x0);
+  const perMonth = Math.min(box.width, LABEL_WIDTH) / (view.x1 - view.x0);
   const step = MONTH_STEPS.find((s) => s * perMonth >= MIN_GAP);
   if (!step) return elections.map((i) => ({ key: `e${i}`, axis: 'x', i, text: series[i].date.slice(0, 4) }));
   const out = [];

@@ -5,6 +5,7 @@ export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', '
 export const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 export const percent = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const MIN_GAP = 48; // px between time labels
+export const LABEL_WIDTH = 1280; // px; wider screens show the same time labels as this width, spaced further apart
 export const MIN_SPAN = 6; // months
 
 export const PALETTES = {
