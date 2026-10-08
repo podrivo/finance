@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPCA</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font: 14px/1.4 system-ui, sans-serif;
+      color: #222;
+    }
+    header, footer { display: flex; justify-content: space-between; padding: 0 2rem; color: #888; }
+    h1 { margin: 0; font-size: 1rem; font-weight: 600; color: #222; }
+    svg { width: 100%; height: 60vh; margin: 1rem 0; }
+    #tooltip {
+      position: fixed;
+      pointer-events: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #222;
+      color: #fff;
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IPCA, monthly change (%)</h1>
+  </header>
+  <div id="tooltip"></div>
+  <svg id="chart" preserveAspectRatio="none"></svg>
+  <footer>
+    <span id="start"></span>
+    <span id="end"></span>
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    fetch('/api/ipca')
+      .then((r) => (r.ok ? r.json() : r.text().then((t) => Promise.reject(new Error(t)))))
+      .then(({ series }) => {
+        const values = series.map((p) => p.value);
+        const min = Math.min(0, ...values);
+        const max = Math.max(...values);
+        const w = series.length - 1;
+        const h = max - min;
+        const y = (v) => max - v;
+
+        const svg = $('chart');
+        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        const points = values.map((v, i) => `${i},${y(v)}`).join(' ');
+        svg.innerHTML = `
+          <line x1="0" x2="${w}" y1="${y(0)}" y2="${y(0)}" stroke="#ddd" vector-effect="non-scaling-stroke" />
+          <polyline points="${points}" fill="none" stroke="#2563eb" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+          <g id="crosshair" stroke="#ccc" vector-effect="non-scaling-stroke" visibility="hidden">
+            <line id="vline" y1="0" y2="${h}" vector-effect="non-scaling-stroke" />
+            <line id="hline" x1="0" x2="${w}" vector-effect="non-scaling-stroke" />
+          </g>`;
+
+        const tooltip = $('tooltip');
+        svg.addEventListener('mousemove', (e) => {
+          const { left, top, width, height } = svg.getBoundingClientRect();
+          const i = Math.max(0, Math.min(w, Math.round(((e.clientX - left) / width) * w)));
+          const py = y(values[i]);
+
+          $('vline').setAttribute('x1', i);
+          $('vline').setAttribute('x2', i);
+          $('hline').setAttribute('y1', py);
+          $('hline').setAttribute('y2', py);
+          $('crosshair').setAttribute('visibility', 'visible');
+
+          const sx = left + (i / w) * width;
+          const sy = top + (py / h) * height;
+          tooltip.textContent = `${series[i].date}: ${values[i].toFixed(2)}%`;
+          tooltip.style.display = 'block';
+          tooltip.style.top = `${sy - 32}px`;
+          tooltip.style.left = sx > innerWidth - 160 ? `${sx - tooltip.offsetWidth - 10}px` : `${sx + 10}px`;
+        });
+        svg.addEventListener('mouseleave', () => {
+          $('crosshair').setAttribute('visibility', 'hidden');
+          tooltip.style.display = 'none';
+        });
+
+        $('start').textContent = series[0].date;
+        $('end').textContent = series[w].date;
+      })
+      .catch((err) => ($('start').textContent = `Error: ${err.message}`));
+  </script>
+</body>
+</html>
