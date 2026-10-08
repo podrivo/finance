@@ -73,7 +73,7 @@
   <div id="controls">
     <nav id="ranges">
       <button data-range="all">All</button>
-      <button data-range="real" class="active">Since 1995</button>
+      <button data-range="real">Since 1995</button>
       <button data-range="10y">10Y</button>
       <button data-range="5y">5Y</button>
     </nav>
@@ -304,6 +304,7 @@
     }
 
     function animateTo(next) {
+      save(next.x0, next.x1);
       yGoal = null;
       if (reduceMotion.matches) {
         anim = null;
@@ -333,6 +334,7 @@
       view = { ...view, x0, x1: x0 + next };
       yGoal = { yMin, yMax };
       setActive(null);
+      save(x0, x0 + next);
       invalidate();
     }
 
@@ -380,13 +382,35 @@
     }
 
     const buttons = document.querySelectorAll('#ranges button');
-    const setActive = (range) => buttons.forEach((b) => b.classList.toggle('active', b.dataset.range === range));
+    let activeRange = null;
+    const setActive = (range) => {
+      activeRange = range;
+      buttons.forEach((b) => b.classList.toggle('active', b.dataset.range === range));
+    };
     const RANGES = {
       all: () => [0, n - 1],
       real: () => [series.findIndex((p) => p.date >= '1995-01'), n - 1],
       '10y': () => [n - 120, n - 1],
       '5y': () => [n - 60, n - 1],
     };
+
+    // A preset range is saved by name so it keeps tracking the latest months; a custom
+    // zoom is saved as month indices, which stay stable because the series starts in 1980-01.
+    const STORAGE_KEY = 'ipca:view';
+    let saveTimer = 0;
+    function save(x0, x1) {
+      clearTimeout(saveTimer);
+      const state = activeRange ? { range: activeRange } : { x0, x1 };
+      saveTimer = setTimeout(() => localStorage.setItem(STORAGE_KEY, JSON.stringify(state)), 200);
+    }
+    function restore() {
+      try {
+        const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (RANGES[s.range]) return [s.range, RANGES[s.range]()];
+        if (s.x0 >= 0 && s.x1 <= n - 1 && s.x1 - s.x0 >= MIN_SPAN) return [null, [s.x0, s.x1]];
+      } catch {}
+      return ['real', RANGES.real()];
+    }
 
     function init(data) {
       series = data.series.filter((p) => p.monthly !== null);
@@ -395,7 +419,9 @@
 
       elections = series.flatMap((p, i) => (ELECTIONS.includes(p.date) ? [i] : []));
 
-      view = windowFor(...RANGES.real());
+      const [range, win] = restore();
+      setActive(range);
+      view = windowFor(...win);
       new ResizeObserver(resize).observe(chart);
 
       buttons.forEach((b) =>
