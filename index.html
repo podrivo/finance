@@ -10,17 +10,15 @@
   <style>
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       font: 14px/1.4 'Geist', system-ui, sans-serif;
       color: #000;
       background: #fff;
     }
-    header, footer { display: flex; justify-content: space-between; padding: 0 2rem; color: #888; }
-    h1 { margin: 0; font-size: 1rem; font-weight: 600; color: #000; }
-    svg { width: 100%; height: 60vh; margin: 1rem 0; }
+    #chart { position: fixed; inset: 0; color: #888; font-size: 12px; }
+    svg { display: block; width: 100%; height: 100%; }
+    .label { position: absolute; white-space: nowrap; font-variant-numeric: tabular-nums; pointer-events: none; }
+    .label.y { left: 8px; transform: translateY(calc(-100% - 2px)); }
+    .label.x { bottom: 8px; transform: translateX(4px); }
     #tooltip {
       position: fixed;
       pointer-events: none;
@@ -36,15 +34,8 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>IPCA, monthly change (%)</h1>
-  </header>
   <div id="tooltip"></div>
-  <svg id="chart" preserveAspectRatio="none"></svg>
-  <footer>
-    <span id="start"></span>
-    <span id="end"></span>
-  </footer>
+  <div id="chart"><svg preserveAspectRatio="none"></svg></div>
 
   <script>
     const $ = (id) => document.getElementById(id);
@@ -56,15 +47,28 @@
         const values = series.map((p) => p.monthly);
         const min = Math.min(0, ...values);
         const max = Math.max(...values);
+        const range = max - min;
+        const yMax = max + range * 0.04;
+        const yMin = min - range * 0.06;
         const w = series.length - 1;
-        const h = max - min;
-        const y = (v) => max - v;
+        const h = yMax - yMin;
+        const y = (v) => yMax - v;
 
-        const svg = $('chart');
+        const step = [1, 2, 5, 10, 20, 50, 100].find((s) => range / s <= 8);
+        const yTicks = [];
+        for (let v = Math.ceil(min / step) * step; v <= max; v += step) yTicks.push(v);
+        const ELECTIONS = ['1989-11', '1994-10', '1998-10', '2002-10', '2006-10', '2010-10', '2014-10', '2018-10', '2022-10', '2026-10'];
+        const xTicks = series.map((p, i) => [p.date, i]).filter(([date]) => ELECTIONS.includes(date));
+
+        const chart = $('chart');
+        const svg = chart.querySelector('svg');
         svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
         const points = values.map((v, i) => `${i},${y(v)}`).join(' ');
+        const gridLine = (x1, y1, x2, y2, color) =>
+          `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" vector-effect="non-scaling-stroke" />`;
         svg.innerHTML = `
-          <line x1="0" x2="${w}" y1="${y(0)}" y2="${y(0)}" stroke="#ddd" vector-effect="non-scaling-stroke" />
+          ${yTicks.map((v) => gridLine(0, y(v), w, y(v), v === 0 ? '#ccc' : '#eee')).join('')}
+          ${xTicks.map(([, i]) => gridLine(i, 0, i, h, '#eee')).join('')}
           <polyline points="${points}" fill="none" stroke="#000" stroke-width="1.5" vector-effect="non-scaling-stroke" />
           <g id="crosshair" stroke="#ccc" vector-effect="non-scaling-stroke" visibility="hidden">
             <line id="vline" y1="0" y2="${h}" vector-effect="non-scaling-stroke" />
@@ -95,10 +99,13 @@
           tooltip.style.display = 'none';
         });
 
-        $('start').textContent = series[0].date;
-        $('end').textContent = series[w].date;
+        chart.insertAdjacentHTML(
+          'beforeend',
+          yTicks.map((v) => `<span class="label y" style="top:${(y(v) / h) * 100}%">${v}%</span>`).join('') +
+            xTicks.map(([date, i]) => `<span class="label x" style="left:${(i / w) * 100}%">${date.slice(0, 4)}</span>`).join('')
+        );
       })
-      .catch((err) => ($('start').textContent = `Error: ${err.message}`));
+      .catch((err) => ($('chart').textContent = `Error: ${err.message}`));
   </script>
 </body>
 </html>
