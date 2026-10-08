@@ -21,6 +21,7 @@
     .label.x { bottom: 8px; transform: translateX(4px); }
     #tooltip {
       position: fixed;
+      z-index: 1;
       pointer-events: none;
       padding: 4px 8px;
       border-radius: 4px;
@@ -69,11 +70,11 @@
         svg.innerHTML = `
           ${yTicks.map((v) => gridLine(0, y(v), w, y(v), v === 0 ? '#ccc' : '#eee')).join('')}
           ${xTicks.map(([, i]) => gridLine(i, 0, i, h, '#eee')).join('')}
-          <polyline points="${points}" fill="none" stroke="#000" stroke-width="1.5" vector-effect="non-scaling-stroke" />
-          <g id="crosshair" stroke="#ccc" vector-effect="non-scaling-stroke" visibility="hidden">
+          <g id="crosshair" stroke="#ccc" stroke-dasharray="4 4" visibility="hidden">
             <line id="vline" y1="0" y2="${h}" vector-effect="non-scaling-stroke" />
             <line id="hline" x1="0" x2="${w}" vector-effect="non-scaling-stroke" />
-          </g>`;
+          </g>
+          <polyline points="${points}" fill="none" stroke="#000" stroke-width="1.5" vector-effect="non-scaling-stroke" />`;
 
         const tooltip = $('tooltip');
         svg.addEventListener('mousemove', (e) => {
