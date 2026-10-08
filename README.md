@@ -17,6 +17,7 @@ Open http://localhost:3000. Set `PORT` to use a different port.
 ## How it works
 
 - `server.js` serves the page and a JSON endpoint at `/api/ipca`.
+- `ipca.js` fetches the data (main source, fallback and retries), shared by the server and `update.js`.
 - `index.html` fetches `/api/ipca` and draws the monthly change as a full-screen SVG line chart.
 - `data/ipca.json` is the local cache.
 
@@ -59,7 +60,7 @@ Missing values are `null`. For example, `twelveMonths` starts in 1980-12, since 
 
 1. **IBGE SIDRA** (main). IBGE calculates and publishes IPCA, so it's the primary source. All four measures come in one request:
    `https://apisidra.ibge.gov.br/values/t/1737/n1/all/v/63,69,2265,2266/p/all`
-2. **Banco Central do Brasil SGS** (fallback). The Central Bank republishes the IBGE numbers but only has `monthly` and `twelveMonths`, so `ytd` and `index` are `null` when this source is used:
+2. **Banco Central do Brasil SGS** (fallback). The Central Bank republishes the IBGE numbers but only has `monthly` and `twelveMonths`, so `ytd` and `index` keep their previously saved values (or are `null` for months not saved yet) when this source is used:
    `https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json`
    `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13522/dados?formato=json`
 
@@ -72,6 +73,19 @@ Both APIs are public and need no key. Comparing them month by month showed ident
 - If both APIs fail, the last saved data is served regardless of age.
 
 Delete `data/ipca.json` to force a refresh.
+
+### Daily update
+
+`.github/workflows/update-data.yml` runs `npm run update` (`update.js`) every day at 13:00 UTC (10:00 in Brasília, after IBGE's usual 9:00 release) and commits `data/ipca.json` only when the series changed. It can also be run by hand from the Actions tab.
+
+When a request fails, `update.js` retries up to 3 times per source, waiting according to the error:
+
+- Network error or timeout: retry soon (2s, 4s, 8s).
+- HTTP 5xx, 408, or a response that isn't JSON: back off (5s, 15s, 45s).
+- HTTP 429, or 503 with a `Retry-After` header: wait as long as the server asks (capped at 10 minutes), or 1, 2, then 3 minutes without the header.
+- Any other 4xx: don't retry, go straight to the fallback.
+
+If both sources fail, the run fails (GitHub emails the repo owner) and nothing is committed. The server doesn't retry, so page loads never hang.
 
 ## Notes
 
