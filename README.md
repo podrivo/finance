@@ -29,7 +29,7 @@ Open http://localhost:3000. Set `PORT` to use a different port.
 - **Time ranges**: All, Since 1995 (the default), 10Y and 5Y buttons. The vertical scale fits whatever range is visible.
 - **Zoom**: scroll up to zoom in and down to zoom out, pinch on a trackpad or touchscreen, or drag across a span to zoom into it; double-click to go back to the full history.
 - **Pan**: scroll horizontally on a trackpad (or Shift+wheel), or drag with one finger on a touchscreen, to move through time. Panning stops at the first and last month.
-- **Transitions**: changing the range or zooming animates the view over 280ms (`DURATION` in `index.html`), with gridlines and labels fading between scales. With the system's reduced-motion setting on, it switches instantly with a short fade.
+- **Transitions**: changing the range or zooming animates the view over 280ms (`DURATION` in `index.html`), with gridlines and labels fading between scales. While scrolling, pinching or panning, the time axis follows the gesture directly and the vertical range eases toward its new fit (`Y_EASE` in `index.html`), so spikes entering or leaving the view don't make the scale jump. With the system's reduced-motion setting on, it switches instantly with a short fade.
 - **Performance**: the gridlines and line are drawn on a `<canvas>`, which only redraws when the view changes (during a transition or a resize), and only the visible months are drawn. The crosshair, zoom selection, labels and tooltip are HTML elements moved with transforms, so hovering never repaints the chart. Hover updates run at most once per frame.
 
 ### Data

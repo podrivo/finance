@@ -93,6 +93,7 @@
     const MIN_GAP = 56; // px between time labels
     const DURATION = 280;
     const FADE = 200;
+    const Y_EASE = 70; // ms time constant for the vertical range to follow gestures
     const MIN_SPAN = 6; // months
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -119,8 +120,10 @@
     let series, values, n;
     let view;      // the currently displayed window, possibly mid-animation
     let anim = null;
+    let yGoal = null; // vertical range that gestures ease toward
     let frame = 0;
     let lastDraw = 0;
+    let lastFrame = 0;
     let box;
     let pointerX = null;
     let hoverQueued = false;
@@ -198,8 +201,16 @@
         const lerp = (key) => anim.from[key] + (anim.to[key] - anim.from[key]) * e;
         view = { x0: lerp('x0'), x1: lerp('x1'), yMin: lerp('yMin'), yMax: lerp('yMax') };
         if (p === 1) anim = null;
+      } else if (yGoal) {
+        const k = reduceMotion.matches ? 1 : 1 - Math.exp(-Math.min(now - lastFrame, 34) / Y_EASE);
+        const yMin = view.yMin + (yGoal.yMin - view.yMin) * k;
+        const yMax = view.yMax + (yGoal.yMax - view.yMax) * k;
+        const settled = Math.abs(yGoal.yMin - yMin) + Math.abs(yGoal.yMax - yMax) < (yGoal.yMax - yGoal.yMin) * 1e-3;
+        view = { ...view, ...(settled ? yGoal : { yMin, yMax }) };
+        if (settled) yGoal = null;
       }
-      if (draw(now) || anim) invalidate();
+      lastFrame = now;
+      if (draw(now) || anim || yGoal) invalidate();
     }
 
     // Ticks fade in and out on their own clock as the view crosses scale thresholds.
@@ -289,6 +300,7 @@
     }
 
     function animateTo(next) {
+      yGoal = null;
       if (reduceMotion.matches) {
         anim = null;
         view = next;
@@ -312,7 +324,10 @@
       const x0 = Math.max(0, Math.min(n - 1 - next, anchor - ((toX - box.left) / box.width) * next));
       if (x0 === view.x0 && next === span) return;
       anim = null;
-      view = windowFor(x0, x0 + next);
+      const { yMin, yMax } = windowFor(x0, x0 + next);
+      if (!yGoal) lastFrame = performance.now();
+      view = { ...view, x0, x1: x0 + next };
+      yGoal = { yMin, yMax };
       setActive(null);
       invalidate();
     }
