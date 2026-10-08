@@ -153,6 +153,7 @@
     let lastDraw = 0;
     let lastFrame = 0;
     let box;
+    let controlsBox;
     let pointerX = null;
     let pointerY = 0;
     let hoverQueued = false;
@@ -255,6 +256,7 @@
 
     function resize() {
       box = chart.getBoundingClientRect();
+      controlsBox = $('controls').getBoundingClientRect();
       const dpr = devicePixelRatio || 1;
       canvas.width = Math.round(box.width * dpr);
       canvas.height = Math.round(box.height * dpr);
@@ -408,6 +410,20 @@
       invalidate();
     }
 
+    // Above-right of the pointer, flipping at the screen edges. Hidden rather than
+    // moved when it would crowd the controls. Returns whether it's shown.
+    function placeTooltip() {
+      const GAP = 12;
+      const [w, h] = [tooltip.offsetWidth, tooltip.offsetHeight];
+      const c = controlsBox;
+      const x = pointerX + GAP + w > innerWidth ? pointerX - GAP - w : pointerX + GAP;
+      const y = pointerY - GAP - h < 0 ? pointerY + 16 : pointerY - GAP - h;
+      const crowded = x < c.right + GAP && x + w > c.left - GAP && y < c.bottom + GAP && y + h > c.top - GAP;
+      tooltip.classList.toggle('visible', !crowded);
+      if (!crowded) tooltip.style.transform = `translate(${x}px, ${y}px)`;
+      return !crowded;
+    }
+
     // Mouse events can outpace the display; handle at most one per frame.
     function queueHover() {
       if (hoverQueued) return;
@@ -422,19 +438,14 @@
     // so hovering never repaints the canvas.
     // The tooltip sits beside the mouse; the crosshair and dot snap to the nearest month.
     function hover() {
-      const flip = pointerX > innerWidth - 180;
-      const below = pointerY < 48;
-      tooltip.style.transform =
-        `translate(${pointerX + (flip ? -12 : 12)}px, ${pointerY + (below ? 16 : -12)}px)` +
-        (flip ? ' translateX(-100%)' : '') + (below ? '' : ' translateY(-100%)');
-      tooltip.classList.add('visible');
-
       const i = indexAt(pointerX);
-      if (i === shown.i && view === shown.view) return;
       if (i !== shown.i) {
         const [year, month] = series[i].date.split('-').map(Number);
         tooltip.textContent = `${MESES[month - 1]}, ${year} · ${percent.format(values[i])}%`;
       }
+      $('crosshair').style.visibility = placeTooltip() ? 'visible' : 'hidden';
+
+      if (i === shown.i && view === shown.view) return;
       shown = { i, view };
 
       const x = toX(i);
@@ -442,7 +453,6 @@
       $('vline').style.transform = `translateX(${Math.round(x)}px)`;
       $('hline').style.transform = `translateY(${Math.round(y)}px)`;
       $('dot').style.transform = `translate(${x}px, ${y}px)`;
-      $('crosshair').style.visibility = 'visible';
 
       if (dragStart !== null) {
         const left = toX(Math.min(dragStart, i));
