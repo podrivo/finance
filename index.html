@@ -80,8 +80,8 @@
   </div>
   <div id="chart">
     <div id="selection"></div>
-    <div id="crosshair"><div id="vline"></div><div id="hline"></div><div id="dot"></div></div>
     <canvas></canvas>
+    <div id="crosshair"><div id="vline"></div><div id="hline"></div><div id="dot"></div></div>
     <div id="labels"></div>
   </div>
 
@@ -156,7 +156,7 @@
       for (let i = Math.max(0, Math.floor(view.x0)); i <= Math.min(n - 1, Math.ceil(view.x1)); i++) {
         const [year, month] = series[i].date.split('-').map(Number);
         if ((month - 1) % step) continue;
-        out.push({ key: `m${i}`, axis: 'x', i, line: true, text: month === 1 ? `${year}` : MONTHS[month - 1] });
+        out.push({ key: `m${i}`, axis: 'x', i, line: month === 1 ? '#e4e4e4' : '#f4f4f4', text: month === 1 ? `${year}` : MONTHS[month - 1] });
       }
       return out;
     }
@@ -245,9 +245,9 @@
       ctx.clearRect(0, 0, box.width, box.height);
       ctx.lineWidth = 1;
       for (const { tick, o } of fades.values()) {
-        if (tick.axis === 'x' && !tick.line) continue;
+        if (tick.axis === 'x' ? !tick.line : tick.v !== 0) continue;
         ctx.globalAlpha = o;
-        ctx.strokeStyle = tick.axis === 'x' ? '#f4f4f4' : tick.v === 0 ? '#ccc' : '#eee';
+        ctx.strokeStyle = tick.axis === 'x' ? tick.line : '#ccc';
         ctx.beginPath();
         if (tick.axis === 'y') {
           const y = Math.round(toY(tick.v)) + 0.5;

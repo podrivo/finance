@@ -24,7 +24,7 @@ Open http://localhost:3000. Set `PORT` to use a different port.
 ### The chart
 
 - **Line**: a monotone cubic curve through each month's value. It never overshoots between months, so the smoothing doesn't invent peaks or dips.
-- **Gridlines**: horizontal lines at round percentages, vertical lines at each presidential election's first round (1989, 1994, then every 4 years from 1998). Election dates are in the `ELECTIONS` array in `index.html`.
+- **Gridlines**: a 0% baseline (round percentages are labelled on the left without lines), vertical lines at each presidential election's first round (1989, 1994, then every 4 years from 1998). Election dates are in the `ELECTIONS` array in `index.html`.
 - **Adaptive axes**: the percentage step (from 100% down to 0.05%) follows the visible range. The time axis labels election years when zoomed out, then every year, half-year, quarter and month as space allows (at least `MIN_GAP` pixels between labels), adding lighter gridlines for those finer steps. Gridlines and labels fade in and out as you cross each level.
 - **Hover**: a dashed crosshair and a dot snap to the nearest month on the line. A tooltip beside the mouse shows it in Brazilian format, e.g. `Ago, 2007 · 0,47%`.
 - **Time ranges**: All, Since 1995 (the default), 10Y and 5Y buttons. The vertical scale fits whatever range is visible.
