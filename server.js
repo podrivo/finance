@@ -1,7 +1,9 @@
 import { createServer } from 'node:http';
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
-import { CACHE_FILE, readCache, fetchIPCA } from './ipca.js';
+import { readCache, writeCache } from './cache.js';
+import * as ipca from './ipca.js';
+import * as selic from './selic.js';
 
 const PORT = process.env.PORT || 3000;
 const MAX_AGE_MS = 24 * 60 * 60 * 1000;
@@ -12,14 +14,18 @@ const TYPES = {
   '.js': 'text/javascript; charset=utf-8',
 };
 
-async function getIPCA() {
-  const cached = await readCache();
+const APIS = {
+  '/api/ipca': [ipca.CACHE_FILE, ipca.fetchIPCA],
+  '/api/selic': [selic.CACHE_FILE, selic.fetchSelic],
+};
+
+async function getData(file, fetchIndex) {
+  const cached = await readCache(file);
   if (cached && Date.now() - new Date(cached.fetchedAt) < MAX_AGE_MS) return cached;
 
   try {
-    const data = await fetchIPCA({ previous: cached });
-    await mkdir(new URL('.', CACHE_FILE), { recursive: true });
-    await writeFile(CACHE_FILE, JSON.stringify(data, null, 2));
+    const data = await fetchIndex({ previous: cached });
+    await writeCache(file, data);
     return data;
   } catch (err) {
     if (cached) return cached;
@@ -37,8 +43,8 @@ function publicFile(url) {
 
 createServer(async (req, res) => {
   try {
-    if (req.url === '/api/ipca') {
-      const body = JSON.stringify(await getIPCA());
+    if (APIS[req.url]) {
+      const body = JSON.stringify(await getData(...APIS[req.url]));
       return res.writeHead(200, { 'Content-Type': 'application/json' }).end(body);
     }
     const file = publicFile(req.url);

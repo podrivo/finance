@@ -1,6 +1,6 @@
 # IPCA
 
-A minimal website that charts Brazil's historical IPCA (monthly inflation, % change) from January 1980 to the latest release.
+A minimal website that charts Brazil's historical IPCA (monthly inflation, % change) from January 1980 to the latest release, next to the Selic rate accumulated in each month from August 1986. The gap between the two lines is the real interest rate.
 
 No dependencies and no build step: a small Node server and a static page using native ES modules.
 
@@ -8,8 +8,9 @@ No dependencies and no build step: a small Node server and a static page using n
 
 | Path | Role |
 |---|---|
-| `server.js` | Serves `public/` and `/api/ipca` |
-| `ipca.js` | Fetches and caches the data (shared by the server and `update.js`) |
+| `server.js` | Serves `public/`, `/api/ipca` and `/api/selic` |
+| `ipca.js`, `selic.js` | Fetch each index (shared by the server and `update.js`) |
+| `http.js`, `cache.js` | JSON fetching with retries, and reading/writing `data/` |
 | `public/index.html` | Page markup |
 | `public/css/` | `base` (colors, theme), `chart`, `controls`, `tooltip` |
 | `public/js/main.js` | Entry point: loads the data and starts everything |
@@ -46,7 +47,7 @@ IPCA is published monthly. Each month in `data/ipca.json` has:
 
 Missing values are `null`. The annual inflation for a year is its December `ytd`.
 
-The file is cached locally and refreshed daily by a GitHub Actions workflow (`npm run update`). Delete it to force a refresh.
+The files in `data/` are cached locally and refreshed daily by a GitHub Actions workflow (`npm run update`). Delete one to force a refresh.
 
 ### Sources
 
@@ -59,6 +60,19 @@ Both are public and need no key.
    `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13522/dados?formato=json`
 
 A month-by-month comparison showed both sources give identical values.
+
+### Selic
+
+`data/selic.json` has one row per month from August 1986, with:
+
+| Field | Meaning |
+|---|---|
+| `monthly` | % accumulated in the month |
+| `ytd` | % accumulated in the year (`null` for 1986, which starts in August) |
+| `twelveMonths` | % accumulated over the last 12 months |
+| `annualized` | The month's rate annualized, 252 business days |
+
+The source is **Banco Central do Brasil SGS**, series 4390 (`monthly`) and 4189 (`annualized`). `ytd` and `twelveMonths` are compounded from `monthly`, matching IPCA's fields so the two can be compared. SGS also lists the month in progress, accumulated so far; it's left out until the month ends.
 
 ## Notes
 

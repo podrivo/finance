@@ -59,7 +59,7 @@ function render(now) {
 // Ticks fade in and out on their own clock as the view crosses scale thresholds.
 // Returns true while any fade or the intro is still running.
 function draw(now) {
-  const { view, box, values, n, palette, elections } = state;
+  const { view, box, lines, n, palette, elections } = state;
   const dt = reduceMotion.matches ? 1 : Math.min(now - lastDraw, 34) / FADE;
   lastDraw = now;
   const wanted = new Map([...valueTicks(), ...timeTicks()].map((t) => [t.key, t]));
@@ -131,20 +131,26 @@ function draw(now) {
 
   const a = Math.max(0, Math.floor(view.x0) - 1);
   const b = Math.min(n - 1, Math.ceil(view.x1) + 1);
-  ctx.strokeStyle = palette.line;
   ctx.lineWidth = 1.5;
   ctx.lineJoin = 'round';
-  ctx.beginPath();
-  ctx.moveTo(toX(a), toY(values[a]));
-  for (let i = a; i < b; i++) {
-    const [m0, m1] = [slopeAt(i), slopeAt(i + 1)];
-    ctx.bezierCurveTo(
-      toX(i + 1 / 3), toY(values[i] + m0 / 3),
-      toX(i + 2 / 3), toY(values[i + 1] - m1 / 3),
-      toX(i + 1), toY(values[i + 1])
-    );
+  for (const { key, values } of lines.toReversed()) {
+    ctx.strokeStyle = palette[key];
+    ctx.beginPath();
+    for (let i = a; i <= b; i++) {
+      if (values[i] === null) continue;
+      if (i === a || values[i - 1] === null) {
+        ctx.moveTo(toX(i), toY(values[i]));
+        continue;
+      }
+      const [m0, m1] = [slopeAt(values, i - 1), slopeAt(values, i)];
+      ctx.bezierCurveTo(
+        toX(i - 2 / 3), toY(values[i - 1] + m0 / 3),
+        toX(i - 1 / 3), toY(values[i] - m1 / 3),
+        toX(i), toY(values[i])
+      );
+    }
+    ctx.stroke();
   }
-  ctx.stroke();
   ctx.restore();
 
   for (const { tick, o, el } of fades.values()) {

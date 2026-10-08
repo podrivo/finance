@@ -1,13 +1,25 @@
-import { writeFile, mkdir } from 'node:fs/promises';
-import { CACHE_FILE, readCache, fetchIPCA } from './ipca.js';
+import { readCache, writeCache } from './cache.js';
+import * as ipca from './ipca.js';
+import * as selic from './selic.js';
 
-const previous = await readCache();
-const data = await fetchIPCA({ previous, retries: 3 });
+const INDEXES = [
+  ['IPCA', ipca.CACHE_FILE, ipca.fetchIPCA],
+  ['Selic', selic.CACHE_FILE, selic.fetchSelic],
+];
 
-if (JSON.stringify(data.series) === JSON.stringify(previous?.series)) {
-  console.log(`No new data (latest: ${data.series.at(-1).date})`);
-} else {
-  await mkdir(new URL('.', CACHE_FILE), { recursive: true });
-  await writeFile(CACHE_FILE, JSON.stringify(data, null, 2));
-  console.log(`Updated from ${data.source} (latest: ${data.series.at(-1).date})`);
+for (const [name, file, fetchIndex] of INDEXES) {
+  try {
+    const previous = await readCache(file);
+    const data = await fetchIndex({ previous, retries: 3 });
+
+    if (JSON.stringify(data.series) === JSON.stringify(previous?.series)) {
+      console.log(`${name}: no new data (latest: ${data.series.at(-1).date})`);
+    } else {
+      await writeCache(file, data);
+      console.log(`${name}: updated from ${data.source} (latest: ${data.series.at(-1).date})`);
+    }
+  } catch (err) {
+    console.error(`${name}: ${err.message}`);
+    process.exitCode = 1;
+  }
 }

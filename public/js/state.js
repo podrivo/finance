@@ -1,7 +1,7 @@
 // State read or written by more than one module. State owned by a single module lives there.
 export const state = {
-  series: [],
-  values: [],
+  series: [], // one { date } per month, across all lines
+  lines: [], // { key, label, values }, values aligned to series, null where a line has no data
   n: 0,
   elections: [], // month indices of election months
   view: null, // the currently displayed window, possibly mid-animation

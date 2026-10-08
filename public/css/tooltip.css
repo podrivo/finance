@@ -3,9 +3,11 @@
   top: 0;
   left: 0;
   z-index: 1;
+  display: grid;
+  gap: 2px;
   pointer-events: none;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 6px 8px;
+  border-radius: 6px;
   background: var(--fg);
   color: var(--bg);
   font-size: 12px;
@@ -17,4 +19,27 @@
 }
 #tooltip.visible {
   opacity: 1;
+}
+#tooltip .date {
+  opacity: 0.6;
+}
+#tooltip .row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#tooltip .swatch {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+#tooltip .swatch.ipca {
+  background: var(--ipca);
+}
+#tooltip .swatch.selic {
+  background: var(--selic);
+}
+#tooltip .value {
+  margin-left: auto;
+  padding-left: 12px;
 }

@@ -18,7 +18,7 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg);
-  color: #888;
+  color: var(--muted);
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -54,11 +54,52 @@
     }
   }
 }
+#legend {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 1;
+  display: flex;
+  gap: 16px;
+  height: 32px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+  pointer-events: none;
+  animation: controls-in 700ms cubic-bezier(0.32, 0.72, 0, 1) 300ms backwards paused;
+}
+:root.ready #legend {
+  animation-play-state: running;
+}
+#legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#legend span::before {
+  content: '';
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+}
+#legend .ipca::before {
+  background: var(--ipca);
+}
+#legend .selic::before {
+  background: var(--selic);
+}
 @media (max-width: 480px) {
   #controls {
     top: 16px;
     right: 16px;
     gap: 8px;
+  }
+  /* Below the controls, which take the whole top row. */
+  #legend {
+    top: 56px;
+    right: 16px;
+    left: auto;
+    gap: 12px;
   }
   #controls button {
     padding: 0 10px;

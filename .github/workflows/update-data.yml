@@ -1,4 +1,4 @@
-name: Update IPCA data
+name: Update index data
 
 on:
   schedule:
@@ -20,12 +20,19 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-      - run: node update.js
+      # Commit whatever succeeded even if one index failed; the job still fails afterwards.
+      - id: update
+        run: node update.js
+        continue-on-error: true
       - name: Commit and push if changed
         run: |
-          git diff --quiet data/ipca.json && exit 0
+          changed=$(git status --porcelain --untracked-files=all data/ | awk '{print $2}')
+          [ -z "$changed" ] && exit 0
+          summary=$(for f in $changed; do echo "$(basename "$f" .json | tr a-z A-Z) through $(jq -r '.series[-1].date' "$f")"; done | paste -sd ',' - | sed 's/,/, /g')
           git config user.name 'github-actions[bot]'
           git config user.email '41898283+github-actions[bot]@users.noreply.github.com'
-          git add data/ipca.json
-          git commit -m "Update IPCA data through $(jq -r '.series[-1].date' data/ipca.json)"
+          git add data/
+          git commit -m "Update $summary"
           git push
+      - if: steps.update.outcome == 'failure'
+        run: exit 1

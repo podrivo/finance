@@ -11,7 +11,13 @@ export const HOLD = 300; // ms a finger must stay still before it scrubs instead
 export const TAP_SLOP = 8; // px a finger can drift and still count as still
 export const DOUBLE_TAP = 300; // ms
 
+// In tooltip order; drawn in reverse so IPCA stays on top.
+export const LINES = [
+  { key: 'ipca', label: 'IPCA', url: '/api/ipca' },
+  { key: 'selic', label: 'Selic', url: '/api/selic' },
+];
+
 export const PALETTES = {
-  light: { line: '#171717', zero: '#ccc', election: '#e8e8e8', year: '#e0e0e0', month: '#efefef' },
-  dark: { line: '#ededed', zero: '#444', election: '#262626', year: '#2e2e2e', month: '#1a1a1a' },
+  light: { ipca: '#c08f03', selic: '#8b5dce', zero: '#cbcac4', election: '#e4e3dd', year: '#dcdbd5', month: '#ebeae5' },
+  dark: { ipca: '#ffc53d', selic: '#b688ff', zero: '#4b4a45', election: '#34332f', year: '#3a3934', month: '#2f2e2a' },
 };

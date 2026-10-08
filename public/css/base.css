@@ -1,9 +1,14 @@
 :root {
   color-scheme: light dark;
-  --fg: light-dark(#171717, #ededed);
-  --bg: light-dark(#fafafa, #0a0a0a);
-  --border: light-dark(#ddd, #333);
-  --guide: light-dark(#ccc, #444);
+  --fg: light-dark(#272622, #edece8);
+  --bg: light-dark(#f5f4f0, #272622);
+  --muted: #83827e;
+  --minor: light-dark(#b8b7b1, #595853);
+  --border: light-dark(#dcdbd5, #3b3a35);
+  --guide: light-dark(#cbcac4, #4b4a45);
+  /* Matches PALETTES in constants.js. */
+  --ipca: light-dark(#c08f03, #ffc53d);
+  --selic: light-dark(#8b5dce, #b688ff);
 }
 :root[data-theme='light'] {
   color-scheme: light;

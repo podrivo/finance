@@ -1,5 +1,5 @@
 import { MESES, percent } from './constants.js';
-import { crosshair, dot, hline, selection, tooltip, vline } from './dom.js';
+import { crosshair, selection, tooltip, vline } from './dom.js';
 import { indexAt, toX, toY } from './scale.js';
 import { state } from './state.js';
 
@@ -31,13 +31,21 @@ export function queueHover() {
 
 // The crosshair, selection and tooltip are plain elements moved with transforms,
 // so hovering never repaints the canvas.
-// The tooltip sits beside the mouse; the crosshair and dot snap to the nearest month.
+// The tooltip sits beside the mouse; the crosshair and dots snap to the nearest month.
 export function hover() {
-  const { series, values, view, shown, dragStart } = state;
+  const { series, lines, view, shown, dragStart } = state;
   const i = indexAt(state.pointerX);
   if (i !== shown.i) {
     const [year, month] = series[i].date.split('-').map(Number);
-    tooltip.textContent = `${MESES[month - 1]}, ${year} · ${percent.format(values[i])}%`;
+    const el = (className, text = '') => Object.assign(document.createElement('div'), { className, textContent: text });
+    const rows = lines
+      .filter((l) => l.values[i] !== null)
+      .map((l) => {
+        const row = el('row');
+        row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.values[i])}%`));
+        return row;
+      });
+    tooltip.replaceChildren(el('date', `${MESES[month - 1]}, ${year}`), ...rows);
   }
   crosshair.style.visibility = placeTooltip() ? 'visible' : 'hidden';
 
@@ -45,10 +53,12 @@ export function hover() {
   state.shown = { i, view };
 
   const x = toX(i);
-  const y = toY(values[i]);
   vline.style.transform = `translateX(${Math.round(x)}px)`;
-  hline.style.transform = `translateY(${Math.round(y)}px)`;
-  dot.style.transform = `translate(${x}px, ${y}px)`;
+  lines.forEach(({ key, values }) => {
+    const dot = crosshair.querySelector(`.dot.${key}`);
+    dot.style.visibility = values[i] === null ? 'hidden' : '';
+    if (values[i] !== null) dot.style.transform = `translate(${x}px, ${toY(values[i])}px)`;
+  });
 
   if (dragStart !== null) {
     const left = toX(Math.min(dragStart, i));

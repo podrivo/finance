@@ -1,0 +1,3380 @@
+{
+  "source": "BCB SGS",
+  "fetchedAt": "2026-10-08T23:34:34.000Z",
+  "series": [
+    {
+      "date": "1986-08",
+      "monthly": 2.57,
+      "ytd": null,
+      "twelveMonths": null,
+      "annualized": 35.55
+    },
+    {
+      "date": "1986-09",
+      "monthly": 2.94,
+      "ytd": null,
+      "twelveMonths": null,
+      "annualized": 39.39
+    },
+    {
+      "date": "1986-10",
+      "monthly": 1.96,
+      "ytd": null,
+      "twelveMonths": null,
+      "annualized": 23.65
+    },
+    {
+      "date": "1986-11",
+      "monthly": 2.37,
+      "ytd": null,
+      "twelveMonths": null,
+      "annualized": 34.32
+    },
+    {
+      "date": "1986-12",
+      "monthly": 5.47,
+      "ytd": null,
+      "twelveMonths": null,
+      "annualized": 83.98
+    },
+    {
+      "date": "1987-01",
+      "monthly": 11,
+      "ytd": 11,
+      "twelveMonths": null,
+      "annualized": 250.03
+    },
+    {
+      "date": "1987-02",
+      "monthly": 19.61,
+      "ytd": 32.77,
+      "twelveMonths": null,
+      "annualized": 854.45
+    },
+    {
+      "date": "1987-03",
+      "monthly": 11.95,
+      "ytd": 48.63,
+      "twelveMonths": null,
+      "annualized": 314.71
+    },
+    {
+      "date": "1987-04",
+      "monthly": 15.3,
+      "ytd": 71.37,
+      "twelveMonths": null,
+      "annualized": 560.69
+    },
+    {
+      "date": "1987-05",
+      "monthly": 24.63,
+      "ytd": 113.58,
+      "twelveMonths": null,
+      "annualized": 1502.24
+    },
+    {
+      "date": "1987-06",
+      "monthly": 18.02,
+      "ytd": 152.07,
+      "twelveMonths": null,
+      "annualized": 630.28
+    },
+    {
+      "date": "1987-07",
+      "monthly": 8.91,
+      "ytd": 174.53,
+      "twelveMonths": 219.1,
+      "annualized": 154.67
+    },
+    {
+      "date": "1987-08",
+      "monthly": 8.09,
+      "ytd": 196.74,
+      "twelveMonths": 236.27,
+      "annualized": 154.24
+    },
+    {
+      "date": "1987-09",
+      "monthly": 7.99,
+      "ytd": 220.45,
+      "twelveMonths": 252.77,
+      "annualized": 151.44
+    },
+    {
+      "date": "1987-10",
+      "monthly": 9.45,
+      "ytd": 250.73,
+      "twelveMonths": 278.68,
+      "annualized": 195.52
+    },
+    {
+      "date": "1987-11",
+      "monthly": 12.92,
+      "ytd": 296.05,
+      "twelveMonths": 317.71,
+      "annualized": 362.14
+    },
+    {
+      "date": "1987-12",
+      "monthly": 14.38,
+      "ytd": 353,
+      "twelveMonths": 353,
+      "annualized": 366.05
+    },
+    {
+      "date": "1988-01",
+      "monthly": 16.78,
+      "ytd": 16.78,
+      "twelveMonths": 376.59,
+      "annualized": 606.33
+    },
+    {
+      "date": "1988-02",
+      "monthly": 18.35,
+      "ytd": 38.21,
+      "twelveMonths": 371.57,
+      "annualized": 833.98
+    },
+    {
+      "date": "1988-03",
+      "monthly": 16.59,
+      "ytd": 61.14,
+      "twelveMonths": 391.11,
+      "annualized": 480.08
+    },
+    {
+      "date": "1988-04",
+      "monthly": 20.25,
+      "ytd": 93.77,
+      "twelveMonths": 412.19,
+      "annualized": 1054.31
+    },
+    {
+      "date": "1988-05",
+      "monthly": 18.65,
+      "ytd": 129.91,
+      "twelveMonths": 387.62,
+      "annualized": 762.51
+    },
+    {
+      "date": "1988-06",
+      "monthly": 20.17,
+      "ytd": 176.28,
+      "twelveMonths": 396.5,
+      "annualized": 720.75
+    },
+    {
+      "date": "1988-07",
+      "monthly": 24.69,
+      "ytd": 244.49,
+      "twelveMonths": 468.44,
+      "annualized": 1312.8
+    },
+    {
+      "date": "1988-08",
+      "monthly": 22.63,
+      "ytd": 322.45,
+      "twelveMonths": 544.9,
+      "annualized": 835.07
+    },
+    {
+      "date": "1988-09",
+      "monthly": 26.25,
+      "ytd": 433.34,
+      "twelveMonths": 653.95,
+      "annualized": 1539.21
+    },
+    {
+      "date": "1988-10",
+      "monthly": 29.79,
+      "ytd": 592.23,
+      "twelveMonths": 794.06,
+      "annualized": 3076.43
+    },
+    {
+      "date": "1988-11",
+      "monthly": 28.41,
+      "ytd": 788.89,
+      "twelveMonths": 916.71,
+      "annualized": 1909.3
+    },
+    {
+      "date": "1988-12",
+      "monthly": 30.24,
+      "ytd": 1057.69,
+      "twelveMonths": 1057.69,
+      "annualized": 1962.12
+    },
+    {
+      "date": "1989-01",
+      "monthly": 22.97,
+      "ytd": 22.97,
+      "twelveMonths": 1119.05,
+      "annualized": 1253.74
+    },
+    {
+      "date": "1989-02",
+      "monthly": 18.95,
+      "ytd": 46.27,
+      "twelveMonths": 1125.23,
+      "annualized": 1034.67
+    },
+    {
+      "date": "1989-03",
+      "monthly": 20.41,
+      "ytd": 76.13,
+      "twelveMonths": 1165.38,
+      "annualized": 829.22
+    },
+    {
+      "date": "1989-04",
+      "monthly": 11.52,
+      "ytd": 96.42,
+      "twelveMonths": 1073.51,
+      "annualized": 324.54
+    },
+    {
+      "date": "1989-05",
+      "monthly": 11.43,
+      "ytd": 118.87,
+      "twelveMonths": 1002.1,
+      "annualized": 266.37
+    },
+    {
+      "date": "1989-06",
+      "monthly": 27.29,
+      "ytd": 178.6,
+      "twelveMonths": 1067.4,
+      "annualized": 1486.02
+    },
+    {
+      "date": "1989-07",
+      "monthly": 33.15,
+      "ytd": 270.95,
+      "twelveMonths": 1146.61,
+      "annualized": 3005.24
+    },
+    {
+      "date": "1989-08",
+      "monthly": 35.49,
+      "ytd": 402.6,
+      "twelveMonths": 1277.34,
+      "annualized": 2687.61
+    },
+    {
+      "date": "1989-09",
+      "monthly": 38.58,
+      "ytd": 596.51,
+      "twelveMonths": 1411.85,
+      "annualized": 6002.01
+    },
+    {
+      "date": "1989-10",
+      "monthly": 47.7,
+      "ytd": 928.74,
+      "twelveMonths": 1620.47,
+      "annualized": 10676.54
+    },
+    {
+      "date": "1989-11",
+      "monthly": 48.41,
+      "ytd": 1426.75,
+      "twelveMonths": 1888.44,
+      "annualized": 14365.32
+    },
+    {
+      "date": "1989-12",
+      "monthly": 64.21,
+      "ytd": 2407.08,
+      "twelveMonths": 2407.08,
+      "annualized": 51659.46
+    },
+    {
+      "date": "1990-01",
+      "monthly": 67.6,
+      "ytd": 67.6,
+      "twelveMonths": 3316.98,
+      "annualized": 36957.2
+    },
+    {
+      "date": "1990-02",
+      "monthly": 82.04,
+      "ytd": 205.1,
+      "twelveMonths": 5129.32,
+      "annualized": 438898.83
+    },
+    {
+      "date": "1990-03",
+      "monthly": 36.76,
+      "ytd": 317.25,
+      "twelveMonths": 5839.38,
+      "annualized": 3507.42
+    },
+    {
+      "date": "1990-04",
+      "monthly": 4.23,
+      "ytd": 334.9,
+      "twelveMonths": 5451.13,
+      "annualized": 73.21
+    },
+    {
+      "date": "1990-05",
+      "monthly": 5.69,
+      "ytd": 359.65,
+      "twelveMonths": 5165.18,
+      "annualized": 88.57
+    },
+    {
+      "date": "1990-06",
+      "monthly": 8.73,
+      "ytd": 399.78,
+      "twelveMonths": 4397.47,
+      "annualized": 187.11
+    },
+    {
+      "date": "1990-07",
+      "monthly": 13.79,
+      "ytd": 468.7,
+      "twelveMonths": 3743.54,
+      "annualized": 339.35
+    },
+    {
+      "date": "1990-08",
+      "monthly": 11.53,
+      "ytd": 534.27,
+      "twelveMonths": 3063.85,
+      "annualized": 230.48
+    },
+    {
+      "date": "1990-09",
+      "monthly": 15.21,
+      "ytd": 630.74,
+      "twelveMonths": 2530.3,
+      "annualized": 554.26
+    },
+    {
+      "date": "1990-10",
+      "monthly": 16.49,
+      "ytd": 751.24,
+      "twelveMonths": 1974.5,
+      "annualized": 524.39
+    },
+    {
+      "date": "1990-11",
+      "monthly": 19.83,
+      "ytd": 920.04,
+      "twelveMonths": 1575,
+      "annualized": 877.02
+    },
+    {
+      "date": "1990-12",
+      "monthly": 22.86,
+      "ytd": 1153.22,
+      "twelveMonths": 1153.22,
+      "annualized": 1237.94
+    },
+    {
+      "date": "1991-01",
+      "monthly": 21.02,
+      "ytd": 21.02,
+      "twelveMonths": 804.92,
+      "annualized": 789.54
+    },
+    {
+      "date": "1991-02",
+      "monthly": 6.85,
+      "ytd": 29.31,
+      "twelveMonths": 431.15,
+      "annualized": 166.94
+    },
+    {
+      "date": "1991-03",
+      "monthly": 8.99,
+      "ytd": 40.93,
+      "twelveMonths": 323.3,
+      "annualized": 213.32
+    },
+    {
+      "date": "1991-04",
+      "monthly": 9.67,
+      "ytd": 54.56,
+      "twelveMonths": 345.39,
+      "annualized": 187.77
+    },
+    {
+      "date": "1991-05",
+      "monthly": 9.56,
+      "ytd": 69.34,
+      "twelveMonths": 361.7,
+      "annualized": 198.99
+    },
+    {
+      "date": "1991-06",
+      "monthly": 10.32,
+      "ytd": 86.82,
+      "twelveMonths": 368.45,
+      "annualized": 244.79
+    },
+    {
+      "date": "1991-07",
+      "monthly": 12.39,
+      "ytd": 109.96,
+      "twelveMonths": 362.69,
+      "annualized": 259.48
+    },
+    {
+      "date": "1991-08",
+      "monthly": 15.75,
+      "ytd": 143.03,
+      "twelveMonths": 380.19,
+      "annualized": 434.02
+    },
+    {
+      "date": "1991-09",
+      "monthly": 19.78,
+      "ytd": 191.1,
+      "twelveMonths": 399.24,
+      "annualized": 772.46
+    },
+    {
+      "date": "1991-10",
+      "monthly": 25.95,
+      "ytd": 266.64,
+      "twelveMonths": 439.78,
+      "annualized": 1152.41
+    },
+    {
+      "date": "1991-11",
+      "monthly": 32.43,
+      "ytd": 385.55,
+      "twelveMonths": 496.54,
+      "annualized": 3343.48
+    },
+    {
+      "date": "1991-12",
+      "monthly": 31.17,
+      "ytd": 536.89,
+      "twelveMonths": 536.89,
+      "annualized": 2495.22
+    },
+    {
+      "date": "1992-01",
+      "monthly": 29.06,
+      "ytd": 29.06,
+      "twelveMonths": 579.2,
+      "annualized": 1757.41
+    },
+    {
+      "date": "1992-02",
+      "monthly": 28.76,
+      "ytd": 66.18,
+      "twelveMonths": 718.48,
+      "annualized": 2316.07
+    },
+    {
+      "date": "1992-03",
+      "monthly": 26.86,
+      "ytd": 110.81,
+      "twelveMonths": 852.67,
+      "annualized": 1903.48
+    },
+    {
+      "date": "1992-04",
+      "monthly": 23.92,
+      "ytd": 161.24,
+      "twelveMonths": 976.46,
+      "annualized": 1619.83
+    },
+    {
+      "date": "1992-05",
+      "monthly": 23,
+      "ytd": 221.32,
+      "twelveMonths": 1108.51,
+      "annualized": 1257.14
+    },
+    {
+      "date": "1992-06",
+      "monthly": 24.28,
+      "ytd": 299.34,
+      "twelveMonths": 1261.44,
+      "annualized": 1257.75
+    },
+    {
+      "date": "1992-07",
+      "monthly": 26.21,
+      "ytd": 404.01,
+      "twelveMonths": 1428.84,
+      "annualized": 1181.45
+    },
+    {
+      "date": "1992-08",
+      "monthly": 25.65,
+      "ytd": 533.29,
+      "twelveMonths": 1559.6,
+      "annualized": 1447.92
+    },
+    {
+      "date": "1992-09",
+      "monthly": 27.66,
+      "ytd": 708.46,
+      "twelveMonths": 1668.79,
+      "annualized": 1773.24
+    },
+    {
+      "date": "1992-10",
+      "monthly": 28.18,
+      "ytd": 936.28,
+      "twelveMonths": 1700.1,
+      "annualized": 1866.66
+    },
+    {
+      "date": "1992-11",
+      "monthly": 26.4,
+      "ytd": 1209.86,
+      "twelveMonths": 1618.14,
+      "annualized": 1815.18
+    },
+    {
+      "date": "1992-12",
+      "monthly": 25.92,
+      "ytd": 1549.37,
+      "twelveMonths": 1549.37,
+      "annualized": 1300.85
+    },
+    {
+      "date": "1993-01",
+      "monthly": 28.52,
+      "ytd": 28.52,
+      "twelveMonths": 1542.47,
+      "annualized": 2259.56
+    },
+    {
+      "date": "1993-02",
+      "monthly": 28.9,
+      "ytd": 65.66,
+      "twelveMonths": 1544.26,
+      "annualized": 3397.11
+    },
+    {
+      "date": "1993-03",
+      "monthly": 28.36,
+      "ytd": 112.64,
+      "twelveMonths": 1563.7,
+      "annualized": 1441.34
+    },
+    {
+      "date": "1993-04",
+      "monthly": 30.53,
+      "ytd": 177.56,
+      "twelveMonths": 1652.44,
+      "annualized": 3326.22
+    },
+    {
+      "date": "1993-05",
+      "monthly": 30.9,
+      "ytd": 263.33,
+      "twelveMonths": 1765,
+      "annualized": 2430.28
+    },
+    {
+      "date": "1993-06",
+      "monthly": 31.91,
+      "ytd": 379.27,
+      "twelveMonths": 1879.49,
+      "annualized": 2676.49
+    },
+    {
+      "date": "1993-07",
+      "monthly": 32.73,
+      "ytd": 536.14,
+      "twelveMonths": 1981.75,
+      "annualized": 2461.37
+    },
+    {
+      "date": "1993-08",
+      "monthly": 34.64,
+      "ytd": 756.49,
+      "twelveMonths": 2130.7,
+      "annualized": 2916.19
+    },
+    {
+      "date": "1993-09",
+      "monthly": 37.23,
+      "ytd": 1075.37,
+      "twelveMonths": 2297.92,
+      "annualized": 4359.96
+    },
+    {
+      "date": "1993-10",
+      "monthly": 38.4,
+      "ytd": 1526.71,
+      "twelveMonths": 2489.11,
+      "annualized": 5902.32
+    },
+    {
+      "date": "1993-11",
+      "monthly": 38.38,
+      "ytd": 2151.04,
+      "twelveMonths": 2734.51,
+      "annualized": 5892.16
+    },
+    {
+      "date": "1993-12",
+      "monthly": 40.38,
+      "ytd": 3060.01,
+      "twelveMonths": 3060.01,
+      "annualized": 4010.32
+    },
+    {
+      "date": "1994-01",
+      "monthly": 42.76,
+      "ytd": 42.76,
+      "twelveMonths": 3410.13,
+      "annualized": 7065.02
+    },
+    {
+      "date": "1994-02",
+      "monthly": 41.99,
+      "ytd": 102.7,
+      "twelveMonths": 3766.59,
+      "annualized": 13442.03
+    },
+    {
+      "date": "1994-03",
+      "monthly": 46.42,
+      "ytd": 196.8,
+      "twelveMonths": 4310.62,
+      "annualized": 7784.35
+    },
+    {
+      "date": "1994-04",
+      "monthly": 46.49,
+      "ytd": 334.78,
+      "twelveMonths": 4849.91,
+      "annualized": 15710.86
+    },
+    {
+      "date": "1994-05",
+      "monthly": 47.95,
+      "ytd": 543.26,
+      "twelveMonths": 5494.64,
+      "annualized": 8784.03
+    },
+    {
+      "date": "1994-06",
+      "monthly": 50.62,
+      "ytd": 868.88,
+      "twelveMonths": 6288.18,
+      "annualized": 13532.65
+    },
+    {
+      "date": "1994-07",
+      "monthly": 6.87,
+      "ytd": 935.44,
+      "twelveMonths": 5043.56,
+      "annualized": 131.03
+    },
+    {
+      "date": "1994-08",
+      "monthly": 4.17,
+      "ytd": 978.62,
+      "twelveMonths": 3879.54,
+      "annualized": 56.46
+    },
+    {
+      "date": "1994-09",
+      "monthly": 3.83,
+      "ytd": 1019.93,
+      "twelveMonths": 2910.97,
+      "annualized": 57.06
+    },
+    {
+      "date": "1994-10",
+      "monthly": 3.62,
+      "ytd": 1060.47,
+      "twelveMonths": 2154.31,
+      "annualized": 60.3
+    },
+    {
+      "date": "1994-11",
+      "monthly": 4.07,
+      "ytd": 1107.7,
+      "twelveMonths": 1595.38,
+      "annualized": 65.36
+    },
+    {
+      "date": "1994-12",
+      "monthly": 3.8,
+      "ytd": 1153.6,
+      "twelveMonths": 1153.6,
+      "annualized": 53.25
+    },
+    {
+      "date": "1995-01",
+      "monthly": 3.37,
+      "ytd": 3.37,
+      "twelveMonths": 807.71,
+      "annualized": 46.25
+    },
+    {
+      "date": "1995-02",
+      "monthly": 3.25,
+      "ytd": 6.73,
+      "twelveMonths": 560.05,
+      "annualized": 56.54
+    },
+    {
+      "date": "1995-03",
+      "monthly": 4.26,
+      "ytd": 11.28,
+      "twelveMonths": 370,
+      "annualized": 57.98
+    },
+    {
+      "date": "1995-04",
+      "monthly": 4.26,
+      "ytd": 16.02,
+      "twelveMonths": 234.51,
+      "annualized": 85.47
+    },
+    {
+      "date": "1995-05",
+      "monthly": 4.25,
+      "ytd": 20.95,
+      "twelveMonths": 135.7,
+      "annualized": 61.05
+    },
+    {
+      "date": "1995-06",
+      "monthly": 4.04,
+      "ytd": 25.83,
+      "twelveMonths": 62.81,
+      "annualized": 60.84
+    },
+    {
+      "date": "1995-07",
+      "monthly": 4.02,
+      "ytd": 30.89,
+      "twelveMonths": 58.47,
+      "annualized": 60.53
+    },
+    {
+      "date": "1995-08",
+      "monthly": 3.84,
+      "ytd": 35.92,
+      "twelveMonths": 57.97,
+      "annualized": 51.11
+    },
+    {
+      "date": "1995-09",
+      "monthly": 3.32,
+      "ytd": 40.43,
+      "twelveMonths": 57.19,
+      "annualized": 51
+    },
+    {
+      "date": "1995-10",
+      "monthly": 3.09,
+      "ytd": 44.77,
+      "twelveMonths": 56.39,
+      "annualized": 44.11
+    },
+    {
+      "date": "1995-11",
+      "monthly": 2.88,
+      "ytd": 48.94,
+      "twelveMonths": 54.6,
+      "annualized": 42.93
+    },
+    {
+      "date": "1995-12",
+      "monthly": 2.78,
+      "ytd": 53.08,
+      "twelveMonths": 53.08,
+      "annualized": 41.22
+    },
+    {
+      "date": "1996-01",
+      "monthly": 2.58,
+      "ytd": 2.58,
+      "twelveMonths": 51.91,
+      "annualized": 33.83
+    },
+    {
+      "date": "1996-02",
+      "monthly": 2.35,
+      "ytd": 4.99,
+      "twelveMonths": 50.59,
+      "annualized": 36.11
+    },
+    {
+      "date": "1996-03",
+      "monthly": 2.22,
+      "ytd": 7.32,
+      "twelveMonths": 47.64,
+      "annualized": 30.16
+    },
+    {
+      "date": "1996-04",
+      "monthly": 2.07,
+      "ytd": 9.54,
+      "twelveMonths": 44.54,
+      "annualized": 29.42
+    },
+    {
+      "date": "1996-05",
+      "monthly": 2.01,
+      "ytd": 11.74,
+      "twelveMonths": 41.43,
+      "annualized": 25.64
+    },
+    {
+      "date": "1996-06",
+      "monthly": 1.98,
+      "ytd": 13.96,
+      "twelveMonths": 38.63,
+      "annualized": 29.65
+    },
+    {
+      "date": "1996-07",
+      "monthly": 1.93,
+      "ytd": 16.16,
+      "twelveMonths": 35.85,
+      "annualized": 23.28
+    },
+    {
+      "date": "1996-08",
+      "monthly": 1.97,
+      "ytd": 18.44,
+      "twelveMonths": 33.4,
+      "annualized": 25.01
+    },
+    {
+      "date": "1996-09",
+      "monthly": 1.9,
+      "ytd": 20.7,
+      "twelveMonths": 31.57,
+      "annualized": 25.4
+    },
+    {
+      "date": "1996-10",
+      "monthly": 1.86,
+      "ytd": 22.94,
+      "twelveMonths": 30,
+      "annualized": 23.48
+    },
+    {
+      "date": "1996-11",
+      "monthly": 1.8,
+      "ytd": 25.15,
+      "twelveMonths": 28.63,
+      "annualized": 25.27
+    },
+    {
+      "date": "1996-12",
+      "monthly": 1.8,
+      "ytd": 27.41,
+      "twelveMonths": 27.41,
+      "annualized": 23.94
+    },
+    {
+      "date": "1997-01",
+      "monthly": 1.73,
+      "ytd": 1.73,
+      "twelveMonths": 26.35,
+      "annualized": 21.73
+    },
+    {
+      "date": "1997-02",
+      "monthly": 1.67,
+      "ytd": 3.43,
+      "twelveMonths": 25.51,
+      "annualized": 26.14
+    },
+    {
+      "date": "1997-03",
+      "monthly": 1.64,
+      "ytd": 5.13,
+      "twelveMonths": 24.8,
+      "annualized": 24.11
+    },
+    {
+      "date": "1997-04",
+      "monthly": 1.66,
+      "ytd": 6.87,
+      "twelveMonths": 24.3,
+      "annualized": 21.84
+    },
+    {
+      "date": "1997-05",
+      "monthly": 1.58,
+      "ytd": 8.56,
+      "twelveMonths": 23.77,
+      "annualized": 21.91
+    },
+    {
+      "date": "1997-06",
+      "monthly": 1.61,
+      "ytd": 10.31,
+      "twelveMonths": 23.32,
+      "annualized": 21.08
+    },
+    {
+      "date": "1997-07",
+      "monthly": 1.6,
+      "ytd": 12.07,
+      "twelveMonths": 22.93,
+      "annualized": 19.04
+    },
+    {
+      "date": "1997-08",
+      "monthly": 1.59,
+      "ytd": 13.85,
+      "twelveMonths": 22.47,
+      "annualized": 20.78
+    },
+    {
+      "date": "1997-09",
+      "monthly": 1.59,
+      "ytd": 15.66,
+      "twelveMonths": 22.09,
+      "annualized": 19.81
+    },
+    {
+      "date": "1997-10",
+      "monthly": 1.67,
+      "ytd": 17.6,
+      "twelveMonths": 21.87,
+      "annualized": 19.93
+    },
+    {
+      "date": "1997-11",
+      "monthly": 3.04,
+      "ytd": 21.17,
+      "twelveMonths": 23.35,
+      "annualized": 45.9
+    },
+    {
+      "date": "1997-12",
+      "monthly": 2.97,
+      "ytd": 24.77,
+      "twelveMonths": 24.77,
+      "annualized": 39.87
+    },
+    {
+      "date": "1998-01",
+      "monthly": 2.67,
+      "ytd": 2.67,
+      "twelveMonths": 25.92,
+      "annualized": 37.19
+    },
+    {
+      "date": "1998-02",
+      "monthly": 2.13,
+      "ytd": 4.86,
+      "twelveMonths": 26.49,
+      "annualized": 34.32
+    },
+    {
+      "date": "1998-03",
+      "monthly": 2.2,
+      "ytd": 7.16,
+      "twelveMonths": 27.19,
+      "annualized": 28.32
+    },
+    {
+      "date": "1998-04",
+      "monthly": 1.71,
+      "ytd": 9,
+      "twelveMonths": 27.25,
+      "annualized": 25.16
+    },
+    {
+      "date": "1998-05",
+      "monthly": 1.63,
+      "ytd": 10.77,
+      "twelveMonths": 27.31,
+      "annualized": 22.6
+    },
+    {
+      "date": "1998-06",
+      "monthly": 1.6,
+      "ytd": 12.55,
+      "twelveMonths": 27.3,
+      "annualized": 21.02
+    },
+    {
+      "date": "1998-07",
+      "monthly": 1.7,
+      "ytd": 14.46,
+      "twelveMonths": 27.43,
+      "annualized": 20.33
+    },
+    {
+      "date": "1998-08",
+      "monthly": 1.48,
+      "ytd": 16.15,
+      "twelveMonths": 27.29,
+      "annualized": 19.23
+    },
+    {
+      "date": "1998-09",
+      "monthly": 2.49,
+      "ytd": 19.04,
+      "twelveMonths": 28.42,
+      "annualized": 34.29
+    },
+    {
+      "date": "1998-10",
+      "monthly": 2.94,
+      "ytd": 22.54,
+      "twelveMonths": 30.02,
+      "annualized": 41.6
+    },
+    {
+      "date": "1998-11",
+      "monthly": 2.63,
+      "ytd": 25.77,
+      "twelveMonths": 29.5,
+      "annualized": 38.73
+    },
+    {
+      "date": "1998-12",
+      "monthly": 2.4,
+      "ytd": 28.79,
+      "twelveMonths": 28.79,
+      "annualized": 31.24
+    },
+    {
+      "date": "1999-01",
+      "monthly": 2.18,
+      "ytd": 2.18,
+      "twelveMonths": 28.17,
+      "annualized": 31.19
+    },
+    {
+      "date": "1999-02",
+      "monthly": 2.38,
+      "ytd": 4.61,
+      "twelveMonths": 28.49,
+      "annualized": 38.97
+    },
+    {
+      "date": "1999-03",
+      "monthly": 3.33,
+      "ytd": 8.1,
+      "twelveMonths": 29.91,
+      "annualized": 43.25
+    },
+    {
+      "date": "1999-04",
+      "monthly": 2.35,
+      "ytd": 10.64,
+      "twelveMonths": 30.72,
+      "annualized": 36.12
+    },
+    {
+      "date": "1999-05",
+      "monthly": 2.02,
+      "ytd": 12.87,
+      "twelveMonths": 31.22,
+      "annualized": 27.11
+    },
+    {
+      "date": "1999-06",
+      "monthly": 1.67,
+      "ytd": 14.76,
+      "twelveMonths": 31.32,
+      "annualized": 22.01
+    },
+    {
+      "date": "1999-07",
+      "monthly": 1.66,
+      "ytd": 16.66,
+      "twelveMonths": 31.26,
+      "annualized": 20.74
+    },
+    {
+      "date": "1999-08",
+      "monthly": 1.57,
+      "ytd": 18.49,
+      "twelveMonths": 31.38,
+      "annualized": 19.51
+    },
+    {
+      "date": "1999-09",
+      "monthly": 1.49,
+      "ytd": 20.26,
+      "twelveMonths": 30.1,
+      "annualized": 19.38
+    },
+    {
+      "date": "1999-10",
+      "monthly": 1.38,
+      "ytd": 21.92,
+      "twelveMonths": 28.13,
+      "annualized": 18.91
+    },
+    {
+      "date": "1999-11",
+      "monthly": 1.39,
+      "ytd": 23.61,
+      "twelveMonths": 26.58,
+      "annualized": 18.95
+    },
+    {
+      "date": "1999-12",
+      "monthly": 1.6,
+      "ytd": 25.59,
+      "twelveMonths": 25.59,
+      "annualized": 18.99
+    },
+    {
+      "date": "2000-01",
+      "monthly": 1.46,
+      "ytd": 1.46,
+      "twelveMonths": 24.7,
+      "annualized": 18.94
+    },
+    {
+      "date": "2000-02",
+      "monthly": 1.45,
+      "ytd": 2.93,
+      "twelveMonths": 23.57,
+      "annualized": 18.87
+    },
+    {
+      "date": "2000-03",
+      "monthly": 1.45,
+      "ytd": 4.42,
+      "twelveMonths": 21.32,
+      "annualized": 18.85
+    },
+    {
+      "date": "2000-04",
+      "monthly": 1.3,
+      "ytd": 5.78,
+      "twelveMonths": 20.08,
+      "annualized": 18.62
+    },
+    {
+      "date": "2000-05",
+      "monthly": 1.49,
+      "ytd": 7.36,
+      "twelveMonths": 19.46,
+      "annualized": 18.51
+    },
+    {
+      "date": "2000-06",
+      "monthly": 1.39,
+      "ytd": 8.85,
+      "twelveMonths": 19.13,
+      "annualized": 18.04
+    },
+    {
+      "date": "2000-07",
+      "monthly": 1.31,
+      "ytd": 10.28,
+      "twelveMonths": 18.72,
+      "annualized": 16.85
+    },
+    {
+      "date": "2000-08",
+      "monthly": 1.41,
+      "ytd": 11.83,
+      "twelveMonths": 18.53,
+      "annualized": 16.52
+    },
+    {
+      "date": "2000-09",
+      "monthly": 1.22,
+      "ytd": 13.19,
+      "twelveMonths": 18.21,
+      "annualized": 16.56
+    },
+    {
+      "date": "2000-10",
+      "monthly": 1.29,
+      "ytd": 14.65,
+      "twelveMonths": 18.11,
+      "annualized": 16.6
+    },
+    {
+      "date": "2000-11",
+      "monthly": 1.22,
+      "ytd": 16.05,
+      "twelveMonths": 17.91,
+      "annualized": 16.51
+    },
+    {
+      "date": "2000-12",
+      "monthly": 1.2,
+      "ytd": 17.45,
+      "twelveMonths": 17.45,
+      "annualized": 16.19
+    },
+    {
+      "date": "2001-01",
+      "monthly": 1.27,
+      "ytd": 1.27,
+      "twelveMonths": 17.23,
+      "annualized": 15.49
+    },
+    {
+      "date": "2001-02",
+      "monthly": 1.02,
+      "ytd": 2.3,
+      "twelveMonths": 16.73,
+      "annualized": 15.2
+    },
+    {
+      "date": "2001-03",
+      "monthly": 1.26,
+      "ytd": 3.59,
+      "twelveMonths": 16.51,
+      "annualized": 15.39
+    },
+    {
+      "date": "2001-04",
+      "monthly": 1.19,
+      "ytd": 4.82,
+      "twelveMonths": 16.38,
+      "annualized": 16.02
+    },
+    {
+      "date": "2001-05",
+      "monthly": 1.34,
+      "ytd": 6.23,
+      "twelveMonths": 16.21,
+      "annualized": 16.43
+    },
+    {
+      "date": "2001-06",
+      "monthly": 1.27,
+      "ytd": 7.58,
+      "twelveMonths": 16.07,
+      "annualized": 17.28
+    },
+    {
+      "date": "2001-07",
+      "monthly": 1.5,
+      "ytd": 9.19,
+      "twelveMonths": 16.29,
+      "annualized": 18.57
+    },
+    {
+      "date": "2001-08",
+      "monthly": 1.6,
+      "ytd": 10.94,
+      "twelveMonths": 16.51,
+      "annualized": 19
+    },
+    {
+      "date": "2001-09",
+      "monthly": 1.32,
+      "ytd": 12.4,
+      "twelveMonths": 16.63,
+      "annualized": 19.06
+    },
+    {
+      "date": "2001-10",
+      "monthly": 1.53,
+      "ytd": 14.12,
+      "twelveMonths": 16.9,
+      "annualized": 19.06
+    },
+    {
+      "date": "2001-11",
+      "monthly": 1.39,
+      "ytd": 15.71,
+      "twelveMonths": 17.1,
+      "annualized": 19.05
+    },
+    {
+      "date": "2001-12",
+      "monthly": 1.39,
+      "ytd": 17.32,
+      "twelveMonths": 17.32,
+      "annualized": 19.05
+    },
+    {
+      "date": "2002-01",
+      "monthly": 1.53,
+      "ytd": 1.53,
+      "twelveMonths": 17.62,
+      "annualized": 19.05
+    },
+    {
+      "date": "2002-02",
+      "monthly": 1.25,
+      "ytd": 2.8,
+      "twelveMonths": 17.89,
+      "annualized": 18.97
+    },
+    {
+      "date": "2002-03",
+      "monthly": 1.37,
+      "ytd": 4.21,
+      "twelveMonths": 18.02,
+      "annualized": 18.72
+    },
+    {
+      "date": "2002-04",
+      "monthly": 1.48,
+      "ytd": 5.75,
+      "twelveMonths": 18.35,
+      "annualized": 18.38
+    },
+    {
+      "date": "2002-05",
+      "monthly": 1.41,
+      "ytd": 7.24,
+      "twelveMonths": 18.44,
+      "annualized": 18.37
+    },
+    {
+      "date": "2002-06",
+      "monthly": 1.33,
+      "ytd": 8.67,
+      "twelveMonths": 18.51,
+      "annualized": 18.1
+    },
+    {
+      "date": "2002-07",
+      "monthly": 1.54,
+      "ytd": 10.34,
+      "twelveMonths": 18.55,
+      "annualized": 18.17
+    },
+    {
+      "date": "2002-08",
+      "monthly": 1.44,
+      "ytd": 11.93,
+      "twelveMonths": 18.37,
+      "annualized": 17.84
+    },
+    {
+      "date": "2002-09",
+      "monthly": 1.38,
+      "ytd": 13.47,
+      "twelveMonths": 18.44,
+      "annualized": 17.89
+    },
+    {
+      "date": "2002-10",
+      "monthly": 1.65,
+      "ytd": 15.35,
+      "twelveMonths": 18.58,
+      "annualized": 19.59
+    },
+    {
+      "date": "2002-11",
+      "monthly": 1.54,
+      "ytd": 17.12,
+      "twelveMonths": 18.75,
+      "annualized": 21.25
+    },
+    {
+      "date": "2002-12",
+      "monthly": 1.74,
+      "ytd": 19.16,
+      "twelveMonths": 19.16,
+      "annualized": 23.03
+    },
+    {
+      "date": "2003-01",
+      "monthly": 1.97,
+      "ytd": 1.97,
+      "twelveMonths": 19.68,
+      "annualized": 25.06
+    },
+    {
+      "date": "2003-02",
+      "monthly": 1.83,
+      "ytd": 3.84,
+      "twelveMonths": 20.36,
+      "annualized": 25.68
+    },
+    {
+      "date": "2003-03",
+      "monthly": 1.78,
+      "ytd": 5.68,
+      "twelveMonths": 20.85,
+      "annualized": 26.32
+    },
+    {
+      "date": "2003-04",
+      "monthly": 1.87,
+      "ytd": 7.66,
+      "twelveMonths": 21.31,
+      "annualized": 26.32
+    },
+    {
+      "date": "2003-05",
+      "monthly": 1.97,
+      "ytd": 9.78,
+      "twelveMonths": 21.98,
+      "annualized": 26.31
+    },
+    {
+      "date": "2003-06",
+      "monthly": 1.86,
+      "ytd": 11.82,
+      "twelveMonths": 22.62,
+      "annualized": 26.09
+    },
+    {
+      "date": "2003-07",
+      "monthly": 2.08,
+      "ytd": 14.15,
+      "twelveMonths": 23.27,
+      "annualized": 25.36
+    },
+    {
+      "date": "2003-08",
+      "monthly": 1.77,
+      "ytd": 16.17,
+      "twelveMonths": 23.68,
+      "annualized": 23.5
+    },
+    {
+      "date": "2003-09",
+      "monthly": 1.68,
+      "ytd": 18.12,
+      "twelveMonths": 24.04,
+      "annualized": 21.02
+    },
+    {
+      "date": "2003-10",
+      "monthly": 1.64,
+      "ytd": 20.06,
+      "twelveMonths": 24.03,
+      "annualized": 19.54
+    },
+    {
+      "date": "2003-11",
+      "monthly": 1.34,
+      "ytd": 21.67,
+      "twelveMonths": 23.78,
+      "annualized": 18.31
+    },
+    {
+      "date": "2003-12",
+      "monthly": 1.37,
+      "ytd": 23.33,
+      "twelveMonths": 23.33,
+      "annualized": 16.91
+    },
+    {
+      "date": "2004-01",
+      "monthly": 1.27,
+      "ytd": 1.27,
+      "twelveMonths": 22.49,
+      "annualized": 16.32
+    },
+    {
+      "date": "2004-02",
+      "monthly": 1.08,
+      "ytd": 2.36,
+      "twelveMonths": 21.59,
+      "annualized": 16.3
+    },
+    {
+      "date": "2004-03",
+      "monthly": 1.38,
+      "ytd": 3.78,
+      "twelveMonths": 21.11,
+      "annualized": 16.19
+    },
+    {
+      "date": "2004-04",
+      "monthly": 1.18,
+      "ytd": 5,
+      "twelveMonths": 20.29,
+      "annualized": 15.96
+    },
+    {
+      "date": "2004-05",
+      "monthly": 1.23,
+      "ytd": 6.29,
+      "twelveMonths": 19.41,
+      "annualized": 15.77
+    },
+    {
+      "date": "2004-06",
+      "monthly": 1.23,
+      "ytd": 7.6,
+      "twelveMonths": 18.68,
+      "annualized": 15.8
+    },
+    {
+      "date": "2004-07",
+      "monthly": 1.29,
+      "ytd": 8.99,
+      "twelveMonths": 17.76,
+      "annualized": 15.77
+    },
+    {
+      "date": "2004-08",
+      "monthly": 1.29,
+      "ytd": 10.39,
+      "twelveMonths": 17.2,
+      "annualized": 15.86
+    },
+    {
+      "date": "2004-09",
+      "monthly": 1.25,
+      "ytd": 11.77,
+      "twelveMonths": 16.71,
+      "annualized": 16.09
+    },
+    {
+      "date": "2004-10",
+      "monthly": 1.21,
+      "ytd": 13.13,
+      "twelveMonths": 16.21,
+      "annualized": 16.41
+    },
+    {
+      "date": "2004-11",
+      "monthly": 1.25,
+      "ytd": 14.54,
+      "twelveMonths": 16.11,
+      "annualized": 16.96
+    },
+    {
+      "date": "2004-12",
+      "monthly": 1.48,
+      "ytd": 16.24,
+      "twelveMonths": 16.24,
+      "annualized": 17.5
+    },
+    {
+      "date": "2005-01",
+      "monthly": 1.38,
+      "ytd": 1.38,
+      "twelveMonths": 16.36,
+      "annualized": 17.93
+    },
+    {
+      "date": "2005-02",
+      "monthly": 1.22,
+      "ytd": 2.62,
+      "twelveMonths": 16.52,
+      "annualized": 18.47
+    },
+    {
+      "date": "2005-03",
+      "monthly": 1.53,
+      "ytd": 4.19,
+      "twelveMonths": 16.7,
+      "annualized": 18.97
+    },
+    {
+      "date": "2005-04",
+      "monthly": 1.41,
+      "ytd": 5.66,
+      "twelveMonths": 16.96,
+      "annualized": 19.32
+    },
+    {
+      "date": "2005-05",
+      "monthly": 1.5,
+      "ytd": 7.24,
+      "twelveMonths": 17.27,
+      "annualized": 19.61
+    },
+    {
+      "date": "2005-06",
+      "monthly": 1.59,
+      "ytd": 8.95,
+      "twelveMonths": 17.69,
+      "annualized": 19.75
+    },
+    {
+      "date": "2005-07",
+      "monthly": 1.51,
+      "ytd": 10.59,
+      "twelveMonths": 17.95,
+      "annualized": 19.72
+    },
+    {
+      "date": "2005-08",
+      "monthly": 1.66,
+      "ytd": 12.43,
+      "twelveMonths": 18.38,
+      "annualized": 19.75
+    },
+    {
+      "date": "2005-09",
+      "monthly": 1.5,
+      "ytd": 14.11,
+      "twelveMonths": 18.67,
+      "annualized": 19.61
+    },
+    {
+      "date": "2005-10",
+      "monthly": 1.41,
+      "ytd": 15.72,
+      "twelveMonths": 18.9,
+      "annualized": 19.25
+    },
+    {
+      "date": "2005-11",
+      "monthly": 1.38,
+      "ytd": 17.32,
+      "twelveMonths": 19.06,
+      "annualized": 18.87
+    },
+    {
+      "date": "2005-12",
+      "monthly": 1.47,
+      "ytd": 19.04,
+      "twelveMonths": 19.04,
+      "annualized": 18.24
+    },
+    {
+      "date": "2006-01",
+      "monthly": 1.43,
+      "ytd": 1.43,
+      "twelveMonths": 19.1,
+      "annualized": 17.65
+    },
+    {
+      "date": "2006-02",
+      "monthly": 1.15,
+      "ytd": 2.6,
+      "twelveMonths": 19.02,
+      "annualized": 17.28
+    },
+    {
+      "date": "2006-03",
+      "monthly": 1.42,
+      "ytd": 4.05,
+      "twelveMonths": 18.89,
+      "annualized": 16.74
+    },
+    {
+      "date": "2006-04",
+      "monthly": 1.08,
+      "ytd": 5.18,
+      "twelveMonths": 18.5,
+      "annualized": 16.19
+    },
+    {
+      "date": "2006-05",
+      "monthly": 1.28,
+      "ytd": 6.52,
+      "twelveMonths": 18.25,
+      "annualized": 15.7
+    },
+    {
+      "date": "2006-06",
+      "monthly": 1.18,
+      "ytd": 7.78,
+      "twelveMonths": 17.77,
+      "annualized": 15.18
+    },
+    {
+      "date": "2006-07",
+      "monthly": 1.17,
+      "ytd": 9.04,
+      "twelveMonths": 17.38,
+      "annualized": 14.98
+    },
+    {
+      "date": "2006-08",
+      "monthly": 1.26,
+      "ytd": 10.42,
+      "twelveMonths": 16.91,
+      "annualized": 14.66
+    },
+    {
+      "date": "2006-09",
+      "monthly": 1.06,
+      "ytd": 11.59,
+      "twelveMonths": 16.41,
+      "annualized": 14.17
+    },
+    {
+      "date": "2006-10",
+      "monthly": 1.09,
+      "ytd": 12.8,
+      "twelveMonths": 16.04,
+      "annualized": 13.95
+    },
+    {
+      "date": "2006-11",
+      "monthly": 1.02,
+      "ytd": 13.95,
+      "twelveMonths": 15.63,
+      "annualized": 13.65
+    },
+    {
+      "date": "2006-12",
+      "monthly": 0.99,
+      "ytd": 15.08,
+      "twelveMonths": 15.08,
+      "annualized": 13.19
+    },
+    {
+      "date": "2007-01",
+      "monthly": 1.08,
+      "ytd": 1.08,
+      "twelveMonths": 14.68,
+      "annualized": 13.13
+    },
+    {
+      "date": "2007-02",
+      "monthly": 0.87,
+      "ytd": 1.96,
+      "twelveMonths": 14.37,
+      "annualized": 12.93
+    },
+    {
+      "date": "2007-03",
+      "monthly": 1.05,
+      "ytd": 3.03,
+      "twelveMonths": 13.95,
+      "annualized": 12.74
+    },
+    {
+      "date": "2007-04",
+      "monthly": 0.94,
+      "ytd": 4,
+      "twelveMonths": 13.79,
+      "annualized": 12.58
+    },
+    {
+      "date": "2007-05",
+      "monthly": 1.03,
+      "ytd": 5.07,
+      "twelveMonths": 13.51,
+      "annualized": 12.43
+    },
+    {
+      "date": "2007-06",
+      "monthly": 0.91,
+      "ytd": 6.03,
+      "twelveMonths": 13.21,
+      "annualized": 12.03
+    },
+    {
+      "date": "2007-07",
+      "monthly": 0.97,
+      "ytd": 7.05,
+      "twelveMonths": 12.98,
+      "annualized": 11.73
+    },
+    {
+      "date": "2007-08",
+      "monthly": 0.99,
+      "ytd": 8.11,
+      "twelveMonths": 12.68,
+      "annualized": 11.43
+    },
+    {
+      "date": "2007-09",
+      "monthly": 0.8,
+      "ytd": 8.98,
+      "twelveMonths": 12.39,
+      "annualized": 11.22
+    },
+    {
+      "date": "2007-10",
+      "monthly": 0.93,
+      "ytd": 9.99,
+      "twelveMonths": 12.21,
+      "annualized": 11.18
+    },
+    {
+      "date": "2007-11",
+      "monthly": 0.84,
+      "ytd": 10.92,
+      "twelveMonths": 12.01,
+      "annualized": 11.18
+    },
+    {
+      "date": "2007-12",
+      "monthly": 0.84,
+      "ytd": 11.85,
+      "twelveMonths": 11.85,
+      "annualized": 11.18
+    },
+    {
+      "date": "2008-01",
+      "monthly": 0.93,
+      "ytd": 0.93,
+      "twelveMonths": 11.68,
+      "annualized": 11.18
+    },
+    {
+      "date": "2008-02",
+      "monthly": 0.8,
+      "ytd": 1.74,
+      "twelveMonths": 11.6,
+      "annualized": 11.18
+    },
+    {
+      "date": "2008-03",
+      "monthly": 0.84,
+      "ytd": 2.59,
+      "twelveMonths": 11.37,
+      "annualized": 11.18
+    },
+    {
+      "date": "2008-04",
+      "monthly": 0.9,
+      "ytd": 3.52,
+      "twelveMonths": 11.33,
+      "annualized": 11.37
+    },
+    {
+      "date": "2008-05",
+      "monthly": 0.88,
+      "ytd": 4.43,
+      "twelveMonths": 11.16,
+      "annualized": 11.63
+    },
+    {
+      "date": "2008-06",
+      "monthly": 0.96,
+      "ytd": 5.43,
+      "twelveMonths": 11.22,
+      "annualized": 12.09
+    },
+    {
+      "date": "2008-07",
+      "monthly": 1.07,
+      "ytd": 6.56,
+      "twelveMonths": 11.33,
+      "annualized": 12.36
+    },
+    {
+      "date": "2008-08",
+      "monthly": 1.02,
+      "ytd": 7.64,
+      "twelveMonths": 11.36,
+      "annualized": 12.92
+    },
+    {
+      "date": "2008-09",
+      "monthly": 1.1,
+      "ytd": 8.83,
+      "twelveMonths": 11.69,
+      "annualized": 13.39
+    },
+    {
+      "date": "2008-10",
+      "monthly": 1.18,
+      "ytd": 10.11,
+      "twelveMonths": 11.97,
+      "annualized": 13.66
+    },
+    {
+      "date": "2008-11",
+      "monthly": 1.02,
+      "ytd": 11.24,
+      "twelveMonths": 12.17,
+      "annualized": 13.64
+    },
+    {
+      "date": "2008-12",
+      "monthly": 1.12,
+      "ytd": 12.48,
+      "twelveMonths": 12.48,
+      "annualized": 13.66
+    },
+    {
+      "date": "2009-01",
+      "monthly": 1.05,
+      "ytd": 1.05,
+      "twelveMonths": 12.61,
+      "annualized": 13.32
+    },
+    {
+      "date": "2009-02",
+      "monthly": 0.86,
+      "ytd": 1.92,
+      "twelveMonths": 12.68,
+      "annualized": 12.66
+    },
+    {
+      "date": "2009-03",
+      "monthly": 0.97,
+      "ytd": 2.91,
+      "twelveMonths": 12.83,
+      "annualized": 11.7
+    },
+    {
+      "date": "2009-04",
+      "monthly": 0.84,
+      "ytd": 3.77,
+      "twelveMonths": 12.76,
+      "annualized": 11.11
+    },
+    {
+      "date": "2009-05",
+      "monthly": 0.77,
+      "ytd": 4.57,
+      "twelveMonths": 12.64,
+      "annualized": 10.16
+    },
+    {
+      "date": "2009-06",
+      "monthly": 0.76,
+      "ytd": 5.37,
+      "twelveMonths": 12.41,
+      "annualized": 9.54
+    },
+    {
+      "date": "2009-07",
+      "monthly": 0.79,
+      "ytd": 6.2,
+      "twelveMonths": 12.1,
+      "annualized": 9.01
+    },
+    {
+      "date": "2009-08",
+      "monthly": 0.69,
+      "ytd": 6.93,
+      "twelveMonths": 11.74,
+      "annualized": 8.65
+    },
+    {
+      "date": "2009-09",
+      "monthly": 0.69,
+      "ytd": 7.67,
+      "twelveMonths": 11.28,
+      "annualized": 8.65
+    },
+    {
+      "date": "2009-10",
+      "monthly": 0.69,
+      "ytd": 8.41,
+      "twelveMonths": 10.74,
+      "annualized": 8.65
+    },
+    {
+      "date": "2009-11",
+      "monthly": 0.66,
+      "ytd": 9.13,
+      "twelveMonths": 10.35,
+      "annualized": 8.65
+    },
+    {
+      "date": "2009-12",
+      "monthly": 0.73,
+      "ytd": 9.92,
+      "twelveMonths": 9.92,
+      "annualized": 8.65
+    },
+    {
+      "date": "2010-01",
+      "monthly": 0.66,
+      "ytd": 0.66,
+      "twelveMonths": 9.5,
+      "annualized": 8.65
+    },
+    {
+      "date": "2010-02",
+      "monthly": 0.59,
+      "ytd": 1.25,
+      "twelveMonths": 9.21,
+      "annualized": 8.65
+    },
+    {
+      "date": "2010-03",
+      "monthly": 0.76,
+      "ytd": 2.02,
+      "twelveMonths": 8.98,
+      "annualized": 8.65
+    },
+    {
+      "date": "2010-04",
+      "monthly": 0.67,
+      "ytd": 2.71,
+      "twelveMonths": 8.8,
+      "annualized": 8.72
+    },
+    {
+      "date": "2010-05",
+      "monthly": 0.75,
+      "ytd": 3.48,
+      "twelveMonths": 8.77,
+      "annualized": 9.4
+    },
+    {
+      "date": "2010-06",
+      "monthly": 0.79,
+      "ytd": 4.29,
+      "twelveMonths": 8.81,
+      "annualized": 9.94
+    },
+    {
+      "date": "2010-07",
+      "monthly": 0.86,
+      "ytd": 5.19,
+      "twelveMonths": 8.88,
+      "annualized": 10.32
+    },
+    {
+      "date": "2010-08",
+      "monthly": 0.89,
+      "ytd": 6.13,
+      "twelveMonths": 9.1,
+      "annualized": 10.66
+    },
+    {
+      "date": "2010-09",
+      "monthly": 0.85,
+      "ytd": 7.03,
+      "twelveMonths": 9.27,
+      "annualized": 10.66
+    },
+    {
+      "date": "2010-10",
+      "monthly": 0.81,
+      "ytd": 7.9,
+      "twelveMonths": 9.4,
+      "annualized": 10.66
+    },
+    {
+      "date": "2010-11",
+      "monthly": 0.81,
+      "ytd": 8.77,
+      "twelveMonths": 9.56,
+      "annualized": 10.66
+    },
+    {
+      "date": "2010-12",
+      "monthly": 0.93,
+      "ytd": 9.78,
+      "twelveMonths": 9.78,
+      "annualized": 10.66
+    },
+    {
+      "date": "2011-01",
+      "monthly": 0.86,
+      "ytd": 0.86,
+      "twelveMonths": 10,
+      "annualized": 10.85
+    },
+    {
+      "date": "2011-02",
+      "monthly": 0.84,
+      "ytd": 1.71,
+      "twelveMonths": 10.27,
+      "annualized": 11.17
+    },
+    {
+      "date": "2011-03",
+      "monthly": 0.92,
+      "ytd": 2.64,
+      "twelveMonths": 10.45,
+      "annualized": 11.62
+    },
+    {
+      "date": "2011-04",
+      "monthly": 0.84,
+      "ytd": 3.51,
+      "twelveMonths": 10.64,
+      "annualized": 11.74
+    },
+    {
+      "date": "2011-05",
+      "monthly": 0.99,
+      "ytd": 4.53,
+      "twelveMonths": 10.9,
+      "annualized": 11.92
+    },
+    {
+      "date": "2011-06",
+      "monthly": 0.96,
+      "ytd": 5.53,
+      "twelveMonths": 11.09,
+      "annualized": 12.1
+    },
+    {
+      "date": "2011-07",
+      "monthly": 0.97,
+      "ytd": 6.56,
+      "twelveMonths": 11.21,
+      "annualized": 12.25
+    },
+    {
+      "date": "2011-08",
+      "monthly": 1.07,
+      "ytd": 7.7,
+      "twelveMonths": 11.41,
+      "annualized": 12.42
+    },
+    {
+      "date": "2011-09",
+      "monthly": 0.94,
+      "ytd": 8.71,
+      "twelveMonths": 11.51,
+      "annualized": 11.91
+    },
+    {
+      "date": "2011-10",
+      "monthly": 0.88,
+      "ytd": 9.67,
+      "twelveMonths": 11.58,
+      "annualized": 11.7
+    },
+    {
+      "date": "2011-11",
+      "monthly": 0.86,
+      "ytd": 10.61,
+      "twelveMonths": 11.64,
+      "annualized": 11.4
+    },
+    {
+      "date": "2011-12",
+      "monthly": 0.91,
+      "ytd": 11.62,
+      "twelveMonths": 11.62,
+      "annualized": 10.9
+    },
+    {
+      "date": "2012-01",
+      "monthly": 0.89,
+      "ytd": 0.89,
+      "twelveMonths": 11.65,
+      "annualized": 10.7
+    },
+    {
+      "date": "2012-02",
+      "monthly": 0.75,
+      "ytd": 1.65,
+      "twelveMonths": 11.55,
+      "annualized": 10.4
+    },
+    {
+      "date": "2012-03",
+      "monthly": 0.82,
+      "ytd": 2.48,
+      "twelveMonths": 11.44,
+      "annualized": 9.82
+    },
+    {
+      "date": "2012-04",
+      "monthly": 0.71,
+      "ytd": 3.21,
+      "twelveMonths": 11.3,
+      "annualized": 9.35
+    },
+    {
+      "date": "2012-05",
+      "monthly": 0.74,
+      "ytd": 3.97,
+      "twelveMonths": 11.02,
+      "annualized": 8.87
+    },
+    {
+      "date": "2012-06",
+      "monthly": 0.64,
+      "ytd": 4.64,
+      "twelveMonths": 10.67,
+      "annualized": 8.39
+    },
+    {
+      "date": "2012-07",
+      "monthly": 0.68,
+      "ytd": 5.35,
+      "twelveMonths": 10.35,
+      "annualized": 8.07
+    },
+    {
+      "date": "2012-08",
+      "monthly": 0.69,
+      "ytd": 6.08,
+      "twelveMonths": 9.94,
+      "annualized": 7.85
+    },
+    {
+      "date": "2012-09",
+      "monthly": 0.54,
+      "ytd": 6.65,
+      "twelveMonths": 9.5,
+      "annualized": 7.39
+    },
+    {
+      "date": "2012-10",
+      "monthly": 0.61,
+      "ytd": 7.3,
+      "twelveMonths": 9.21,
+      "annualized": 7.23
+    },
+    {
+      "date": "2012-11",
+      "monthly": 0.55,
+      "ytd": 7.89,
+      "twelveMonths": 8.87,
+      "annualized": 7.14
+    },
+    {
+      "date": "2012-12",
+      "monthly": 0.55,
+      "ytd": 8.48,
+      "twelveMonths": 8.48,
+      "annualized": 7.16
+    },
+    {
+      "date": "2013-01",
+      "monthly": 0.6,
+      "ytd": 0.6,
+      "twelveMonths": 8.17,
+      "annualized": 7.11
+    },
+    {
+      "date": "2013-02",
+      "monthly": 0.49,
+      "ytd": 1.09,
+      "twelveMonths": 7.89,
+      "annualized": 7.12
+    },
+    {
+      "date": "2013-03",
+      "monthly": 0.55,
+      "ytd": 1.65,
+      "twelveMonths": 7.6,
+      "annualized": 7.15
+    },
+    {
+      "date": "2013-04",
+      "monthly": 0.61,
+      "ytd": 2.27,
+      "twelveMonths": 7.5,
+      "annualized": 7.26
+    },
+    {
+      "date": "2013-05",
+      "monthly": 0.6,
+      "ytd": 2.88,
+      "twelveMonths": 7.35,
+      "annualized": 7.42
+    },
+    {
+      "date": "2013-06",
+      "monthly": 0.61,
+      "ytd": 3.51,
+      "twelveMonths": 7.31,
+      "annualized": 7.9
+    },
+    {
+      "date": "2013-07",
+      "monthly": 0.72,
+      "ytd": 4.26,
+      "twelveMonths": 7.36,
+      "annualized": 8.23
+    },
+    {
+      "date": "2013-08",
+      "monthly": 0.71,
+      "ytd": 5,
+      "twelveMonths": 7.38,
+      "annualized": 8.45
+    },
+    {
+      "date": "2013-09",
+      "monthly": 0.71,
+      "ytd": 5.74,
+      "twelveMonths": 7.56,
+      "annualized": 8.9
+    },
+    {
+      "date": "2013-10",
+      "monthly": 0.81,
+      "ytd": 6.6,
+      "twelveMonths": 7.77,
+      "annualized": 9.25
+    },
+    {
+      "date": "2013-11",
+      "monthly": 0.72,
+      "ytd": 7.37,
+      "twelveMonths": 7.96,
+      "annualized": 9.45
+    },
+    {
+      "date": "2013-12",
+      "monthly": 0.79,
+      "ytd": 8.21,
+      "twelveMonths": 8.21,
+      "annualized": 9.9
+    },
+    {
+      "date": "2014-01",
+      "monthly": 0.85,
+      "ytd": 0.85,
+      "twelveMonths": 8.48,
+      "annualized": 10.17
+    },
+    {
+      "date": "2014-02",
+      "monthly": 0.79,
+      "ytd": 1.65,
+      "twelveMonths": 8.81,
+      "annualized": 10.43
+    },
+    {
+      "date": "2014-03",
+      "monthly": 0.77,
+      "ytd": 2.43,
+      "twelveMonths": 9.04,
+      "annualized": 10.65
+    },
+    {
+      "date": "2014-04",
+      "monthly": 0.82,
+      "ytd": 3.27,
+      "twelveMonths": 9.27,
+      "annualized": 10.87
+    },
+    {
+      "date": "2014-05",
+      "monthly": 0.87,
+      "ytd": 4.17,
+      "twelveMonths": 9.57,
+      "annualized": 10.9
+    },
+    {
+      "date": "2014-06",
+      "monthly": 0.82,
+      "ytd": 5.02,
+      "twelveMonths": 9.79,
+      "annualized": 10.9
+    },
+    {
+      "date": "2014-07",
+      "monthly": 0.95,
+      "ytd": 6.02,
+      "twelveMonths": 10.04,
+      "annualized": 10.9
+    },
+    {
+      "date": "2014-08",
+      "monthly": 0.87,
+      "ytd": 6.94,
+      "twelveMonths": 10.22,
+      "annualized": 10.9
+    },
+    {
+      "date": "2014-09",
+      "monthly": 0.91,
+      "ytd": 7.92,
+      "twelveMonths": 10.44,
+      "annualized": 10.9
+    },
+    {
+      "date": "2014-10",
+      "monthly": 0.95,
+      "ytd": 8.94,
+      "twelveMonths": 10.59,
+      "annualized": 10.92
+    },
+    {
+      "date": "2014-11",
+      "monthly": 0.84,
+      "ytd": 9.86,
+      "twelveMonths": 10.72,
+      "annualized": 11.15
+    },
+    {
+      "date": "2014-12",
+      "monthly": 0.96,
+      "ytd": 10.91,
+      "twelveMonths": 10.91,
+      "annualized": 11.58
+    },
+    {
+      "date": "2015-01",
+      "monthly": 0.94,
+      "ytd": 0.94,
+      "twelveMonths": 11.01,
+      "annualized": 11.82
+    },
+    {
+      "date": "2015-02",
+      "monthly": 0.82,
+      "ytd": 1.77,
+      "twelveMonths": 11.04,
+      "annualized": 12.15
+    },
+    {
+      "date": "2015-03",
+      "monthly": 1.04,
+      "ytd": 2.83,
+      "twelveMonths": 11.34,
+      "annualized": 12.58
+    },
+    {
+      "date": "2015-04",
+      "monthly": 0.95,
+      "ytd": 3.8,
+      "twelveMonths": 11.48,
+      "annualized": 12.68
+    },
+    {
+      "date": "2015-05",
+      "monthly": 0.99,
+      "ytd": 4.83,
+      "twelveMonths": 11.62,
+      "annualized": 13.15
+    },
+    {
+      "date": "2015-06",
+      "monthly": 1.07,
+      "ytd": 5.95,
+      "twelveMonths": 11.89,
+      "annualized": 13.58
+    },
+    {
+      "date": "2015-07",
+      "monthly": 1.18,
+      "ytd": 7.2,
+      "twelveMonths": 12.15,
+      "annualized": 13.69
+    },
+    {
+      "date": "2015-08",
+      "monthly": 1.11,
+      "ytd": 8.39,
+      "twelveMonths": 12.41,
+      "annualized": 14.15
+    },
+    {
+      "date": "2015-09",
+      "monthly": 1.11,
+      "ytd": 9.6,
+      "twelveMonths": 12.64,
+      "annualized": 14.15
+    },
+    {
+      "date": "2015-10",
+      "monthly": 1.11,
+      "ytd": 10.81,
+      "twelveMonths": 12.82,
+      "annualized": 14.15
+    },
+    {
+      "date": "2015-11",
+      "monthly": 1.06,
+      "ytd": 11.99,
+      "twelveMonths": 13.06,
+      "annualized": 14.15
+    },
+    {
+      "date": "2015-12",
+      "monthly": 1.16,
+      "ytd": 13.29,
+      "twelveMonths": 13.29,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-01",
+      "monthly": 1.06,
+      "ytd": 1.06,
+      "twelveMonths": 13.42,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-02",
+      "monthly": 1,
+      "ytd": 2.07,
+      "twelveMonths": 13.62,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-03",
+      "monthly": 1.16,
+      "ytd": 3.25,
+      "twelveMonths": 13.76,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-04",
+      "monthly": 1.06,
+      "ytd": 4.35,
+      "twelveMonths": 13.88,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-05",
+      "monthly": 1.11,
+      "ytd": 5.51,
+      "twelveMonths": 14.02,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-06",
+      "monthly": 1.16,
+      "ytd": 6.73,
+      "twelveMonths": 14.12,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-07",
+      "monthly": 1.11,
+      "ytd": 7.92,
+      "twelveMonths": 14.04,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-08",
+      "monthly": 1.22,
+      "ytd": 9.23,
+      "twelveMonths": 14.16,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-09",
+      "monthly": 1.11,
+      "ytd": 10.45,
+      "twelveMonths": 14.16,
+      "annualized": 14.15
+    },
+    {
+      "date": "2016-10",
+      "monthly": 1.05,
+      "ytd": 11.6,
+      "twelveMonths": 14.1,
+      "annualized": 14.05
+    },
+    {
+      "date": "2016-11",
+      "monthly": 1.04,
+      "ytd": 12.77,
+      "twelveMonths": 14.07,
+      "annualized": 13.9
+    },
+    {
+      "date": "2016-12",
+      "monthly": 1.12,
+      "ytd": 14.03,
+      "twelveMonths": 14.03,
+      "annualized": 13.65
+    },
+    {
+      "date": "2017-01",
+      "monthly": 1.09,
+      "ytd": 1.09,
+      "twelveMonths": 14.06,
+      "annualized": 13.17
+    },
+    {
+      "date": "2017-02",
+      "monthly": 0.87,
+      "ytd": 1.97,
+      "twelveMonths": 13.92,
+      "annualized": 12.82
+    },
+    {
+      "date": "2017-03",
+      "monthly": 1.05,
+      "ytd": 3.04,
+      "twelveMonths": 13.79,
+      "annualized": 12.15
+    },
+    {
+      "date": "2017-04",
+      "monthly": 0.79,
+      "ytd": 3.85,
+      "twelveMonths": 13.49,
+      "annualized": 11.59
+    },
+    {
+      "date": "2017-05",
+      "monthly": 0.93,
+      "ytd": 4.82,
+      "twelveMonths": 13.29,
+      "annualized": 11.15
+    },
+    {
+      "date": "2017-06",
+      "monthly": 0.81,
+      "ytd": 5.67,
+      "twelveMonths": 12.89,
+      "annualized": 10.15
+    },
+    {
+      "date": "2017-07",
+      "monthly": 0.8,
+      "ytd": 6.51,
+      "twelveMonths": 12.55,
+      "annualized": 10.01
+    },
+    {
+      "date": "2017-08",
+      "monthly": 0.8,
+      "ytd": 7.37,
+      "twelveMonths": 12.08,
+      "annualized": 9.15
+    },
+    {
+      "date": "2017-09",
+      "monthly": 0.64,
+      "ytd": 8.05,
+      "twelveMonths": 11.56,
+      "annualized": 8.35
+    },
+    {
+      "date": "2017-10",
+      "monthly": 0.64,
+      "ytd": 8.75,
+      "twelveMonths": 11.11,
+      "annualized": 8.01
+    },
+    {
+      "date": "2017-11",
+      "monthly": 0.57,
+      "ytd": 9.37,
+      "twelveMonths": 10.59,
+      "annualized": 7.4
+    },
+    {
+      "date": "2017-12",
+      "monthly": 0.54,
+      "ytd": 9.96,
+      "twelveMonths": 9.96,
+      "annualized": 7
+    },
+    {
+      "date": "2018-01",
+      "monthly": 0.58,
+      "ytd": 0.58,
+      "twelveMonths": 9.4,
+      "annualized": 6.9
+    },
+    {
+      "date": "2018-02",
+      "monthly": 0.47,
+      "ytd": 1.05,
+      "twelveMonths": 8.97,
+      "annualized": 6.72
+    },
+    {
+      "date": "2018-03",
+      "monthly": 0.53,
+      "ytd": 1.59,
+      "twelveMonths": 8.41,
+      "annualized": 6.58
+    },
+    {
+      "date": "2018-04",
+      "monthly": 0.52,
+      "ytd": 2.12,
+      "twelveMonths": 8.12,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-05",
+      "monthly": 0.52,
+      "ytd": 2.65,
+      "twelveMonths": 7.68,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-06",
+      "monthly": 0.52,
+      "ytd": 3.18,
+      "twelveMonths": 7.37,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-07",
+      "monthly": 0.54,
+      "ytd": 3.74,
+      "twelveMonths": 7.09,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-08",
+      "monthly": 0.57,
+      "ytd": 4.33,
+      "twelveMonths": 6.85,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-09",
+      "monthly": 0.47,
+      "ytd": 4.82,
+      "twelveMonths": 6.67,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-10",
+      "monthly": 0.54,
+      "ytd": 5.39,
+      "twelveMonths": 6.56,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-11",
+      "monthly": 0.49,
+      "ytd": 5.9,
+      "twelveMonths": 6.47,
+      "annualized": 6.4
+    },
+    {
+      "date": "2018-12",
+      "monthly": 0.49,
+      "ytd": 6.42,
+      "twelveMonths": 6.42,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-01",
+      "monthly": 0.54,
+      "ytd": 0.54,
+      "twelveMonths": 6.38,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-02",
+      "monthly": 0.49,
+      "ytd": 1.03,
+      "twelveMonths": 6.4,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-03",
+      "monthly": 0.47,
+      "ytd": 1.51,
+      "twelveMonths": 6.34,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-04",
+      "monthly": 0.52,
+      "ytd": 2.04,
+      "twelveMonths": 6.34,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-05",
+      "monthly": 0.54,
+      "ytd": 2.59,
+      "twelveMonths": 6.36,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-06",
+      "monthly": 0.47,
+      "ytd": 3.07,
+      "twelveMonths": 6.31,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-07",
+      "monthly": 0.57,
+      "ytd": 3.66,
+      "twelveMonths": 6.34,
+      "annualized": 6.4
+    },
+    {
+      "date": "2019-08",
+      "monthly": 0.5,
+      "ytd": 4.17,
+      "twelveMonths": 6.26,
+      "annualized": 5.9
+    },
+    {
+      "date": "2019-09",
+      "monthly": 0.46,
+      "ytd": 4.65,
+      "twelveMonths": 6.25,
+      "annualized": 5.71
+    },
+    {
+      "date": "2019-10",
+      "monthly": 0.48,
+      "ytd": 5.16,
+      "twelveMonths": 6.19,
+      "annualized": 5.38
+    },
+    {
+      "date": "2019-11",
+      "monthly": 0.38,
+      "ytd": 5.56,
+      "twelveMonths": 6.07,
+      "annualized": 4.9
+    },
+    {
+      "date": "2019-12",
+      "monthly": 0.37,
+      "ytd": 5.95,
+      "twelveMonths": 5.95,
+      "annualized": 4.59
+    },
+    {
+      "date": "2020-01",
+      "monthly": 0.38,
+      "ytd": 0.38,
+      "twelveMonths": 5.78,
+      "annualized": 4.4
+    },
+    {
+      "date": "2020-02",
+      "monthly": 0.29,
+      "ytd": 0.67,
+      "twelveMonths": 5.57,
+      "annualized": 4.19
+    },
+    {
+      "date": "2020-03",
+      "monthly": 0.34,
+      "ytd": 1.01,
+      "twelveMonths": 5.43,
+      "annualized": 3.95
+    },
+    {
+      "date": "2020-04",
+      "monthly": 0.28,
+      "ytd": 1.3,
+      "twelveMonths": 5.18,
+      "annualized": 3.65
+    },
+    {
+      "date": "2020-05",
+      "monthly": 0.24,
+      "ytd": 1.54,
+      "twelveMonths": 4.86,
+      "annualized": 3.01
+    },
+    {
+      "date": "2020-06",
+      "monthly": 0.21,
+      "ytd": 1.75,
+      "twelveMonths": 4.59,
+      "annualized": 2.58
+    },
+    {
+      "date": "2020-07",
+      "monthly": 0.19,
+      "ytd": 1.95,
+      "twelveMonths": 4.2,
+      "annualized": 2.15
+    },
+    {
+      "date": "2020-08",
+      "monthly": 0.16,
+      "ytd": 2.11,
+      "twelveMonths": 3.85,
+      "annualized": 1.94
+    },
+    {
+      "date": "2020-09",
+      "monthly": 0.16,
+      "ytd": 2.27,
+      "twelveMonths": 3.54,
+      "annualized": 1.9
+    },
+    {
+      "date": "2020-10",
+      "monthly": 0.16,
+      "ytd": 2.44,
+      "twelveMonths": 3.21,
+      "annualized": 1.9
+    },
+    {
+      "date": "2020-11",
+      "monthly": 0.15,
+      "ytd": 2.59,
+      "twelveMonths": 2.97,
+      "annualized": 1.9
+    },
+    {
+      "date": "2020-12",
+      "monthly": 0.16,
+      "ytd": 2.75,
+      "twelveMonths": 2.75,
+      "annualized": 1.9
+    },
+    {
+      "date": "2021-01",
+      "monthly": 0.15,
+      "ytd": 0.15,
+      "twelveMonths": 2.52,
+      "annualized": 1.9
+    },
+    {
+      "date": "2021-02",
+      "monthly": 0.13,
+      "ytd": 0.28,
+      "twelveMonths": 2.35,
+      "annualized": 1.9
+    },
+    {
+      "date": "2021-03",
+      "monthly": 0.2,
+      "ytd": 0.48,
+      "twelveMonths": 2.21,
+      "annualized": 2.23
+    },
+    {
+      "date": "2021-04",
+      "monthly": 0.21,
+      "ytd": 0.69,
+      "twelveMonths": 2.14,
+      "annualized": 2.65
+    },
+    {
+      "date": "2021-05",
+      "monthly": 0.27,
+      "ytd": 0.96,
+      "twelveMonths": 2.17,
+      "annualized": 3.29
+    },
+    {
+      "date": "2021-06",
+      "monthly": 0.31,
+      "ytd": 1.28,
+      "twelveMonths": 2.27,
+      "annualized": 3.76
+    },
+    {
+      "date": "2021-07",
+      "monthly": 0.36,
+      "ytd": 1.64,
+      "twelveMonths": 2.45,
+      "annualized": 4.15
+    },
+    {
+      "date": "2021-08",
+      "monthly": 0.43,
+      "ytd": 2.08,
+      "twelveMonths": 2.72,
+      "annualized": 5.01
+    },
+    {
+      "date": "2021-09",
+      "monthly": 0.44,
+      "ytd": 2.53,
+      "twelveMonths": 3.01,
+      "annualized": 5.43
+    },
+    {
+      "date": "2021-10",
+      "monthly": 0.49,
+      "ytd": 3.03,
+      "twelveMonths": 3.35,
+      "annualized": 6.3
+    },
+    {
+      "date": "2021-11",
+      "monthly": 0.59,
+      "ytd": 3.64,
+      "twelveMonths": 3.8,
+      "annualized": 7.65
+    },
+    {
+      "date": "2021-12",
+      "monthly": 0.77,
+      "ytd": 4.44,
+      "twelveMonths": 4.44,
+      "annualized": 8.76
+    },
+    {
+      "date": "2022-01",
+      "monthly": 0.73,
+      "ytd": 0.73,
+      "twelveMonths": 5.04,
+      "annualized": 9.15
+    },
+    {
+      "date": "2022-02",
+      "monthly": 0.76,
+      "ytd": 1.5,
+      "twelveMonths": 5.7,
+      "annualized": 10.49
+    },
+    {
+      "date": "2022-03",
+      "monthly": 0.93,
+      "ytd": 2.44,
+      "twelveMonths": 6.47,
+      "annualized": 11.15
+    },
+    {
+      "date": "2022-04",
+      "monthly": 0.83,
+      "ytd": 3.29,
+      "twelveMonths": 7.13,
+      "annualized": 11.65
+    },
+    {
+      "date": "2022-05",
+      "monthly": 1.03,
+      "ytd": 4.35,
+      "twelveMonths": 7.94,
+      "annualized": 12.51
+    },
+    {
+      "date": "2022-06",
+      "monthly": 1.02,
+      "ytd": 5.42,
+      "twelveMonths": 8.71,
+      "annualized": 12.89
+    },
+    {
+      "date": "2022-07",
+      "monthly": 1.03,
+      "ytd": 6.5,
+      "twelveMonths": 9.43,
+      "annualized": 13.15
+    },
+    {
+      "date": "2022-08",
+      "monthly": 1.17,
+      "ytd": 7.75,
+      "twelveMonths": 10.24,
+      "annualized": 13.58
+    },
+    {
+      "date": "2022-09",
+      "monthly": 1.07,
+      "ytd": 8.9,
+      "twelveMonths": 10.93,
+      "annualized": 13.65
+    },
+    {
+      "date": "2022-10",
+      "monthly": 1.02,
+      "ytd": 10.01,
+      "twelveMonths": 11.51,
+      "annualized": 13.65
+    },
+    {
+      "date": "2022-11",
+      "monthly": 1.02,
+      "ytd": 11.14,
+      "twelveMonths": 11.99,
+      "annualized": 13.65
+    },
+    {
+      "date": "2022-12",
+      "monthly": 1.12,
+      "ytd": 12.38,
+      "twelveMonths": 12.38,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-01",
+      "monthly": 1.12,
+      "ytd": 1.12,
+      "twelveMonths": 12.82,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-02",
+      "monthly": 0.92,
+      "ytd": 2.05,
+      "twelveMonths": 12.99,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-03",
+      "monthly": 1.17,
+      "ytd": 3.24,
+      "twelveMonths": 13.26,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-04",
+      "monthly": 0.92,
+      "ytd": 4.19,
+      "twelveMonths": 13.36,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-05",
+      "monthly": 1.12,
+      "ytd": 5.36,
+      "twelveMonths": 13.47,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-06",
+      "monthly": 1.07,
+      "ytd": 6.49,
+      "twelveMonths": 13.52,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-07",
+      "monthly": 1.07,
+      "ytd": 7.63,
+      "twelveMonths": 13.57,
+      "annualized": 13.65
+    },
+    {
+      "date": "2023-08",
+      "monthly": 1.14,
+      "ytd": 8.85,
+      "twelveMonths": 13.53,
+      "annualized": 13.19
+    },
+    {
+      "date": "2023-09",
+      "monthly": 0.97,
+      "ytd": 9.91,
+      "twelveMonths": 13.42,
+      "annualized": 12.97
+    },
+    {
+      "date": "2023-10",
+      "monthly": 1,
+      "ytd": 11.01,
+      "twelveMonths": 13.4,
+      "annualized": 12.65
+    },
+    {
+      "date": "2023-11",
+      "monthly": 0.92,
+      "ytd": 12.03,
+      "twelveMonths": 13.29,
+      "annualized": 12.17
+    },
+    {
+      "date": "2023-12",
+      "monthly": 0.89,
+      "ytd": 13.03,
+      "twelveMonths": 13.03,
+      "annualized": 11.87
+    },
+    {
+      "date": "2024-01",
+      "monthly": 0.97,
+      "ytd": 0.97,
+      "twelveMonths": 12.86,
+      "annualized": 11.65
+    },
+    {
+      "date": "2024-02",
+      "monthly": 0.8,
+      "ytd": 1.78,
+      "twelveMonths": 12.73,
+      "annualized": 11.15
+    },
+    {
+      "date": "2024-03",
+      "monthly": 0.83,
+      "ytd": 2.62,
+      "twelveMonths": 12.35,
+      "annualized": 11
+    },
+    {
+      "date": "2024-04",
+      "monthly": 0.89,
+      "ytd": 3.54,
+      "twelveMonths": 12.31,
+      "annualized": 10.65
+    },
+    {
+      "date": "2024-05",
+      "monthly": 0.83,
+      "ytd": 4.4,
+      "twelveMonths": 11.99,
+      "annualized": 10.46
+    },
+    {
+      "date": "2024-06",
+      "monthly": 0.79,
+      "ytd": 5.22,
+      "twelveMonths": 11.68,
+      "annualized": 10.4
+    },
+    {
+      "date": "2024-07",
+      "monthly": 0.91,
+      "ytd": 6.18,
+      "twelveMonths": 11.5,
+      "annualized": 10.4
+    },
+    {
+      "date": "2024-08",
+      "monthly": 0.87,
+      "ytd": 7.1,
+      "twelveMonths": 11.21,
+      "annualized": 10.4
+    },
+    {
+      "date": "2024-09",
+      "monthly": 0.84,
+      "ytd": 8,
+      "twelveMonths": 11.06,
+      "annualized": 10.5
+    },
+    {
+      "date": "2024-10",
+      "monthly": 0.93,
+      "ytd": 9.01,
+      "twelveMonths": 10.99,
+      "annualized": 10.65
+    },
+    {
+      "date": "2024-11",
+      "monthly": 0.79,
+      "ytd": 9.87,
+      "twelveMonths": 10.84,
+      "annualized": 11.04
+    },
+    {
+      "date": "2024-12",
+      "monthly": 0.93,
+      "ytd": 10.89,
+      "twelveMonths": 10.89,
+      "annualized": 11.77
+    },
+    {
+      "date": "2025-01",
+      "monthly": 1.01,
+      "ytd": 1.01,
+      "twelveMonths": 10.93,
+      "annualized": 12.24
+    },
+    {
+      "date": "2025-02",
+      "monthly": 0.99,
+      "ytd": 2.01,
+      "twelveMonths": 11.14,
+      "annualized": 13.15
+    },
+    {
+      "date": "2025-03",
+      "monthly": 0.96,
+      "ytd": 2.99,
+      "twelveMonths": 11.28,
+      "annualized": 13.57
+    },
+    {
+      "date": "2025-04",
+      "monthly": 1.06,
+      "ytd": 4.08,
+      "twelveMonths": 11.47,
+      "annualized": 14.15
+    },
+    {
+      "date": "2025-05",
+      "monthly": 1.14,
+      "ytd": 5.27,
+      "twelveMonths": 11.81,
+      "annualized": 14.55
+    },
+    {
+      "date": "2025-06",
+      "monthly": 1.1,
+      "ytd": 6.43,
+      "twelveMonths": 12.16,
+      "annualized": 14.74
+    },
+    {
+      "date": "2025-07",
+      "monthly": 1.28,
+      "ytd": 7.79,
+      "twelveMonths": 12.57,
+      "annualized": 14.9
+    },
+    {
+      "date": "2025-08",
+      "monthly": 1.16,
+      "ytd": 9.04,
+      "twelveMonths": 12.89,
+      "annualized": 14.9
+    },
+    {
+      "date": "2025-09",
+      "monthly": 1.22,
+      "ytd": 10.37,
+      "twelveMonths": 13.32,
+      "annualized": 14.9
+    },
+    {
+      "date": "2025-10",
+      "monthly": 1.28,
+      "ytd": 11.78,
+      "twelveMonths": 13.71,
+      "annualized": 14.9
+    },
+    {
+      "date": "2025-11",
+      "monthly": 1.05,
+      "ytd": 12.95,
+      "twelveMonths": 14.01,
+      "annualized": 14.9
+    },
+    {
+      "date": "2025-12",
+      "monthly": 1.22,
+      "ytd": 14.33,
+      "twelveMonths": 14.33,
+      "annualized": 14.9
+    },
+    {
+      "date": "2026-01",
+      "monthly": 1.16,
+      "ytd": 1.16,
+      "twelveMonths": 14.5,
+      "annualized": 14.9
+    },
+    {
+      "date": "2026-02",
+      "monthly": 1,
+      "ytd": 2.17,
+      "twelveMonths": 14.51,
+      "annualized": 14.9
+    },
+    {
+      "date": "2026-03",
+      "monthly": 1.21,
+      "ytd": 3.41,
+      "twelveMonths": 14.8,
+      "annualized": 14.8
+    },
+    {
+      "date": "2026-04",
+      "monthly": 1.09,
+      "ytd": 4.54,
+      "twelveMonths": 14.83,
+      "annualized": 14.64
+    },
+    {
+      "date": "2026-05",
+      "monthly": 1.07,
+      "ytd": 5.65,
+      "twelveMonths": 14.75,
+      "annualized": 14.4
+    },
+    {
+      "date": "2026-06",
+      "monthly": 1.12,
+      "ytd": 6.84,
+      "twelveMonths": 14.77,
+      "annualized": 14.29
+    },
+    {
+      "date": "2026-07",
+      "monthly": 1.22,
+      "ytd": 8.14,
+      "twelveMonths": 14.71,
+      "annualized": 14.15
+    },
+    {
+      "date": "2026-08",
+      "monthly": 1.09,
+      "ytd": 9.32,
+      "twelveMonths": 14.63,
+      "annualized": 13.94
+    },
+    {
+      "date": "2026-09",
+      "monthly": 1.08,
+      "ytd": 10.5,
+      "twelveMonths": 14.47,
+      "annualized": 13.78
+    }
+  ]
+}

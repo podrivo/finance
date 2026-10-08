@@ -9,9 +9,9 @@ export function indexAt(clientX) {
   return Math.max(Math.ceil(view.x0), Math.min(Math.floor(view.x1), i));
 }
 
-// Visible window over months a..b, with the vertical range fitted to that slice.
+// Visible window over months a..b, with the vertical range fitted to every line in that slice.
 export function windowFor(a, b) {
-  const slice = state.values.slice(Math.floor(a), Math.ceil(b) + 1);
+  const slice = state.lines.flatMap((l) => l.values.slice(Math.floor(a), Math.ceil(b) + 1)).filter((v) => v !== null);
   const lo = Math.min(0, ...slice);
   const hi = Math.max(...slice);
   const range = hi - lo;
@@ -20,10 +20,11 @@ export function windowFor(a, b) {
 
 // Monotone cubic tangent (as in d3's curveMonotoneX): the curve passes through every
 // month without overshooting, so smoothing never invents peaks or dips.
-export function slopeAt(i) {
-  const { values, n } = state;
-  if (i === 0) return values[1] - values[0];
-  if (i === n - 1) return values[i] - values[i - 1];
+// A missing neighbor (null, or past either end) is treated like the end of the line.
+export function slopeAt(values, i) {
+  const [prev, next] = [values[i - 1] ?? null, values[i + 1] ?? null];
+  if (prev === null) return next === null ? 0 : next - values[i];
+  if (next === null) return values[i] - prev;
   const s0 = values[i] - values[i - 1];
   const s1 = values[i + 1] - values[i];
   return (Math.sign(s0) + Math.sign(s1)) * Math.min(Math.abs(s0), Math.abs(s1), Math.abs(s0 + s1) / 4);

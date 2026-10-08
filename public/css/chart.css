@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   contain: strict;
-  color: #888;
+  color: var(--muted);
   font-size: 12px;
   cursor: crosshair;
 }
@@ -29,36 +29,34 @@ canvas {
   font-variant-numeric: tabular-nums;
 }
 .label.minor {
-  color: light-dark(#bbb, #555);
+  color: var(--minor);
 }
 #crosshair {
   inset: 0;
   visibility: hidden;
 }
-#vline, #hline {
+#vline {
   position: absolute;
   top: 0;
   left: 0;
-}
-#vline {
   width: 1px;
   height: 100%;
   background: repeating-linear-gradient(to bottom, var(--guide) 0 4px, transparent 4px 8px);
 }
-#hline {
-  width: 100%;
-  height: 1px;
-  background: repeating-linear-gradient(to right, var(--guide) 0 4px, transparent 4px 8px);
-}
-#dot {
+.dot {
   position: absolute;
   top: -4px;
   left: -4px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--fg);
   box-shadow: 0 0 0 2px var(--bg);
+}
+.dot.ipca {
+  background: var(--ipca);
+}
+.dot.selic {
+  background: var(--selic);
 }
 #selection {
   top: 0;
