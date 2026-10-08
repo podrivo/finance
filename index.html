@@ -36,6 +36,7 @@
     canvas { inset: 0; width: 100%; height: 100%; pointer-events: auto !important; touch-action: none; }
     #labels { inset: 0; contain: strict; }
     .label { position: absolute; top: 0; left: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .label.minor { color: light-dark(#bbb, #555); }
     #crosshair { inset: 0; visibility: hidden; }
     #vline, #hline { position: absolute; top: 0; left: 0; }
     #vline { width: 1px; height: 100%; background: repeating-linear-gradient(to bottom, var(--guide) 0 4px, transparent 4px 8px); }
@@ -298,7 +299,7 @@
       for (const [key, tick] of wanted) {
         if (fades.has(key)) continue;
         const el = document.createElement('span');
-        el.className = 'label';
+        el.className = tick.line === 'month' ? 'label minor' : 'label';
         el.textContent = tick.text;
         labels.append(el);
         fades.set(key, { tick, o: 0, el });
