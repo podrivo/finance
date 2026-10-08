@@ -400,19 +400,18 @@
         animateTo(windowFor(...RANGES.all()));
       });
       // Trackpad pinch arrives as ctrl+wheel in Chrome and Firefox, and as gesture events in Safari.
-      // Listens on the whole window and claims every sideways scroll, so browsers never
-      // treat it as a back/forward swipe.
+      // Plain scrolling zooms (vertical) or pans (horizontal), whichever direction dominates.
+      // Listens on the whole window and claims every scroll, so browsers never treat a
+      // sideways swipe as back/forward.
       addEventListener(
         'wheel',
         (e) => {
-          if (e.ctrlKey) {
-            e.preventDefault();
-            zoom(e.clientX, e.clientX, Math.exp(e.deltaY * 0.01));
-          } else if (e.deltaX) {
-            e.preventDefault();
-            const dx = e.deltaX * (e.deltaMode === 1 ? 16 : 1);
-            zoom(e.clientX, e.clientX - dx, 1);
-          }
+          e.preventDefault();
+          const scale = e.deltaMode === 1 ? 16 : 1;
+          const [dx, dy] = [e.deltaX * scale, e.deltaY * scale];
+          if (e.ctrlKey) zoom(e.clientX, e.clientX, Math.exp(dy * 0.01));
+          else if (Math.abs(dx) > Math.abs(dy)) zoom(e.clientX, e.clientX - dx, 1);
+          else zoom(e.clientX, e.clientX, Math.exp(dy * 0.002));
         },
         { passive: false }
       );
