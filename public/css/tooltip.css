@@ -1,0 +1,18 @@
+#tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 12px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 125ms ease;
+}
+#tooltip.visible { opacity: 1; }

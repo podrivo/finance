@@ -1,0 +1,27 @@
+#controls {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1;
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+#ranges { display: flex; gap: 4px; }
+#controls button {
+  font: inherit;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: #888;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+#controls button.active { border-color: var(--fg); color: var(--fg); }
+#controls #theme { display: grid; place-items: center; width: 32px; padding: 0; }
+#theme svg { width: 16px; height: 16px; }
+@media (hover: hover) and (pointer: fine) {
+  #controls button:hover { color: var(--fg); }
+}
