@@ -7,13 +7,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&display=swap">
+  <script>
+    try {
+      const theme = localStorage.getItem('ipca:theme');
+      if (theme) document.documentElement.dataset.theme = theme;
+    } catch {}
+  </script>
   <style>
+    :root {
+      color-scheme: light dark;
+      --fg: light-dark(#000, #fff);
+      --bg: light-dark(#fff, #0a0a0a);
+      --border: light-dark(#ddd, #333);
+      --guide: light-dark(#ccc, #444);
+    }
+    :root[data-theme='light'] { color-scheme: light; }
+    :root[data-theme='dark'] { color-scheme: dark; }
     html, body { overscroll-behavior: none; }
     body {
       margin: 0;
       font: 14px/1.4 'Geist', system-ui, sans-serif;
-      color: #000;
-      background: #fff;
+      color: var(--fg);
+      background: var(--bg);
       user-select: none;
     }
     #chart { position: fixed; inset: 0; contain: strict; color: #888; font-size: 12px; cursor: crosshair; }
@@ -23,31 +38,36 @@
     .label { position: absolute; top: 0; left: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
     #crosshair { inset: 0; visibility: hidden; }
     #vline, #hline { position: absolute; top: 0; left: 0; }
-    #vline { width: 1px; height: 100%; background: repeating-linear-gradient(to bottom, #ccc 0 4px, transparent 4px 8px); }
-    #hline { width: 100%; height: 1px; background: repeating-linear-gradient(to right, #ccc 0 4px, transparent 4px 8px); }
-    #dot { position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; border-radius: 50%; background: #000; box-shadow: 0 0 0 2px #fff; }
-    #selection { top: 0; left: 0; width: 1px; height: 100%; transform-origin: left; background: rgb(0 0 0 / 0.06); visibility: hidden; }
+    #vline { width: 1px; height: 100%; background: repeating-linear-gradient(to bottom, var(--guide) 0 4px, transparent 4px 8px); }
+    #hline { width: 100%; height: 1px; background: repeating-linear-gradient(to right, var(--guide) 0 4px, transparent 4px 8px); }
+    #dot { position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 2px var(--bg); }
+    #selection { top: 0; left: 0; width: 1px; height: 100%; transform-origin: left; background: light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.08)); visibility: hidden; }
     #controls {
       position: fixed;
-      top: 12px;
-      right: 12px;
+      top: 24px;
+      right: 24px;
       z-index: 1;
+      display: flex;
+      gap: 12px;
       font-size: 12px;
     }
     #ranges { display: flex; gap: 4px; }
-    #ranges button {
+    #controls button {
       font: inherit;
-      padding: 4px 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background: #fff;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
       color: #888;
       cursor: pointer;
       transition: color 150ms ease, border-color 150ms ease;
     }
-    #ranges button.active { border-color: #000; color: #000; }
+    #controls button.active { border-color: var(--fg); color: var(--fg); }
+    #controls #theme { display: grid; place-items: center; width: 32px; padding: 0; }
+    #theme svg { width: 16px; height: 16px; }
     @media (hover: hover) and (pointer: fine) {
-      #ranges button:hover { color: #000; }
+      #controls button:hover { color: var(--fg); }
     }
     #tooltip {
       position: fixed;
@@ -57,9 +77,10 @@
       pointer-events: none;
       padding: 4px 8px;
       border-radius: 4px;
-      background: #000;
-      color: #fff;
+      background: var(--fg);
+      color: var(--bg);
       font-size: 12px;
+      line-height: 16px;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
       opacity: 0;
@@ -77,6 +98,10 @@
       <button data-range="10y">10Y</button>
       <button data-range="5y">5Y</button>
     </nav>
+    <button id="theme" aria-keyshortcuts="M">
+      <svg data-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg data-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+    </button>
   </div>
   <div id="chart">
     <div id="selection"></div>
@@ -93,7 +118,7 @@
     const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
     const percent = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const MIN_GAP = 56; // px between time labels
+    const MIN_GAP = 48; // px between time labels
     const DURATION = 280;
     const FADE = 200;
     const Y_EASE = 70; // ms time constant for the vertical range to follow gestures
@@ -136,6 +161,51 @@
     const fades = new Map(); // tick key -> { tick, o, el }
     let elections = [];
 
+    const PALETTES = {
+      light: { line: '#000', zero: '#ccc', election: '#eee', year: '#e4e4e4', month: '#f4f4f4' },
+      dark: { line: '#fff', zero: '#444', election: '#262626', year: '#2e2e2e', month: '#1a1a1a' },
+    };
+    let palette;
+
+    // Two visible states over three stored ones: no override follows the OS, and toggling
+    // stores an override only when it differs from the OS, so toggling back clears it.
+    // An OS change never clears an override, even when they come to match.
+    const THEME_KEY = 'ipca:theme';
+    const root = document.documentElement;
+    const themeButton = $('theme');
+    const systemDark = matchMedia('(prefers-color-scheme: dark)');
+    const systemTheme = () => (systemDark.matches ? 'dark' : 'light');
+    const currentTheme = () => root.dataset.theme ?? systemTheme();
+
+    function applyTheme() {
+      const theme = currentTheme();
+      palette = PALETTES[theme];
+      const next = theme === 'dark' ? 'light' : 'dark';
+      themeButton.title = `Switch to ${next} theme (M)`;
+      themeButton.setAttribute('aria-label', `Switch to ${next} theme`);
+      themeButton.querySelectorAll('svg').forEach((svg) => (svg.style.display = svg.dataset.icon === theme ? '' : 'none'));
+      if (view) invalidate();
+    }
+
+    function toggleTheme() {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      if (next === systemTheme()) delete root.dataset.theme;
+      else root.dataset.theme = next;
+      try {
+        if (root.dataset.theme) localStorage.setItem(THEME_KEY, next);
+        else localStorage.removeItem(THEME_KEY);
+      } catch {}
+      applyTheme();
+    }
+
+    applyTheme();
+    systemDark.addEventListener('change', applyTheme);
+    themeButton.addEventListener('click', toggleTheme);
+    addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() !== 'm' || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+      toggleTheme();
+    });
+
     function valueTicks() {
       const { yMin: lo, yMax: hi } = view;
       const step = STEPS.find((s) => (hi - lo) / s <= 8);
@@ -156,7 +226,7 @@
       for (let i = Math.max(0, Math.floor(view.x0)); i <= Math.min(n - 1, Math.ceil(view.x1)); i++) {
         const [year, month] = series[i].date.split('-').map(Number);
         if ((month - 1) % step) continue;
-        out.push({ key: `m${i}`, axis: 'x', i, line: month === 1 ? '#e4e4e4' : '#f4f4f4', text: month === 1 ? `${year}` : MONTHS[month - 1] });
+        out.push({ key: `m${i}`, axis: 'x', i, line: month === 1 ? 'year' : 'month', text: month === 1 ? `${year}` : MONTHS[month - 1] });
       }
       return out;
     }
@@ -247,7 +317,7 @@
       for (const { tick, o } of fades.values()) {
         if (tick.axis === 'x' ? !tick.line : tick.v !== 0) continue;
         ctx.globalAlpha = o;
-        ctx.strokeStyle = tick.axis === 'x' ? tick.line : '#ccc';
+        ctx.strokeStyle = tick.axis === 'x' ? palette[tick.line] : palette.zero;
         ctx.beginPath();
         if (tick.axis === 'y') {
           const y = Math.round(toY(tick.v)) + 0.5;
@@ -261,7 +331,7 @@
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
-      ctx.strokeStyle = '#eee';
+      ctx.strokeStyle = palette.election;
       ctx.beginPath();
       for (const i of elections) {
         const x = Math.round(toX(i)) + 0.5;
@@ -272,7 +342,7 @@
 
       const a = Math.max(0, Math.floor(view.x0) - 1);
       const b = Math.min(n - 1, Math.ceil(view.x1) + 1);
-      ctx.strokeStyle = '#000';
+      ctx.strokeStyle = palette.line;
       ctx.lineWidth = 1.5;
       ctx.lineJoin = 'round';
       ctx.beginPath();
@@ -291,7 +361,7 @@
         if (tick.axis === 'y') {
           const y = toY(tick.v);
           el.style.opacity = y < 0 || y > box.height ? 0 : o;
-          el.style.transform = `translate(8px, calc(${y}px - 100% - 2px))`;
+          el.style.transform = `translate(8px, calc(${y}px - 100% - 4px))`;
         } else {
           const x = toX(tick.i);
           el.style.opacity = x < 0 || x > box.width ? 0 : o;
@@ -355,7 +425,8 @@
       const flip = pointerX > innerWidth - 180;
       const below = pointerY < 48;
       tooltip.style.transform =
-        `translate(${pointerX + (flip ? -12 : 12)}px, ${pointerY + (below ? 16 : -36)}px)` + (flip ? ' translateX(-100%)' : '');
+        `translate(${pointerX + (flip ? -12 : 12)}px, ${pointerY + (below ? 16 : -12)}px)` +
+        (flip ? ' translateX(-100%)' : '') + (below ? '' : ' translateY(-100%)');
       tooltip.classList.add('visible');
 
       const i = indexAt(pointerX);
