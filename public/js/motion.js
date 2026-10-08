@@ -1,5 +1,6 @@
 export const DURATION = 280;
 export const FADE = 200;
+export const INTRO = 900; // ms for the line to draw in on first load
 export const Y_EASE = 70; // ms time constant for the vertical range to follow gestures
 export const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 

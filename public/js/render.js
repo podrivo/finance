@@ -1,7 +1,7 @@
 import { MIN_SPAN } from './constants.js';
 import { canvas, chart, controls, ctx, labels } from './dom.js';
 import { hover } from './hover.js';
-import { DURATION, FADE, Y_EASE, easeInOut, reduceMotion } from './motion.js';
+import { DURATION, FADE, INTRO, Y_EASE, easeInOut, reduceMotion } from './motion.js';
 import { save, setActive } from './ranges.js';
 import { slopeAt, toX, toY, windowFor } from './scale.js';
 import { state } from './state.js';
@@ -13,6 +13,12 @@ let frame = 0;
 let lastDraw = 0;
 let lastFrame = 0;
 const fades = new Map(); // tick key -> { tick, o, el }
+let intro = null; // { start } while the line draws in; start is set on the first frame
+
+export function playIntro() {
+  if (reduceMotion.matches) chart.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease' });
+  else intro = { start: null };
+}
 
 export function invalidate() {
   if (!frame) frame = requestAnimationFrame(render);
@@ -51,7 +57,7 @@ function render(now) {
 }
 
 // Ticks fade in and out on their own clock as the view crosses scale thresholds.
-// Returns true while any fade is still running.
+// Returns true while any fade or the intro is still running.
 function draw(now) {
   const { view, box, values, n, palette, elections } = state;
   const dt = reduceMotion.matches ? 1 : Math.min(now - lastDraw, 34) / FADE;
@@ -76,11 +82,25 @@ function draw(now) {
     }
   }
 
+  let p = 1;
+  if (intro) {
+    intro.start ??= now;
+    p = Math.min(1, (now - intro.start) / INTRO);
+    if (p === 1) intro = null;
+  }
+  const head = box.width * easeInOut(p);
+  // During the intro, time labels appear as the line reaches them and value labels rise in from the bottom.
+  const shown = (tick) => {
+    if (p === 1) return 1;
+    const s = tick.axis === 'x' ? (head - toX(tick.i)) / 60 : (p - 0.4 * (1 - toY(tick.v) / box.height)) / 0.3;
+    return Math.max(0, Math.min(1, s));
+  };
+
   ctx.clearRect(0, 0, box.width, box.height);
   ctx.lineWidth = 1;
   for (const { tick, o } of fades.values()) {
     if (tick.axis === 'x' ? !tick.line : tick.v !== 0) continue;
-    ctx.globalAlpha = o;
+    ctx.globalAlpha = o * shown(tick);
     ctx.strokeStyle = tick.axis === 'x' ? palette[tick.line] : palette.zero;
     ctx.beginPath();
     if (tick.axis === 'y') {
@@ -95,6 +115,11 @@ function draw(now) {
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 0, head, box.height);
+  ctx.clip();
   ctx.strokeStyle = palette.election;
   ctx.beginPath();
   for (const i of elections) {
@@ -120,21 +145,24 @@ function draw(now) {
     );
   }
   ctx.stroke();
+  ctx.restore();
 
   for (const { tick, o, el } of fades.values()) {
+    const s = shown(tick);
+    const rise = (1 - s) * 6;
     if (tick.axis === 'y') {
       const y = toY(tick.v);
-      el.style.opacity = y < 0 || y > box.height ? 0 : o;
-      el.style.transform = `translate(8px, calc(${y}px - 100% - 4px))`;
+      el.style.opacity = y < 0 || y > box.height ? 0 : o * s;
+      el.style.transform = `translate(8px, calc(${y + rise}px - 100% - 4px))`;
     } else {
       const x = toX(tick.i);
-      el.style.opacity = x < 0 || x > box.width ? 0 : o;
-      el.style.transform = `translate(${x + 4}px, calc(${box.height - 8}px - 100%))`;
+      el.style.opacity = x < 0 || x > box.width ? 0 : o * s;
+      el.style.transform = `translate(${x + 4}px, calc(${box.height - 8 + rise}px - 100%))`;
     }
   }
 
   if (state.pointerX !== null) hover();
-  return fading;
+  return fading || !!intro;
 }
 
 export function animateTo(next) {
