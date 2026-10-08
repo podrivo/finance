@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&display=swap">
   <style>
+    html, body { overscroll-behavior: none; }
     body {
       margin: 0;
       font: 14px/1.4 'Geist', system-ui, sans-serif;
@@ -285,13 +286,14 @@
       return Math.max(Math.ceil(view.x0), Math.min(Math.floor(view.x1), i));
     }
 
-    // Scales the window by `factor`, keeping the month under `fromX` pinned beneath `toX`.
+    // Scales the window by `factor` (1 to just pan), keeping the month under `fromX` pinned beneath `toX`.
     function zoom(fromX, toX, factor) {
-      anim = null;
       const span = view.x1 - view.x0;
       const next = Math.max(MIN_SPAN, Math.min(n - 1, span * factor));
       const anchor = view.x0 + ((fromX - box.left) / box.width) * span;
       const x0 = Math.max(0, Math.min(n - 1 - next, anchor - ((toX - box.left) / box.width) * next));
+      if (x0 === view.x0 && next === span) return;
+      anim = null;
       view = windowFor(x0, x0 + next);
       setActive(null);
       invalidate();
@@ -380,12 +382,19 @@
         animateTo(windowFor(...RANGES.all()));
       });
       // Trackpad pinch arrives as ctrl+wheel in Chrome and Firefox, and as gesture events in Safari.
-      canvas.addEventListener(
+      // Listens on the whole window and claims every sideways scroll, so browsers never
+      // treat it as a back/forward swipe.
+      addEventListener(
         'wheel',
         (e) => {
-          if (!e.ctrlKey) return;
-          e.preventDefault();
-          zoom(e.clientX, e.clientX, Math.exp(e.deltaY * 0.01));
+          if (e.ctrlKey) {
+            e.preventDefault();
+            zoom(e.clientX, e.clientX, Math.exp(e.deltaY * 0.01));
+          } else if (e.deltaX) {
+            e.preventDefault();
+            const dx = e.deltaX * (e.deltaMode === 1 ? 16 : 1);
+            zoom(e.clientX, e.clientX - dx, 1);
+          }
         },
         { passive: false }
       );
@@ -400,21 +409,27 @@
         gestureScale = e.scale;
       });
 
+      // One finger pans, two fingers pinch (and pan by their midpoint).
       let pinch = null;
-      const pinchOf = ([p, q]) => ({ x: (p.clientX + q.clientX) / 2, d: Math.hypot(p.clientX - q.clientX, p.clientY - q.clientY) });
-      canvas.addEventListener('touchstart', (e) => {
-        if (e.touches.length !== 2) return;
-        pinch = pinchOf(e.touches);
+      const pinchOf = (touches) => {
+        if (touches.length === 1) return { x: touches[0].clientX, d: 1 };
+        const [p, q] = touches;
+        return { x: (p.clientX + q.clientX) / 2, d: Math.hypot(p.clientX - q.clientX, p.clientY - q.clientY) };
+      };
+      const startTouch = (e) => {
+        pinch = e.touches.length ? pinchOf(e.touches) : null;
         dragStart = null;
         $('selection').style.visibility = 'hidden';
-      });
+      };
+      canvas.addEventListener('touchstart', startTouch);
+      canvas.addEventListener('touchend', startTouch);
+      canvas.addEventListener('touchcancel', startTouch);
       canvas.addEventListener('touchmove', (e) => {
-        if (!pinch || e.touches.length !== 2) return;
+        if (!pinch) return;
         const next = pinchOf(e.touches);
         zoom(pinch.x, next.x, pinch.d / Math.max(1, next.d));
         pinch = next;
       });
-      canvas.addEventListener('touchend', (e) => e.touches.length < 2 && (pinch = null));
       canvas.addEventListener('mouseleave', () => {
         pointerX = null;
         shown = { i: -1, view: null };
