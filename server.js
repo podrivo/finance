@@ -86,12 +86,12 @@ async function getIPCA() {
 createServer(async (req, res) => {
   try {
     if (req.url === '/api/ipca') {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      return res.end(JSON.stringify(await getIPCA()));
+      const body = JSON.stringify(await getIPCA());
+      return res.writeHead(200, { 'Content-Type': 'application/json' }).end(body);
     }
     if (req.url === '/') {
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      return res.end(await readFile(new URL('./index.html', import.meta.url)));
+      const html = await readFile(new URL('./index.html', import.meta.url));
+      return res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }).end(html);
     }
     res.writeHead(404).end();
   } catch (err) {

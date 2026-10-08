@@ -17,8 +17,17 @@ Open http://localhost:3000. Set `PORT` to use a different port.
 ## How it works
 
 - `server.js` serves the page and a JSON endpoint at `/api/ipca`.
-- `index.html` fetches `/api/ipca` and draws the monthly change as an SVG line. Hovering shows a gray crosshair snapped to the nearest month and a tooltip with its value.
+- `index.html` fetches `/api/ipca` and draws the monthly change as a full-screen SVG line chart.
 - `data/ipca.json` is the local cache.
+
+### The chart
+
+- **Gridlines**: horizontal lines at round percentages, vertical lines at each presidential election's first round (1989, 1994, then every 4 years from 1998). Election dates are in the `ELECTIONS` array in `index.html`.
+- **Hover**: a dashed crosshair snaps to the nearest month, with a tooltip showing its value.
+- **Time ranges**: All, Since 1995 (the default), 10Y and 5Y buttons. The vertical scale fits whatever range is visible.
+- **Zoom**: drag across a span to zoom into it; double-click to go back to the full history.
+- **Transitions**: changing the range or zooming animates the view over 280ms (`DURATION` in `index.html`), with gridlines and labels fading between scales. With the system's reduced-motion setting on, it switches instantly with a short fade.
+- **Performance**: the full series is drawn once and only the visible window (the SVG `viewBox`) changes. Gridlines and labels are reused across frames and positioned with transforms, and hover updates run at most once per frame.
 
 ### Data
 
@@ -63,7 +72,7 @@ Delete `data/ipca.json` to force a refresh.
 
 ## Notes
 
-The 1980s to 1994 hyperinflation (up to about 82% in a single month in 1990) dominates the vertical scale, so the post-Plano Real years look nearly flat.
+The 1980s to 1994 hyperinflation (up to about 82% in a single month in 1990) dominates the vertical scale on the full history, which makes the post-Plano Real years look nearly flat. That's why the chart opens on "Since 1995", and why the ranges and zoom rescale vertically. A logarithmic scale was tried and dropped.
 
 ## Other related data (not fetched yet)
 

@@ -13,14 +13,43 @@
       font: 14px/1.4 'Geist', system-ui, sans-serif;
       color: #000;
       background: #fff;
+      user-select: none;
     }
-    #chart { position: fixed; inset: 0; color: #888; font-size: 12px; }
+    #chart { position: fixed; inset: 0; contain: strict; color: #888; font-size: 12px; cursor: crosshair; }
     svg { display: block; width: 100%; height: 100%; }
-    .label { position: absolute; white-space: nowrap; font-variant-numeric: tabular-nums; pointer-events: none; }
-    .label.y { left: 8px; transform: translateY(calc(-100% - 2px)); }
-    .label.x { bottom: 8px; transform: translateX(4px); }
+    #labels { position: absolute; inset: 0; contain: strict; pointer-events: none; }
+    .label { position: absolute; top: 0; left: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    #controls {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      color: #888;
+      font-size: 12px;
+    }
+    #ranges { display: flex; gap: 4px; }
+    #ranges button {
+      font: inherit;
+      padding: 4px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #fff;
+      color: #888;
+      cursor: pointer;
+      transition: color 150ms ease, border-color 150ms ease;
+    }
+    #ranges button.active { border-color: #000; color: #000; }
+    @media (hover: hover) and (pointer: fine) {
+      #ranges button:hover { color: #000; }
+    }
     #tooltip {
       position: fixed;
+      top: 0;
+      left: 0;
       z-index: 1;
       pointer-events: none;
       padding: 4px 8px;
@@ -30,83 +59,278 @@
       font-size: 12px;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
-      display: none;
+      opacity: 0;
+      transition: opacity 125ms ease;
     }
+    #tooltip.visible { opacity: 1; }
   </style>
 </head>
 <body>
   <div id="tooltip"></div>
-  <div id="chart"><svg preserveAspectRatio="none"></svg></div>
+  <div id="controls">
+    <nav id="ranges">
+      <button data-range="all">All</button>
+      <button data-range="real" class="active">Since 1995</button>
+      <button data-range="10y">10Y</button>
+      <button data-range="5y">5Y</button>
+    </nav>
+    <span>Drag to zoom, double-click to reset</span>
+  </div>
+  <div id="chart">
+    <svg preserveAspectRatio="none"></svg>
+    <div id="labels"></div>
+  </div>
 
   <script>
     const $ = (id) => document.getElementById(id);
+    const ELECTIONS = ['1989-11', '1994-10', '1998-10', '2002-10', '2006-10', '2010-10', '2014-10', '2018-10', '2022-10', '2026-10'];
+    const STEPS = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100];
+    const DURATION = 280;
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+    function cubicBezier(x1, y1, x2, y2) {
+      const at = (t, a, b) => 3 * a * t * (1 - t) ** 2 + 3 * b * t * t * (1 - t) + t ** 3;
+      return (x) => {
+        let lo = 0;
+        let hi = 1;
+        let t = x;
+        for (let k = 0; k < 30 && Math.abs(at(t, x1, x2) - x) > 1e-5; k++) {
+          at(t, x1, x2) < x ? (lo = t) : (hi = t);
+          t = (lo + hi) / 2;
+        }
+        return at(t, y1, y2);
+      };
+    }
+    const easeInOut = cubicBezier(0.77, 0, 0.175, 1);
+
+    const chart = $('chart');
+    const svg = chart.querySelector('svg');
+    const labels = $('labels');
+    const tooltip = $('tooltip');
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    let series, values, n, grid;
+    let view;      // the currently displayed window, possibly mid-animation
+    let target;    // the window being animated to
+    let frame = 0;
+    let box = chart.getBoundingClientRect();
+    let pointerX = null;
+    let hoverQueued = false;
+    let shown = { i: -1, view: null };
+    let dragStart = null;
+    const tickEls = new Map(); // tick value -> { line, label }
+    let electionEls = [];
+
+    function ticksFor(lo, hi) {
+      const step = STEPS.find((s) => (hi - lo) / s <= 8);
+      const ticks = [];
+      for (let k = Math.ceil(lo / step); k * step <= hi; k++) ticks.push(+(k * step).toFixed(2));
+      return ticks;
+    }
+
+    // Visible window over months a..b, with the vertical range fitted to that slice.
+    function windowFor(a, b) {
+      const slice = values.slice(a, b + 1);
+      const lo = Math.min(0, ...slice);
+      const hi = Math.max(...slice);
+      const range = hi - lo;
+      return { x0: a, x1: b, yMin: lo - range * 0.06, yMax: hi + range * 0.04, ticks: ticksFor(lo, hi) };
+    }
+
+    const toX = (i) => ((i - view.x0) / (view.x1 - view.x0)) * box.width;
+    const toY = (v) => ((view.yMax - v) / (view.yMax - view.yMin)) * box.height;
+
+    // Gridline and label for a tick value, created once and reused across frames.
+    function tickEl(v) {
+      if (tickEls.has(v)) return tickEls.get(v);
+      const line = document.createElementNS(SVG_NS, 'line');
+      const attrs = { x1: 0, x2: n - 1, y1: -v, y2: -v, stroke: v === 0 ? '#ccc' : '#eee', 'vector-effect': 'non-scaling-stroke' };
+      for (const [k, val] of Object.entries(attrs)) line.setAttribute(k, val);
+      const label = document.createElement('span');
+      label.className = 'label';
+      label.textContent = `${v}%`;
+      grid.append(line);
+      labels.append(label);
+      const els = { line, label };
+      tickEls.set(v, els);
+      return els;
+    }
+
+    // Ticks only in the old window fade out, ticks only in the new one fade in.
+    // Labels move with transform only, so redrawing never triggers layout.
+    function draw(fromTicks, toTicks, t) {
+      svg.setAttribute('viewBox', `${view.x0} ${-view.yMax} ${view.x1 - view.x0} ${view.yMax - view.yMin}`);
+
+      const opacity = new Map(toTicks.map((v) => [v, fromTicks.includes(v) ? 1 : t]));
+      fromTicks.forEach((v) => opacity.has(v) || opacity.set(v, 1 - t));
+
+      for (const [v, { line, label }] of tickEls) {
+        if ((opacity.get(v) ?? 0) > 0.01) continue;
+        line.remove();
+        label.remove();
+        tickEls.delete(v);
+      }
+      for (const [v, o] of opacity) {
+        if (o <= 0.01) continue;
+        const { line, label } = tickEl(v);
+        const y = toY(v);
+        line.setAttribute('stroke-opacity', o);
+        label.style.opacity = y < 0 || y > box.height ? 0 : o;
+        label.style.transform = `translate(8px, calc(${y}px - 100% - 2px))`;
+      }
+      for (const { i, el } of electionEls) {
+        const x = toX(i);
+        el.style.opacity = x < 0 || x > box.width ? 0 : 1;
+        el.style.transform = `translate(${x + 4}px, calc(${box.height - 8}px - 100%))`;
+      }
+
+      if (pointerX !== null) hover();
+    }
+
+    function animateTo(next) {
+      cancelAnimationFrame(frame);
+      const from = view;
+      const fromTicks = target.ticks;
+      target = next;
+
+      if (reduceMotion.matches) {
+        view = next;
+        draw(next.ticks, next.ticks, 1);
+        chart.animate([{ opacity: 0.4 }, { opacity: 1 }], { duration: 150, easing: 'ease' });
+        return;
+      }
+
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / DURATION);
+        const e = easeInOut(p);
+        const lerp = (key) => from[key] + (next[key] - from[key]) * e;
+        view = { x0: lerp('x0'), x1: lerp('x1'), yMin: lerp('yMin'), yMax: lerp('yMax') };
+        draw(fromTicks, next.ticks, e);
+        if (p < 1) frame = requestAnimationFrame(step);
+      };
+      frame = requestAnimationFrame(step);
+    }
+
+    function indexAt(clientX) {
+      const i = Math.round(view.x0 + ((clientX - box.left) / box.width) * (view.x1 - view.x0));
+      return Math.max(Math.ceil(view.x0), Math.min(Math.floor(view.x1), i));
+    }
+
+    // Mouse events can outpace the display; handle at most one per frame.
+    function queueHover() {
+      if (hoverQueued) return;
+      hoverQueued = true;
+      requestAnimationFrame(() => {
+        hoverQueued = false;
+        if (pointerX !== null) hover();
+      });
+    }
+
+    function hover() {
+      const i = indexAt(pointerX);
+      if (i === shown.i && view === shown.view) return;
+
+      if (i !== shown.i) {
+        $('vline').setAttribute('x1', i);
+        $('vline').setAttribute('x2', i);
+        $('hline').setAttribute('y1', -values[i]);
+        $('hline').setAttribute('y2', -values[i]);
+        $('crosshair').setAttribute('visibility', 'visible');
+        tooltip.textContent = `${series[i].date}: ${values[i].toFixed(2)}%`;
+        if (dragStart !== null) {
+          const sel = $('selection');
+          sel.setAttribute('x', Math.min(dragStart, i));
+          sel.setAttribute('width', Math.abs(i - dragStart));
+          sel.setAttribute('visibility', 'visible');
+        }
+      }
+      shown = { i, view };
+
+      const sx = box.left + toX(i);
+      const sy = box.top + toY(values[i]) - 32;
+      tooltip.style.transform =
+        sx > box.right - 160 ? `translate(${sx - 10}px, ${sy}px) translateX(-100%)` : `translate(${sx + 10}px, ${sy}px)`;
+      tooltip.classList.add('visible');
+    }
+
+    const buttons = document.querySelectorAll('#ranges button');
+    const setActive = (range) => buttons.forEach((b) => b.classList.toggle('active', b.dataset.range === range));
+    const RANGES = {
+      all: () => [0, n - 1],
+      real: () => [series.findIndex((p) => p.date >= '1995-01'), n - 1],
+      '10y': () => [n - 120, n - 1],
+      '5y': () => [n - 60, n - 1],
+    };
+
+    function init(data) {
+      series = data.series.filter((p) => p.monthly !== null);
+      values = series.map((p) => p.monthly);
+      n = series.length;
+
+      const elections = series.map((p, i) => [p.date, i]).filter(([date]) => ELECTIONS.includes(date));
+      svg.innerHTML = `
+        <g id="grid"></g>
+        ${elections.map(([, i]) => `<line x1="${i}" x2="${i}" y1="-10000" y2="10000" stroke="#eee" vector-effect="non-scaling-stroke" />`).join('')}
+        <rect id="selection" y="-10000" height="20000" fill="#000" fill-opacity="0.06" visibility="hidden" />
+        <g id="crosshair" stroke="#ccc" stroke-dasharray="4 4" visibility="hidden">
+          <line id="vline" y1="-10000" y2="10000" vector-effect="non-scaling-stroke" />
+          <line id="hline" x1="0" x2="${n - 1}" vector-effect="non-scaling-stroke" />
+        </g>
+        <polyline points="${values.map((v, i) => `${i},${-v}`).join(' ')}" fill="none" stroke="#000" stroke-width="1.5" vector-effect="non-scaling-stroke" />`;
+      grid = $('grid');
+
+      electionEls = elections.map(([date, i]) => {
+        const el = document.createElement('span');
+        el.className = 'label';
+        el.textContent = date.slice(0, 4);
+        labels.append(el);
+        return { i, el };
+      });
+
+      view = target = windowFor(...RANGES.real());
+      new ResizeObserver(() => {
+        box = chart.getBoundingClientRect();
+        shown.view = null;
+        draw(target.ticks, target.ticks, 1);
+      }).observe(chart);
+
+      buttons.forEach((b) =>
+        b.addEventListener('click', () => {
+          setActive(b.dataset.range);
+          animateTo(windowFor(...RANGES[b.dataset.range]()));
+        })
+      );
+
+      svg.addEventListener('mousedown', (e) => (dragStart = indexAt(e.clientX)));
+      svg.addEventListener('mousemove', (e) => {
+        pointerX = e.clientX;
+        queueHover();
+      });
+      addEventListener('mouseup', (e) => {
+        if (dragStart === null) return;
+        const [a, b] = [dragStart, indexAt(e.clientX)].sort((x, y) => x - y);
+        dragStart = null;
+        $('selection').setAttribute('visibility', 'hidden');
+        if (b - a < 2) return;
+        setActive(null);
+        animateTo(windowFor(a, b));
+      });
+      svg.addEventListener('dblclick', () => {
+        setActive('all');
+        animateTo(windowFor(...RANGES.all()));
+      });
+      svg.addEventListener('mouseleave', () => {
+        pointerX = null;
+        shown = { i: -1, view: null };
+        $('crosshair').setAttribute('visibility', 'hidden');
+        tooltip.classList.remove('visible');
+      });
+    }
 
     fetch('/api/ipca')
       .then((r) => (r.ok ? r.json() : r.text().then((t) => Promise.reject(new Error(t)))))
-      .then((data) => {
-        const series = data.series.filter((p) => p.monthly !== null);
-        const values = series.map((p) => p.monthly);
-        const min = Math.min(0, ...values);
-        const max = Math.max(...values);
-        const range = max - min;
-        const yMax = max + range * 0.04;
-        const yMin = min - range * 0.06;
-        const w = series.length - 1;
-        const h = yMax - yMin;
-        const y = (v) => yMax - v;
-
-        const step = [1, 2, 5, 10, 20, 50, 100].find((s) => range / s <= 8);
-        const yTicks = [];
-        for (let v = Math.ceil(min / step) * step; v <= max; v += step) yTicks.push(v);
-        const ELECTIONS = ['1989-11', '1994-10', '1998-10', '2002-10', '2006-10', '2010-10', '2014-10', '2018-10', '2022-10', '2026-10'];
-        const xTicks = series.map((p, i) => [p.date, i]).filter(([date]) => ELECTIONS.includes(date));
-
-        const chart = $('chart');
-        const svg = chart.querySelector('svg');
-        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-        const points = values.map((v, i) => `${i},${y(v)}`).join(' ');
-        const gridLine = (x1, y1, x2, y2, color) =>
-          `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" vector-effect="non-scaling-stroke" />`;
-        svg.innerHTML = `
-          ${yTicks.map((v) => gridLine(0, y(v), w, y(v), v === 0 ? '#ccc' : '#eee')).join('')}
-          ${xTicks.map(([, i]) => gridLine(i, 0, i, h, '#eee')).join('')}
-          <g id="crosshair" stroke="#ccc" stroke-dasharray="4 4" visibility="hidden">
-            <line id="vline" y1="0" y2="${h}" vector-effect="non-scaling-stroke" />
-            <line id="hline" x1="0" x2="${w}" vector-effect="non-scaling-stroke" />
-          </g>
-          <polyline points="${points}" fill="none" stroke="#000" stroke-width="1.5" vector-effect="non-scaling-stroke" />`;
-
-        const tooltip = $('tooltip');
-        svg.addEventListener('mousemove', (e) => {
-          const { left, top, width, height } = svg.getBoundingClientRect();
-          const i = Math.max(0, Math.min(w, Math.round(((e.clientX - left) / width) * w)));
-          const py = y(values[i]);
-
-          $('vline').setAttribute('x1', i);
-          $('vline').setAttribute('x2', i);
-          $('hline').setAttribute('y1', py);
-          $('hline').setAttribute('y2', py);
-          $('crosshair').setAttribute('visibility', 'visible');
-
-          const sx = left + (i / w) * width;
-          const sy = top + (py / h) * height;
-          tooltip.textContent = `${series[i].date}: ${values[i].toFixed(2)}%`;
-          tooltip.style.display = 'block';
-          tooltip.style.top = `${sy - 32}px`;
-          tooltip.style.left = sx > innerWidth - 160 ? `${sx - tooltip.offsetWidth - 10}px` : `${sx + 10}px`;
-        });
-        svg.addEventListener('mouseleave', () => {
-          $('crosshair').setAttribute('visibility', 'hidden');
-          tooltip.style.display = 'none';
-        });
-
-        chart.insertAdjacentHTML(
-          'beforeend',
-          yTicks.map((v) => `<span class="label y" style="top:${(y(v) / h) * 100}%">${v}%</span>`).join('') +
-            xTicks.map(([date, i]) => `<span class="label x" style="left:${(i / w) * 100}%">${date.slice(0, 4)}</span>`).join('')
-        );
-      })
-      .catch((err) => ($('chart').textContent = `Error: ${err.message}`));
+      .then(init)
+      .catch((err) => (chart.textContent = `Error: ${err.message}`));
   </script>
 </body>
 </html>
