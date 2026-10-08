@@ -51,8 +51,9 @@
 
     fetch('/api/ipca')
       .then((r) => (r.ok ? r.json() : r.text().then((t) => Promise.reject(new Error(t)))))
-      .then(({ series }) => {
-        const values = series.map((p) => p.value);
+      .then((data) => {
+        const series = data.series.filter((p) => p.monthly !== null);
+        const values = series.map((p) => p.monthly);
         const min = Math.min(0, ...values);
         const max = Math.max(...values);
         const w = series.length - 1;

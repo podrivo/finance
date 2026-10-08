@@ -12,20 +12,41 @@ async function getJSON(url) {
   return res.json();
 }
 
-async function fromIBGE() {
-  const rows = await getJSON('https://apisidra.ibge.gov.br/values/t/1737/n1/all/v/63/p/all');
-  return rows
-    .slice(1)
-    .filter((r) => /^-?\d/.test(r.V))
-    .map((r) => ({ date: `${r.D3C.slice(0, 4)}-${r.D3C.slice(4)}`, value: Number(r.V) }));
+// Merges [field, date, value] entries into one row per month, sorted by date.
+function toSeries(entries) {
+  const byDate = {};
+  for (const [field, date, value] of entries) {
+    byDate[date] ??= { date, monthly: null, ytd: null, twelveMonths: null, index: null };
+    byDate[date][field] = value;
+  }
+  return Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
 }
+
+const IBGE_FIELDS = { 63: 'monthly', 69: 'ytd', 2265: 'twelveMonths', 2266: 'index' };
+
+async function fromIBGE() {
+  const rows = await getJSON('https://apisidra.ibge.gov.br/values/t/1737/n1/all/v/63,69,2265,2266/p/all');
+  return toSeries(
+    rows
+      .slice(1)
+      .filter((r) => /^-?\d/.test(r.V))
+      .map((r) => [IBGE_FIELDS[r.D2C], `${r.D3C.slice(0, 4)}-${r.D3C.slice(4)}`, Number(r.V)])
+  );
+}
+
+const BCB_FIELDS = { 433: 'monthly', 13522: 'twelveMonths' };
 
 async function fromBCB() {
   const end = `31/12/${new Date().getFullYear()}`;
-  const rows = await getJSON(
-    `https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/1979&dataFinal=${end}`
+  const results = await Promise.all(
+    Object.entries(BCB_FIELDS).map(async ([code, field]) => {
+      const rows = await getJSON(
+        `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${code}/dados?formato=json&dataInicial=01/01/1979&dataFinal=${end}`
+      );
+      return rows.map((r) => [field, `${r.data.slice(6)}-${r.data.slice(3, 5)}`, Number(r.valor)]);
+    })
   );
-  return rows.map((r) => ({ date: `${r.data.slice(6)}-${r.data.slice(3, 5)}`, value: Number(r.valor) }));
+  return toSeries(results.flat());
 }
 
 const SOURCES = [
