@@ -39,7 +39,7 @@ export function hover() {
     const [year, month] = series[i].date.split('-').map(Number);
     const el = (className, text = '') => Object.assign(document.createElement('div'), { className, textContent: text });
     const rows = lines
-      .filter((l) => l.values[i] !== null)
+      .filter((l) => !l.hidden && l.values[i] !== null)
       .map((l) => {
         const row = el('row');
         row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.shown[i])}%`));
@@ -54,9 +54,9 @@ export function hover() {
 
   const x = toX(i);
   vline.style.transform = `translateX(${Math.round(x)}px)`;
-  lines.forEach(({ key, values }) => {
+  lines.forEach(({ key, values, hidden }) => {
     const dot = crosshair.querySelector(`.dot.${key}`);
-    dot.style.visibility = values[i] === null ? 'hidden' : '';
+    dot.style.visibility = hidden || values[i] === null ? 'hidden' : '';
     if (values[i] !== null) dot.style.transform = `translate(${x}px, ${toY(values[i])}px)`;
   });
 

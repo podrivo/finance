@@ -81,6 +81,11 @@ function draw(now) {
       fades.delete(key);
     }
   }
+  for (const line of lines) {
+    const goal = line.hidden ? 0 : 1;
+    line.o = goal ? Math.min(1, line.o + dt) : Math.max(0, line.o - dt);
+    if (line.o !== goal) fading = true;
+  }
 
   let p = 1;
   if (intro) {
@@ -133,7 +138,9 @@ function draw(now) {
   const b = Math.min(n - 1, Math.ceil(view.x1) + 1);
   ctx.lineWidth = 1.5;
   ctx.lineJoin = 'round';
-  for (const { key, values, step, dash = [] } of lines.toReversed()) {
+  for (const { key, values, step, dash = [], o } of lines.toReversed()) {
+    if (o === 0) continue;
+    ctx.globalAlpha = o;
     ctx.strokeStyle = palette[key];
     ctx.setLineDash(dash);
     ctx.beginPath();
@@ -157,6 +164,7 @@ function draw(now) {
     }
     ctx.stroke();
   }
+  ctx.globalAlpha = 1;
   ctx.restore();
 
   for (const { tick, o, el } of fades.values()) {

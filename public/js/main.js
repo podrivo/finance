@@ -3,7 +3,7 @@ import { ELECTIONS, LINES } from './constants.js';
 import { chart, crosshair, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
-import { playIntro, resize } from './render.js';
+import { invalidate, playIntro, resize } from './render.js';
 import { windowFor } from './scale.js';
 import { state } from './state.js';
 
@@ -17,13 +17,20 @@ function init(loaded) {
   state.lines = loaded.map(({ data, url, tooltip = 'monthly', ...line }) => {
     const byDate = new Map(data.series.map((p) => [p.date, p]));
     const field = (key) => dates.map((d) => byDate.get(d)?.[key] ?? null);
-    return { ...line, values: field('monthly'), shown: field(tooltip) };
+    return { ...line, values: field('monthly'), shown: field(tooltip), hidden: false, o: 1 };
   });
   state.elections = state.series.flatMap((p, i) => (ELECTIONS.includes(p.date) ? [i] : []));
 
-  for (const { key, label } of state.lines) {
-    const dot = Object.assign(document.createElement('div'), { className: `dot ${key}` });
-    const item = Object.assign(document.createElement('span'), { className: key, textContent: label });
+  for (const line of state.lines) {
+    const dot = Object.assign(document.createElement('div'), { className: `dot ${line.key}` });
+    const item = Object.assign(document.createElement('button'), { className: line.key, textContent: line.label });
+    item.setAttribute('aria-pressed', 'true');
+    item.addEventListener('click', () => {
+      line.hidden = !line.hidden;
+      item.setAttribute('aria-pressed', String(!line.hidden));
+      state.shown = { i: -1, view: null };
+      invalidate();
+    });
     crosshair.append(dot);
     legend.append(item);
   }

@@ -71,12 +71,31 @@
 :root.ready #legend {
   animation-play-state: running;
 }
-#legend span {
+#legend button {
   display: flex;
   align-items: center;
   gap: 6px;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 200ms ease, color 150ms ease;
 }
-#legend span::before {
+#legend button[aria-pressed='false'] {
+  opacity: 0.4;
+}
+@media (hover: hover) and (pointer: fine) {
+  #legend button:hover {
+    color: var(--fg);
+  }
+}
+#legend button::before {
   content: '';
   width: 12px;
   height: 2px;
