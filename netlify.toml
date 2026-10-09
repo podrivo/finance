@@ -1,0 +1,17 @@
+[build]
+  publish = "public"
+
+[[redirects]]
+  from = "/api/ipca"
+  to = "/data/ipca.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/selic"
+  to = "/data/selic.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/selic-target"
+  to = "/data/selic-target.json"
+  status = 200
