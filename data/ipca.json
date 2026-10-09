@@ -1,6 +1,6 @@
 {
   "source": "IBGE SIDRA",
-  "fetchedAt": "2026-10-08T17:00:13.219Z",
+  "fetchedAt": "2026-10-09T18:44:37.602Z",
   "series": [
     {
       "date": "1979-12",
@@ -3928,6 +3928,13 @@
       "ytd": 3.11,
       "twelveMonths": 4.22,
       "index": 7633.23
+    },
+    {
+      "date": "2026-09",
+      "monthly": 0.82,
+      "ytd": 3.95,
+      "twelveMonths": 4.58,
+      "index": 7695.82
     }
   ]
 }
