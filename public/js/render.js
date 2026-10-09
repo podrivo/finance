@@ -59,7 +59,7 @@ function render(now) {
 // Ticks fade in and out on their own clock as the view crosses scale thresholds.
 // Returns true while any fade or the intro is still running.
 function draw(now) {
-  const { view, box, lines, n, palette, elections } = state;
+  const { view, box, lines, n, palette, elections, events } = state;
   const dt = reduceMotion.matches ? 1 : Math.min(now - lastDraw, 34) / FADE;
   lastDraw = now;
   const wanted = new Map([...valueTicks(), ...timeTicks()].map((t) => [t.key, t]));
@@ -133,6 +133,15 @@ function draw(now) {
     ctx.lineTo(x, box.height);
   }
   ctx.stroke();
+
+  ctx.fillStyle = palette.event;
+  ctx.beginPath();
+  for (const { i } of events) {
+    const x = toX(i);
+    ctx.moveTo(x + 2.5, box.height - 4);
+    ctx.arc(x, box.height - 4, 2.5, 0, 2 * Math.PI);
+  }
+  ctx.fill();
 
   const a = Math.max(0, Math.floor(view.x0) - 1);
   const b = Math.min(n - 1, Math.ceil(view.x1) + 1);

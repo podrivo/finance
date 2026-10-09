@@ -1,4 +1,4 @@
-import { MESES, percent } from './constants.js';
+import { EVENT_SNAP, MESES, percent } from './constants.js';
 import { crosshair, selection, tooltip, vline } from './dom.js';
 import { indexAt, toX, toY } from './scale.js';
 import { state } from './state.js';
@@ -29,12 +29,21 @@ export function queueHover() {
   });
 }
 
+// The nearest month, or an event's month when the pointer is close to its marker,
+// since zoomed out a month can be narrower than a pixel.
+function monthAt(clientX) {
+  const { view, box, events } = state;
+  const gap = (e) => Math.abs(toX(e.i) - (clientX - box.left));
+  const near = events.filter((e) => e.i >= view.x0 && e.i <= view.x1 && gap(e) <= EVENT_SNAP);
+  return near.length ? near.reduce((a, b) => (gap(b) < gap(a) ? b : a)).i : indexAt(clientX);
+}
+
 // The crosshair, selection and tooltip are plain elements moved with transforms,
 // so hovering never repaints the canvas.
 // The tooltip sits beside the mouse; the crosshair and dots snap to the nearest month.
 export function hover() {
-  const { series, lines, view, shown, dragStart } = state;
-  const i = indexAt(state.pointerX);
+  const { series, lines, events, view, shown, dragStart } = state;
+  const i = monthAt(state.pointerX);
   if (i !== shown.i) {
     const [year, month] = series[i].date.split('-').map(Number);
     const el = (className, text = '') => Object.assign(document.createElement('div'), { className, textContent: text });
@@ -45,7 +54,8 @@ export function hover() {
         row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.shown[i])}%`));
         return row;
       });
-    tooltip.replaceChildren(el('date', `${MESES[month - 1]}, ${year}`), ...rows);
+    const notes = events.filter((e) => e.i === i).map((e) => el('event', e.label));
+    tooltip.replaceChildren(el('date', `${MESES[month - 1]}, ${year}`), ...notes, ...rows);
   }
   crosshair.style.visibility = placeTooltip() ? 'visible' : 'hidden';
 

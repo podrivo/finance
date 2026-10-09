@@ -1,5 +1,5 @@
 import './theme.js';
-import { ELECTIONS, LINES, PLANO_REAL } from './constants.js';
+import { ELECTIONS, EVENTS, LINES, PLANO_REAL } from './constants.js';
 import { chart, crosshair, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
@@ -19,8 +19,9 @@ function init(loaded) {
     const field = (key) => dates.map((d) => byDate.get(d)?.[key] ?? null);
     return { ...line, values: field('monthly'), shown: field(tooltip), hidden: false, o: 1 };
   });
-  const terms = ELECTIONS.map((d) => `${+d.slice(0, 4) + 1}-01`);
+  const terms = ELECTIONS.map(({ date }) => `${+date.slice(0, 4) + 1}-01`);
   state.elections = state.series.flatMap((p, i) => (terms.includes(p.date) ? [i] : []));
+  state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, label }) => (dates.includes(date) ? [{ i: dates.indexOf(date), label }] : []));
 
   for (const line of state.lines) {
     const dot = Object.assign(document.createElement('div'), { className: `dot ${line.key}` });

@@ -23,6 +23,9 @@
 #tooltip .date {
   opacity: 0.6;
 }
+#tooltip .event {
+  font-weight: 600;
+}
 #tooltip .row {
   display: flex;
   align-items: center;
