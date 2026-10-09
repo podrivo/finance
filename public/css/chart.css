@@ -37,6 +37,13 @@ canvas {
 .label.minor {
   color: var(--minor);
 }
+.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  opacity: 0;
+}
 #crosshair {
   inset: 0;
   visibility: hidden;

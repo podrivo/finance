@@ -1,6 +1,6 @@
 import './theme.js';
-import { BUFFER, ELECTIONS, EVENTS, LINES } from './constants.js';
-import { chart, crosshair, legend } from './dom.js';
+import { BUFFER, ELECTIONS, EVENTS, GOVERNMENTS, LINES } from './constants.js';
+import { chart, crosshair, labels, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
 import { invalidate, playIntro, resize } from './render.js';
@@ -45,6 +45,22 @@ function init(loaded) {
   state.elections = terms.flatMap(index);
   state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, ...event }) => index(date).map((i) => ({ i, ...event })));
 
+  // One band per president; party changes within a term are listed in its banner.
+  for (const { from, president, party } of GOVERNMENTS) {
+    const last = state.governments.at(-1);
+    if (last?.president === president) {
+      last.parties.push(party);
+      continue;
+    }
+    if (last) last.i1 = Math.max(0, dates.findIndex((d) => d >= from));
+    state.governments.push({ president, parties: [party], i0: Math.max(0, dates.findIndex((d) => d >= from)), i1: state.n - 1 });
+  }
+  for (const g of state.governments) {
+    g.texts = [`${g.president} · ${g.parties.join(', ')}`, g.president];
+    g.el = Object.assign(document.createElement('span'), { className: 'banner' });
+    labels.append(g.el);
+  }
+
   for (const line of state.lines) {
     const dot = Object.assign(document.createElement('div'), { className: `dot ${line.key}` });
     const item = Object.assign(document.createElement('button'), { className: line.key, textContent: line.label });
@@ -64,6 +80,7 @@ function init(loaded) {
   state.view = windowFor(...win);
   playIntro();
   new ResizeObserver(resize).observe(chart);
+  document.fonts.ready.then(resize); // banner widths change once Geist loads
   bindInput();
 }
 

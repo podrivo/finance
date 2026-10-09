@@ -1,5 +1,5 @@
 import { MIN_SPAN } from './constants.js';
-import { canvas, chart, controls, ctx, labels } from './dom.js';
+import { canvas, chart, controls, ctx, labels, legend } from './dom.js';
 import { hover } from './hover.js';
 import { DURATION, FADE, INTRO, Y_EASE, easeInOut, reduceMotion } from './motion.js';
 import { save, setActive } from './ranges.js';
@@ -27,6 +27,11 @@ export function invalidate() {
 export function resize() {
   const box = (state.box = chart.getBoundingClientRect());
   state.controlsBox = controls.getBoundingClientRect();
+  state.bannerTop = Math.max(state.controlsBox.bottom, legend.getBoundingClientRect().bottom) - box.top + 16;
+  for (const g of state.governments) {
+    g.ws = g.texts.map((t) => ((g.el.textContent = t), g.el.offsetWidth));
+    g.shown = -1;
+  }
   const dpr = devicePixelRatio || 1;
   canvas.width = Math.round(box.width * dpr);
   canvas.height = Math.round(box.height * dpr);
@@ -59,7 +64,7 @@ function render(now) {
 // Ticks fade in and out on their own clock as the view crosses scale thresholds.
 // Returns true while any fade or the intro is still running.
 function draw(now) {
-  const { view, box, lines, n, palette, elections, events } = state;
+  const { view, box, lines, n, palette, elections, events, governments } = state;
   const dt = reduceMotion.matches ? 1 : Math.min(now - lastDraw, 34) / FADE;
   lastDraw = now;
   const wanted = new Map([...valueTicks(), ...timeTicks()].map((t) => [t.key, t]));
@@ -102,6 +107,26 @@ function draw(now) {
   };
 
   ctx.clearRect(0, 0, box.width, box.height);
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 0, head, box.height);
+  ctx.clip();
+  ctx.fillStyle = palette.band;
+  governments.forEach(({ i0, i1 }, k) => {
+    if (k % 2) ctx.fillRect(toX(i0), 0, toX(i1) - toX(i0), box.height);
+  });
+  ctx.restore();
+  // Each banner sticks to the left of its band's visible part, drops the party when it
+  // doesn't fit, and hides when the name alone doesn't either.
+  for (const g of governments) {
+    const [x0, x1] = [Math.max(0, toX(g.i0)), Math.min(box.width, toX(g.i1))];
+    const k = g.ws.findIndex((w) => w + 16 <= x1 - x0);
+    g.el.style.opacity = k < 0 ? 0 : Math.max(0, Math.min(1, (head - x0) / 60));
+    if (k < 0) continue;
+    if (k !== g.shown) g.el.textContent = g.texts[(g.shown = k)];
+    g.el.style.transform = `translate(${x0 + 8}px, ${state.bannerTop}px)`;
+  }
+
   ctx.lineWidth = 1;
   for (const { tick, o } of fades.values()) {
     if (tick.axis === 'x' ? !tick.line : tick.v !== 0) continue;
