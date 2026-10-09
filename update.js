@@ -1,10 +1,12 @@
 import { readCache, writeCache } from './cache.js';
 import * as ipca from './ipca.js';
 import * as selic from './selic.js';
+import * as selicTarget from './selic-target.js';
 
 const INDEXES = [
   ['IPCA', ipca.CACHE_FILE, ipca.fetchIPCA],
   ['Selic', selic.CACHE_FILE, selic.fetchSelic],
+  ['Selic target', selicTarget.CACHE_FILE, selicTarget.fetchSelicTarget],
 ];
 
 for (const [name, file, fetchIndex] of INDEXES) {

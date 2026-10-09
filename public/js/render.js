@@ -133,13 +133,19 @@ function draw(now) {
   const b = Math.min(n - 1, Math.ceil(view.x1) + 1);
   ctx.lineWidth = 1.5;
   ctx.lineJoin = 'round';
-  for (const { key, values } of lines.toReversed()) {
+  for (const { key, values, step, dash = [] } of lines.toReversed()) {
     ctx.strokeStyle = palette[key];
+    ctx.setLineDash(dash);
     ctx.beginPath();
     for (let i = a; i <= b; i++) {
       if (values[i] === null) continue;
       if (i === a || values[i - 1] === null) {
         ctx.moveTo(toX(i), toY(values[i]));
+        continue;
+      }
+      if (step) {
+        ctx.lineTo(toX(i), toY(values[i - 1]));
+        ctx.lineTo(toX(i), toY(values[i]));
         continue;
       }
       const [m0, m1] = [slopeAt(values, i - 1), slopeAt(values, i)];

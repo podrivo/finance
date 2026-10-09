@@ -42,7 +42,7 @@ export function hover() {
       .filter((l) => l.values[i] !== null)
       .map((l) => {
         const row = el('row');
-        row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.values[i])}%`));
+        row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.shown[i])}%`));
         return row;
       });
     tooltip.replaceChildren(el('date', `${MESES[month - 1]}, ${year}`), ...rows);

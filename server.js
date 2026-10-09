@@ -4,6 +4,7 @@ import { extname } from 'node:path';
 import { readCache, writeCache } from './cache.js';
 import * as ipca from './ipca.js';
 import * as selic from './selic.js';
+import * as selicTarget from './selic-target.js';
 
 const PORT = process.env.PORT || 3000;
 const MAX_AGE_MS = 24 * 60 * 60 * 1000;
@@ -17,6 +18,7 @@ const TYPES = {
 const APIS = {
   '/api/ipca': [ipca.CACHE_FILE, ipca.fetchIPCA],
   '/api/selic': [selic.CACHE_FILE, selic.fetchSelic],
+  '/api/selic-target': [selicTarget.CACHE_FILE, selicTarget.fetchSelicTarget],
 };
 
 async function getData(file, fetchIndex) {

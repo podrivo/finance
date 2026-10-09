@@ -88,6 +88,9 @@
 #legend .selic::before {
   background: var(--selic);
 }
+#legend .selicTarget::before {
+  background: repeating-linear-gradient(to right, var(--selic) 0 4px, transparent 4px 7px);
+}
 @media (max-width: 480px) {
   #controls {
     top: 16px;

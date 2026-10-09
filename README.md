@@ -8,8 +8,8 @@ No dependencies and no build step: a small Node server and a static page using n
 
 | Path | Role |
 |---|---|
-| `server.js` | Serves `public/`, `/api/ipca` and `/api/selic` |
-| `ipca.js`, `selic.js` | Fetch each index (shared by the server and `update.js`) |
+| `server.js` | Serves `public/`, `/api/ipca`, `/api/selic` and `/api/selic-target` |
+| `ipca.js`, `selic.js`, `selic-target.js` | Fetch each index (shared by the server and `update.js`) |
 | `http.js`, `cache.js` | JSON fetching with retries, and reading/writing `data/` |
 | `public/index.html` | Page markup |
 | `public/css/` | `base` (colors, theme), `chart`, `controls`, `tooltip` |
@@ -73,6 +73,17 @@ A month-by-month comparison showed both sources give identical values.
 | `annualized` | The month's rate annualized, 252 business days |
 
 The source is **Banco Central do Brasil SGS**, series 4390 (`monthly`) and 4189 (`annualized`). `ytd` and `twelveMonths` are compounded from `monthly`, matching IPCA's fields so the two can be compared. SGS also lists the month in progress, accumulated so far; it's left out until the month ends.
+
+### Selic target (Meta Selic)
+
+`data/selic-target.json` has one row per month from March 1999, with:
+
+| Field | Meaning |
+|---|---|
+| `target` | The Copom target in effect on the last day of the month, % per year |
+| `monthly` | The same rate as a monthly equivalent, `(1 + target)^(1/12) - 1`, so it shares the chart's scale |
+
+The source is **Banco Central do Brasil SGS**, series 432. It's a daily series, which SGS limits to 10 years per request, so it's fetched in 10-year chunks. The chart draws it as dashed steps, since it only changes at Copom meetings.
 
 ## Notes
 

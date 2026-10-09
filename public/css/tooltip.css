@@ -39,6 +39,9 @@
 #tooltip .swatch.selic {
   background: var(--selic);
 }
+#tooltip .swatch.selicTarget {
+  box-shadow: inset 0 0 0 1.5px var(--selic);
+}
 #tooltip .value {
   margin-left: auto;
   padding-left: 12px;

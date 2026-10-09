@@ -14,9 +14,10 @@ function init(loaded) {
   const dates = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].sort();
   state.series = dates.map((date) => ({ date }));
   state.n = dates.length;
-  state.lines = loaded.map(({ key, label, data }) => {
-    const byDate = new Map(data.series.map((p) => [p.date, p.monthly]));
-    return { key, label, values: dates.map((d) => byDate.get(d) ?? null) };
+  state.lines = loaded.map(({ data, url, tooltip = 'monthly', ...line }) => {
+    const byDate = new Map(data.series.map((p) => [p.date, p]));
+    const field = (key) => dates.map((d) => byDate.get(d)?.[key] ?? null);
+    return { ...line, values: field('monthly'), shown: field(tooltip) };
   });
   state.elections = state.series.flatMap((p, i) => (ELECTIONS.includes(p.date) ? [i] : []));
 
