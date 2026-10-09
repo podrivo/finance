@@ -11,7 +11,7 @@ function placeTooltip() {
   const GAP = state.touch ? 32 : 12;
   const { pointerX, pointerY, controlsBox: c } = state;
   const [w, h] = [tooltip.offsetWidth, tooltip.offsetHeight];
-  const x = pointerX + GAP + w > innerWidth ? pointerX - GAP - w : pointerX + GAP;
+  const x = Math.max(8, pointerX + GAP + w > innerWidth ? pointerX - GAP - w : pointerX + GAP);
   const y = pointerY - GAP - h < 0 ? pointerY + Math.max(16, GAP) : pointerY - GAP - h;
   const crowded = x < c.right + GAP && x + w > c.left - GAP && y < c.bottom + GAP && y + h > c.top - GAP;
   tooltip.classList.toggle('visible', !crowded);
@@ -54,7 +54,9 @@ export function hover() {
         row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.shown[i])}%`));
         return row;
       });
-    const notes = events.filter((e) => e.i === i).map((e) => el('event', e.label));
+    const notes = events
+      .filter((e) => e.i === i)
+      .flatMap(({ label, note }) => [el('event', label), ...(note ? [el('note', note)] : [])]);
     tooltip.replaceChildren(el('date', `${MESES[month - 1]}, ${year}`), ...notes, ...rows);
   }
   crosshair.style.visibility = placeTooltip() ? 'visible' : 'hidden';

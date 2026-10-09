@@ -43,7 +43,7 @@ function init(loaded) {
   const terms = ELECTIONS.map(({ date }) => `${+date.slice(0, 4) + 1}-01`);
   const index = (date) => (real.includes(date) ? [BUFFER + real.indexOf(date)] : []);
   state.elections = terms.flatMap(index);
-  state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, label }) => index(date).map((i) => ({ i, label })));
+  state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, ...event }) => index(date).map((i) => ({ i, ...event })));
 
   for (const line of state.lines) {
     const dot = Object.assign(document.createElement('div'), { className: `dot ${line.key}` });

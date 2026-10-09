@@ -4,7 +4,7 @@ export const state = {
   lines: [], // LINES entries plus values (plotted) and shown (tooltip), aligned to series, null where a line has no data
   n: 0,
   elections: [], // month indices of the January after each election
-  events: [], // { i, label } for each of EVENTS within the series
+  events: [], // { i, label, note } for each of EVENTS and ELECTIONS within the series
   view: null, // the currently displayed window, possibly mid-animation
   box: null, // chart bounds
   controlsBox: null,

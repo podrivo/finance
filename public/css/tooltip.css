@@ -26,6 +26,12 @@
 #tooltip .event {
   font-weight: 600;
 }
+#tooltip .note {
+  max-width: 240px;
+  margin-bottom: 4px;
+  white-space: normal;
+  opacity: 0.8;
+}
 #tooltip .row {
   display: flex;
   align-items: center;
