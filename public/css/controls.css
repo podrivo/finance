@@ -38,8 +38,11 @@
 #ranges button:nth-child(4) {
   animation-delay: 600ms;
 }
-#controls #theme {
+#controls #mode {
   animation-delay: 700ms;
+}
+#controls #theme {
+  animation-delay: 800ms;
 }
 @keyframes controls-in {
   from {
@@ -142,12 +145,14 @@
   border-color: var(--fg);
   color: var(--fg);
 }
+#controls #mode,
 #controls #theme {
   display: grid;
   place-items: center;
   width: 32px;
   padding: 0;
 }
+#mode svg,
 #theme svg {
   width: 16px;
   height: 16px;

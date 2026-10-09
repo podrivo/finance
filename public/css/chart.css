@@ -6,6 +6,12 @@
   font-size: 12px;
   cursor: crosshair;
 }
+#chart.pan {
+  cursor: grab;
+}
+#chart.panning {
+  cursor: grabbing;
+}
 #chart > * {
   position: absolute;
   pointer-events: none;

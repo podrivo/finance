@@ -1,5 +1,5 @@
 import { DOUBLE_TAP, HOLD, TAP_SLOP } from './constants.js';
-import { canvas, rangeButtons, selection } from './dom.js';
+import { canvas, chart, modeButton, rangeButtons, selection } from './dom.js';
 import { hideHover, queueHover } from './hover.js';
 import { RANGES, setActive } from './ranges.js';
 import { animateTo, zoom } from './render.js';
@@ -14,14 +14,43 @@ export function bindInput() {
     })
   );
 
-  canvas.addEventListener('mousedown', (e) => (state.dragStart = indexAt(e.clientX)));
+  // A mouse drag either selects a range to zoom into or pans, depending on the mode.
+  let pan = false;
+  let panX = null;
+  const applyMode = () => {
+    chart.classList.toggle('pan', pan);
+    const label = pan ? 'Switch to drag to select a range' : 'Switch to drag to pan';
+    modeButton.title = label;
+    modeButton.setAttribute('aria-label', label);
+    modeButton.querySelectorAll('svg').forEach((svg) => (svg.style.display = (svg.dataset.icon === 'pan') === pan ? '' : 'none'));
+  };
+  applyMode();
+  modeButton.addEventListener('click', () => {
+    pan = !pan;
+    applyMode();
+  });
+
+  canvas.addEventListener('mousedown', (e) => {
+    if (!pan) return (state.dragStart = indexAt(e.clientX));
+    panX = e.clientX;
+    chart.classList.add('panning');
+  });
   canvas.addEventListener('mousemove', (e) => {
     state.touch = false;
     state.pointerX = e.clientX;
     state.pointerY = e.clientY;
     queueHover();
   });
+  addEventListener('mousemove', (e) => {
+    if (panX === null) return;
+    zoom(panX, e.clientX, 1);
+    panX = e.clientX;
+  });
   addEventListener('mouseup', (e) => {
+    if (panX !== null) {
+      panX = null;
+      chart.classList.remove('panning');
+    }
     if (state.dragStart === null) return;
     const [a, b] = [state.dragStart, indexAt(e.clientX)].sort((x, y) => x - y);
     state.dragStart = null;

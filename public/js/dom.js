@@ -12,3 +12,4 @@ export const tooltip = $('tooltip');
 export const controls = $('controls');
 export const rangeButtons = document.querySelectorAll('#ranges button');
 export const themeButton = $('theme');
+export const modeButton = $('mode');
