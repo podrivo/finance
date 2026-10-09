@@ -1,5 +1,5 @@
 import './theme.js';
-import { ELECTIONS, EVENTS, LINES, PLANO_REAL } from './constants.js';
+import { BUFFER, ELECTIONS, EVENTS, LINES, PLANO_REAL } from './constants.js';
 import { chart, crosshair, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
@@ -9,19 +9,41 @@ import { state } from './state.js';
 
 const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : r.text().then((t) => Promise.reject(new Error(t)))));
 
-// The x axis covers every month any line has since Plano Real; the lines end on different months.
+const addMonths = (date, k) => {
+  const [year, month] = date.split('-').map(Number);
+  const d = new Date(Date.UTC(year, month - 1 + k));
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+};
+
+// Pads real-month values with BUFFER months each side. A line that starts with the axis
+// runs flat through the leading buffer; every line runs flat from its last value to the end.
+const extend = (values) => {
+  const last = values.findLastIndex((v) => v !== null);
+  const filled = values.map((v, i) => (i > last ? values[last] : v));
+  return [...Array(BUFFER).fill(values[0]), ...filled, ...Array(BUFFER).fill(filled.at(-1))];
+};
+const pad = (values) => [...Array(BUFFER).fill(null), ...values, ...Array(BUFFER).fill(null)];
+
+// The x axis covers every month any line has since Plano Real, plus BUFFER months
+// each side where the lines run flat; the lines end on different months.
 function init(loaded) {
-  const dates = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].filter((d) => d >= PLANO_REAL).sort();
+  const real = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].filter((d) => d >= PLANO_REAL).sort();
+  const dates = [
+    ...Array.from({ length: BUFFER }, (_, k) => addMonths(real[0], k - BUFFER)),
+    ...real,
+    ...Array.from({ length: BUFFER }, (_, k) => addMonths(real.at(-1), k + 1)),
+  ];
   state.series = dates.map((date) => ({ date }));
   state.n = dates.length;
   state.lines = loaded.map(({ data, url, tooltip = 'monthly', ...line }) => {
     const byDate = new Map(data.series.map((p) => [p.date, p]));
-    const field = (key) => dates.map((d) => byDate.get(d)?.[key] ?? null);
-    return { ...line, values: field('monthly'), shown: field(tooltip), hidden: false, o: 1 };
+    const field = (key) => real.map((d) => byDate.get(d)?.[key] ?? null);
+    return { ...line, values: extend(field('monthly')), shown: pad(field(tooltip)), hidden: false, o: 1 };
   });
   const terms = ELECTIONS.map(({ date }) => `${+date.slice(0, 4) + 1}-01`);
-  state.elections = state.series.flatMap((p, i) => (terms.includes(p.date) ? [i] : []));
-  state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, label }) => (dates.includes(date) ? [{ i: dates.indexOf(date), label }] : []));
+  const index = (date) => (real.includes(date) ? [BUFFER + real.indexOf(date)] : []);
+  state.elections = terms.flatMap(index);
+  state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, label }) => index(date).map((i) => ({ i, label })));
 
   for (const line of state.lines) {
     const dot = Object.assign(document.createElement('div'), { className: `dot ${line.key}` });

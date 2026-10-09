@@ -40,6 +40,7 @@ export const percent = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2
 export const MIN_GAP = 48; // px between time labels
 export const LABEL_WIDTH = 1280; // px; wider screens show the same time labels as this width, spaced further apart
 export const MIN_SPAN = 6; // months
+export const BUFFER = 20; // months of flat line padding each end of the series
 export const HOLD = 300; // ms a finger must stay still before it scrubs instead of panning
 export const TAP_SLOP = 8; // px a finger can drift and still count as still
 export const DOUBLE_TAP = 300; // ms
