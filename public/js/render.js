@@ -1,4 +1,4 @@
-import { BUFFER, MIN_SPAN } from './constants.js';
+import { BUFFER, MIN_SPAN, Y_HEADROOM, Y_HOLD } from './constants.js';
 import { canvas, chart, controls, ctx, labels, legend } from './dom.js';
 import { hover } from './hover.js';
 import { DURATION, FADE, INTRO, Y_EASE, easeInOut, reduceMotion } from './motion.js';
@@ -252,6 +252,15 @@ export function animateTo(next) {
   invalidate();
 }
 
+// While panning, keeps the current vertical range as long as the visible data fits and
+// still fills most of it; otherwise refits with some headroom so it doesn't refit again right away.
+function holdY(cur, fit) {
+  const [curSpan, fitSpan] = [cur.yMax - cur.yMin, fit.yMax - fit.yMin];
+  const fits = fit.yMin >= cur.yMin && fit.yMax <= cur.yMax;
+  if (fits && fitSpan >= curSpan * Y_HOLD) return cur;
+  return { yMin: fit.yMin, yMax: fit.yMax > cur.yMax ? fit.yMax + fitSpan * Y_HEADROOM : fit.yMax };
+}
+
 // Scales the window by `factor` (1 to just pan), keeping the month under `fromX` pinned beneath `toClientX`.
 export function zoom(fromX, toClientX, factor) {
   const { view, box, n } = state;
@@ -261,10 +270,11 @@ export function zoom(fromX, toClientX, factor) {
   const x0 = Math.max(0, Math.min(n - 1 - next, anchor - ((toClientX - box.left) / box.width) * next));
   if (x0 === view.x0 && next === span) return;
   anim = null;
-  const { yMin, yMax } = windowFor(x0, x0 + next);
+  const fit = windowFor(x0, x0 + next);
+  const held = factor === 1 ? holdY(yGoal ?? view, fit) : fit;
   if (!yGoal) lastFrame = performance.now();
   state.view = { ...view, x0, x1: x0 + next };
-  yGoal = { yMin, yMax };
+  yGoal = { yMin: held.yMin, yMax: held.yMax };
   setActive(null);
   save(x0, x0 + next);
   invalidate();
