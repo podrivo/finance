@@ -1,5 +1,5 @@
 import './theme.js';
-import { ELECTIONS, LINES } from './constants.js';
+import { ELECTIONS, LINES, PLANO_REAL } from './constants.js';
 import { chart, crosshair, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
@@ -9,9 +9,9 @@ import { state } from './state.js';
 
 const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : r.text().then((t) => Promise.reject(new Error(t)))));
 
-// The x axis covers every month any line has; the lines start and end on different months.
+// The x axis covers every month any line has since Plano Real; the lines end on different months.
 function init(loaded) {
-  const dates = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].sort();
+  const dates = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].filter((d) => d >= PLANO_REAL).sort();
   state.series = dates.map((date) => ({ date }));
   state.n = dates.length;
   state.lines = loaded.map(({ data, url, tooltip = 'monthly', ...line }) => {

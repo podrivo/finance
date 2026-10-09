@@ -1,6 +1,6 @@
 # IPCA
 
-A minimal website that charts Brazil's historical IPCA (monthly inflation, % change) from January 1980 to the latest release, next to the Selic rate accumulated in each month from August 1986. The gap between the two lines is the real interest rate.
+A minimal website that charts Brazil's historical IPCA (monthly inflation, % change) from Plano Real (July 1994) to the latest release, next to the Selic rate accumulated in each month from August 1986. The gap between the two lines is the real interest rate.
 
 No dependencies and no build step: a small Node server and a static page using native ES modules.
 
@@ -87,7 +87,7 @@ The source is **Banco Central do Brasil SGS**, series 432. It's a daily series, 
 
 ## Notes
 
-The 1980–1994 hyperinflation (up to about 82% in a single month in 1990) dominates the vertical scale on the full history and flattens the post-Plano Real years. That's why the chart opens on 1995 and rescales vertically when zooming. A logarithmic scale was tried and dropped.
+The 1980–1994 hyperinflation (up to about 82% in a single month in 1990) dominates the vertical scale on the full history and flattens the post-Plano Real years. That's why the chart only shows months from Plano Real (July 1994) onward, even though the data files keep the full history, and rescales vertically when zooming. A logarithmic scale was tried and dropped.
 
 ## Related data (not fetched yet)
 
