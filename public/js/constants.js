@@ -1,6 +1,8 @@
 export const PLANO_REAL = '1994-07';
 // Presidential elections, by the month of the deciding round. Also shown as events.
+// `term` is the month the term began, when it wasn't the January after.
 export const ELECTIONS = [
+  { date: '1989-12', term: '1990-03', label: 'Eleição de Collor', note: 'Primeira eleição direta desde 1960. O IPCA mensal chega a 82% em março de 1990, a maior taxa da série.' },
   { date: '1994-10', label: 'Eleição de FHC' },
   { date: '1998-10', label: 'Reeleição de FHC' },
   { date: '2002-10', label: 'Eleição de Lula', note: 'O medo do mercado leva o dólar a quase R$ 4. O IPCA chega a 3% em novembro e a meta Selic a 26,5% em fevereiro de 2003.' },
@@ -14,6 +16,18 @@ export const ELECTIONS = [
 // Brazilian events, and global ones that reached Brazil, that help explain moves in the IPCA
 // or the Selic. By the month they happened; `note` says what they did to either.
 export const EVENTS = [
+  { date: '1982-08', label: 'Crise da dívida externa', note: 'A moratória do México corta o crédito externo do Brasil, que recorre ao FMI em novembro.' },
+  { date: '1983-02', label: 'Maxidesvalorização do cruzeiro', note: 'O cruzeiro é desvalorizado em 30%. O IPCA anual passa de 105% em 1982 para 164% em 1983.' },
+  { date: '1985-03', label: 'Fim do regime militar', note: 'José Sarney assume no lugar de Tancredo Neves, com a inflação acima de 200% ao ano.' },
+  { date: '1986-02', label: 'Plano Cruzado', note: 'Congelamento de preços e troca do cruzeiro pelo cruzado. O IPCA mensal cai de 12,7% em fevereiro para 0,8% em abril, mas falta produto nas prateleiras.' },
+  { date: '1986-11', label: 'Cruzado II', note: 'Logo após as eleições, o governo libera preços e aumenta impostos. O IPCA mensal volta a 11,7% em dezembro.' },
+  { date: '1987-02', label: 'Moratória da dívida externa', note: 'O Brasil suspende o pagamento de juros da dívida externa aos bancos.' },
+  { date: '1987-06', label: 'Plano Bresser', note: 'Novo congelamento de preços, por 90 dias. O IPCA mensal cai de 19,7% em junho para 4,9% em agosto e volta a subir.' },
+  { date: '1989-01', label: 'Plano Verão', note: 'Congelamento e troca do cruzado pelo cruzado novo. O IPCA mensal cai para 6,8% em março e chega a 51,5% em dezembro.' },
+  { date: '1990-03', label: 'Plano Collor', note: 'Confisco da poupança e de aplicações acima de 50 mil cruzados novos, e volta do cruzeiro. O IPCA mensal cai de 82% em março para 7,6% em maio.' },
+  { date: '1991-01', label: 'Plano Collor II', note: 'Novo congelamento de preços e salários. O IPCA mensal cai de 20,8% em janeiro para 5% em abril.' },
+  { date: '1992-09', label: 'Impeachment de Collor', note: 'Collor é afastado pela Câmara e renuncia em dezembro. Itamar Franco assume e, em maio de 1993, nomeia FHC ministro da Fazenda.' },
+  { date: '1994-03', label: 'URV', note: 'A Unidade Real de Valor passa a indexar preços e salários, preparando a troca de moeda em julho.' },
   { date: '1994-07', label: 'Plano Real', note: 'Nova moeda. O IPCA mensal cai de 47% em junho para menos de 2% em agosto, com juros muito altos para sustentá-lo.' },
   { date: '1994-12', label: 'Crise do México', note: 'Fuga de capitais de países emergentes. Em março de 1995 o BC sobe os juros, que passam de 85% ao ano em abril.' },
   { date: '1997-10', label: 'Crise asiática', note: 'Para defender o real, o BC sobe a Selic de 20% para 46% ao ano.' },
@@ -25,7 +39,8 @@ export const EVENTS = [
   { date: '2008-09', label: 'Quebra do Lehman Brothers', note: 'Crise financeira global. O BC corta a meta Selic de 13,75% para 8,75% entre janeiro e julho de 2009.' },
   { date: '2011-08', label: 'Corte surpresa da Selic', note: 'Com a inflação acima da meta, o BC começa a cortar a meta Selic, de 12,5% até a mínima de 7,25% em outubro de 2012.' },
   { date: '2015-01', label: 'Reajuste de preços administrados', note: 'Energia elétrica sobe mais de 50% no ano. O IPCA de 2015 chega a 10,67%, o maior desde 2002, e a meta Selic a 14,25%.' },
-  { date: '2016-08', label: 'Impeachment de Dilma', note: 'Com a inflação em queda, o BC começa a cortar a meta Selic em outubro, de 14,25%.' },
+  { date: '2016-05', label: 'Temer assume a Presidência', note: 'Com Dilma afastada pelo Senado, Temer assume interinamente e nomeia Henrique Meirelles na Fazenda e Ilan Goldfajn no BC.' },
+  { date: '2016-08', label: 'Impeachment de Dilma', note: 'Temer é efetivado na Presidência. Com a inflação em queda, o BC começa a cortar a meta Selic em outubro, de 14,25%.' },
   { date: '2016-12', label: 'Teto de gastos', note: 'Limita o crescimento dos gastos públicos à inflação. Ajuda a ancorar expectativas, e a meta Selic cai até 6,5% em março de 2018.' },
   { date: '2017-05', label: 'Joesley Day', note: 'A gravação de Temer derruba a bolsa quase 9% e faz o dólar subir 8% em um dia. O BC sinaliza cortes menores na Selic.' },
   { date: '2018-05', label: 'Greve dos caminhoneiros', note: 'O desabastecimento leva o IPCA de junho a 1,26%, o maior para o mês desde 1995.' },
@@ -40,7 +55,6 @@ export const EVENTS = [
 export const EVENT_SNAP = 8; // px within which the crosshair jumps to an event's month
 export const STEPS = [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100];
 export const MONTH_STEPS = [1, 3, 6, 12];
-export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 export const percent = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const MIN_GAP = 48; // px between time labels

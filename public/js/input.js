@@ -19,7 +19,7 @@ export function bindInput() {
   let panX = null;
   const applyMode = () => {
     chart.classList.toggle('pan', pan);
-    const label = pan ? 'Switch to drag to select a range' : 'Switch to drag to pan';
+    const label = pan ? 'Mudar para arrastar e selecionar um período' : 'Mudar para arrastar e mover o gráfico';
     modeButton.setAttribute('aria-label', label);
     modeButton.querySelectorAll('svg').forEach((svg) => (svg.style.display = (svg.dataset.icon === 'pan') === pan ? '' : 'none'));
   };

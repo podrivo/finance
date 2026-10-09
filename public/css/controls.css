@@ -19,6 +19,7 @@
   border-radius: 12px;
   background: var(--bg);
   color: var(--muted);
+  white-space: nowrap;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -128,6 +129,19 @@
   }
   #controls button {
     padding: 0 10px;
+  }
+}
+@media (max-width: 399px) {
+  #controls .long {
+    display: none;
+  }
+}
+@media (max-width: 359px) {
+  #controls {
+    gap: 6px;
+  }
+  #controls button {
+    padding: 0 7px;
   }
 }
 /* Taller hit areas for fingers, without changing how the buttons look. */

@@ -1,4 +1,4 @@
-import { BUFFER, MIN_SPAN } from './constants.js';
+import { BUFFER, MIN_SPAN, PLANO_REAL } from './constants.js';
 import { rangeButtons } from './dom.js';
 import { state } from './state.js';
 
@@ -10,13 +10,14 @@ export function setActive(range) {
 
 export const RANGES = {
   all: () => [0, state.n - 1],
+  real: () => [state.series.findIndex((p) => p.date === PLANO_REAL), state.n - 1],
   '10y': () => [state.n - BUFFER - 120, state.n - 1],
   '5y': () => [state.n - BUFFER - 60, state.n - 1],
 };
 
 // A preset range is saved by name so it keeps tracking the latest months; a custom zoom is saved
-// as month indices, which stay stable because the series starts BUFFER months before 1994-07.
-const STORAGE_KEY = `ipca:view:1994:${BUFFER}`;
+// as month indices, which stay stable because the series starts BUFFER months before 1980-01.
+const STORAGE_KEY = `ipca:view:1980:${BUFFER}`;
 let saveTimer = 0;
 export function save(x0, x1) {
   clearTimeout(saveTimer);

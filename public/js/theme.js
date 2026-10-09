@@ -17,7 +17,7 @@ function applyTheme() {
   const theme = currentTheme();
   state.palette = PALETTES[theme];
   const next = theme === 'dark' ? 'light' : 'dark';
-  themeButton.setAttribute('aria-label', `Switch to ${next} theme`);
+  themeButton.setAttribute('aria-label', `Mudar para o tema ${next === 'dark' ? 'escuro' : 'claro'}`);
   themeButton.querySelectorAll('svg').forEach((svg) => (svg.style.display = svg.dataset.icon === theme ? '' : 'none'));
   if (state.view) invalidate();
 }

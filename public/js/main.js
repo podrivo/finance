@@ -1,5 +1,5 @@
 import './theme.js';
-import { BUFFER, ELECTIONS, EVENTS, LINES, PLANO_REAL } from './constants.js';
+import { BUFFER, ELECTIONS, EVENTS, LINES } from './constants.js';
 import { chart, crosshair, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
@@ -24,10 +24,10 @@ const extend = (values) => {
 };
 const pad = (values) => [...Array(BUFFER).fill(null), ...values, ...Array(BUFFER).fill(null)];
 
-// The x axis covers every month any line has since Plano Real, plus BUFFER months
-// each side where the lines run flat; the lines end on different months.
+// The x axis covers every month any line has, plus BUFFER months each side where
+// the lines run flat; the lines start and end on different months.
 function init(loaded) {
-  const real = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].filter((d) => d >= PLANO_REAL).sort();
+  const real = [...new Set(loaded.flatMap(({ data }) => data.series.map((p) => p.date)))].sort();
   const dates = [
     ...Array.from({ length: BUFFER }, (_, k) => addMonths(real[0], k - BUFFER)),
     ...real,
@@ -40,7 +40,7 @@ function init(loaded) {
     const field = (key) => real.map((d) => byDate.get(d)?.[key] ?? null);
     return { ...line, values: extend(field('monthly')), shown: pad(field(tooltip)), hidden: false, o: 1 };
   });
-  const terms = ELECTIONS.map(({ date }) => `${+date.slice(0, 4) + 1}-01`);
+  const terms = ELECTIONS.map(({ date, term }) => term ?? `${+date.slice(0, 4) + 1}-01`);
   const index = (date) => (real.includes(date) ? [BUFFER + real.indexOf(date)] : []);
   state.elections = terms.flatMap(index);
   state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, ...event }) => index(date).map((i) => ({ i, ...event })));
@@ -77,5 +77,5 @@ Promise.all(
   )
 )
   .then((loaded) => init(loaded.filter(Boolean)))
-  .catch((err) => (chart.textContent = `Error: ${err.message}`))
+  .catch((err) => (chart.textContent = `Erro: ${err.message}`))
   .finally(() => document.documentElement.classList.add('ready'));

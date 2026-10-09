@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IPCA and Selic</title>
+  <title>IPCA e Selic</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&display=swap">
@@ -24,19 +24,20 @@
   <div id="legend"></div>
   <div id="controls">
     <nav id="ranges">
-      <button data-range="all">All</button>
-      <button data-range="10y">10Y</button>
-      <button data-range="5y">5Y</button>
+      <button data-range="all">Tudo</button>
+      <button data-range="real" aria-label="Desde o Plano Real"><span class="long">Desde o </span>Plano Real</button>
+      <button data-range="10y">10A</button>
+      <button data-range="5y">5A</button>
     </nav>
     <button id="mode" aria-keyshortcuts="H">
-      <span class="tip">Drag mode<kbd>H</kbd></span>
+      <span class="tip">Modo de arrastar<kbd>H</kbd></span>
       <!-- Lucide: square-dashed-mouse-pointer -->
       <svg data-icon="select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"/><path d="M5 3a2 2 0 0 0-2 2"/><path d="M19 3a2 2 0 0 1 2 2"/><path d="M5 21a2 2 0 0 1-2-2"/><path d="M9 3h1"/><path d="M9 21h2"/><path d="M14 3h1"/><path d="M3 9v1"/><path d="M21 9v2"/><path d="M3 14v1"/></svg>
       <!-- Lucide: hand -->
       <svg data-icon="pan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
     </button>
     <button id="theme" aria-keyshortcuts="M">
-      <span class="tip">Theme<kbd>M</kbd></span>
+      <span class="tip">Tema<kbd>M</kbd></span>
       <!-- Lucide: sun -->
       <svg data-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
       <!-- Lucide: moon -->
