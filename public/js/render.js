@@ -13,6 +13,7 @@ let frame = 0;
 let lastDraw = 0;
 let lastFrame = 0;
 const fades = new Map(); // tick key -> { tick, o, el }
+let valueLabelsTop = 0; // px; value labels positioned above this would overlap the legend or banners
 let intro = null; // { start } while the line draws in; start is set on the first frame
 
 export function playIntro() {
@@ -32,6 +33,10 @@ export function resize() {
     g.ws = g.texts.map((t) => ((g.el.textContent = t), g.el.offsetWidth));
     g.shown = -1;
   }
+  // Value labels sit above their line and share the banners' line height; any whose
+  // text would reach the legend or banners is hidden.
+  const lineHeight = state.governments[0]?.el.offsetHeight ?? 16;
+  valueLabelsTop = state.bannerTop + 2 * lineHeight + 8;
   const dpr = devicePixelRatio || 1;
   canvas.width = Math.round(box.width * dpr);
   canvas.height = Math.round(box.height * dpr);
@@ -187,7 +192,7 @@ function draw(now) {
     const rise = (1 - s) * 6;
     if (tick.axis === 'y') {
       const y = toY(tick.v);
-      el.style.opacity = y < 0 || y > box.height ? 0 : o * s;
+      el.style.opacity = y < valueLabelsTop || y > box.height ? 0 : o * s;
       el.style.transform = `translate(8px, calc(${y + rise}px - 100% - 4px))`;
     } else {
       const x = toX(tick.i);
