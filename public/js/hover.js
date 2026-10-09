@@ -1,4 +1,4 @@
-import { EVENT_SNAP, MESES, percent } from './constants.js';
+import { BUFFER, EVENT_SNAP, MESES, percent } from './constants.js';
 import { crosshair, selection, tooltip, vline } from './dom.js';
 import { indexAt, toX, toY } from './scale.js';
 import { state } from './state.js';
@@ -42,7 +42,14 @@ function monthAt(clientX) {
 // so hovering never repaints the canvas.
 // The tooltip sits beside the mouse; the crosshair and dots snap to the nearest month.
 export function hover() {
-  const { series, lines, events, view, shown, dragStart } = state;
+  const { series, lines, events, view, shown, dragStart, box, n } = state;
+  const x0 = state.pointerX - box.left;
+  if (x0 < toX(BUFFER - 0.5) || x0 > toX(n - 1 - BUFFER + 0.5)) {
+    state.shown = { i: -1, view: null };
+    crosshair.style.visibility = 'hidden';
+    tooltip.classList.remove('visible');
+    return;
+  }
   const i = monthAt(state.pointerX);
   if (i !== shown.i) {
     const [year, month] = series[i].date.split('-').map(Number);

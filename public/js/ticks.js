@@ -1,4 +1,4 @@
-import { LABEL_WIDTH, MESES, MIN_GAP, MONTH_STEPS, STEPS } from './constants.js';
+import { BUFFER, LABEL_WIDTH, MESES, MIN_GAP, MONTH_STEPS, STEPS } from './constants.js';
 import { state } from './state.js';
 
 export function valueTicks() {
@@ -25,7 +25,7 @@ export function timeTicks() {
       .map((i) => ({ key: `e${i}`, axis: 'x', i, text: series[i].date.slice(0, 4) }));
   }
   const out = [];
-  for (let i = Math.max(0, Math.floor(view.x0)); i <= Math.min(n - 1, Math.ceil(view.x1)); i++) {
+  for (let i = Math.max(BUFFER, Math.floor(view.x0)); i <= Math.min(n - 1 - BUFFER, Math.ceil(view.x1)); i++) {
     const [year, month] = series[i].date.split('-').map(Number);
     if ((month - 1) % step) continue;
     out.push({ key: `m${i}`, axis: 'x', i, line: month === 1 ? 'year' : 'month', text: month === 1 ? `${year}` : MESES[month - 1] });

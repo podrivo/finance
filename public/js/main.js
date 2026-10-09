@@ -45,18 +45,14 @@ function init(loaded) {
   state.elections = terms.flatMap(index);
   state.events = [...EVENTS, ...ELECTIONS].flatMap(({ date, ...event }) => index(date).map((i) => ({ i, ...event })));
 
-  // One band per president; party changes within a term are listed in its banner.
   for (const { from, president, party } of GOVERNMENTS) {
+    const i0 = Math.max(0, dates.findIndex((d) => d >= from));
     const last = state.governments.at(-1);
-    if (last?.president === president) {
-      last.parties.push(party);
-      continue;
-    }
-    if (last) last.i1 = Math.max(0, dates.findIndex((d) => d >= from));
-    state.governments.push({ president, parties: [party], i0: Math.max(0, dates.findIndex((d) => d >= from)), i1: state.n - 1 });
+    if (last) last.i1 = i0;
+    state.governments.push({ president, party, i0, i1: state.n - 1 });
   }
   for (const g of state.governments) {
-    g.texts = [`${g.president} · ${g.parties.join(', ')}`, g.president];
+    g.texts = [`${g.president} · ${g.party}`, g.president];
     g.el = Object.assign(document.createElement('span'), { className: 'banner' });
     labels.append(g.el);
   }

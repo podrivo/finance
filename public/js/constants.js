@@ -13,7 +13,7 @@ export const ELECTIONS = [
   { date: '2022-10', label: 'Eleição de Lula' },
   { date: '2026-10', label: 'Eleição presidencial' },
 ];
-// Who governed from each month on, and their party at the time. Drawn as bands behind the lines.
+// Who governed from each month on, and their party when they took office. Drawn as bands behind the lines.
 export const GOVERNMENTS = [
   { from: '1979-03', president: 'Figueiredo', party: 'PDS' },
   { from: '1985-03', president: 'Sarney', party: 'PMDB' },
@@ -23,10 +23,7 @@ export const GOVERNMENTS = [
   { from: '2003-01', president: 'Lula', party: 'PT' },
   { from: '2011-01', president: 'Dilma', party: 'PT' },
   { from: '2016-05', president: 'Temer', party: 'PMDB' },
-  { from: '2017-12', president: 'Temer', party: 'MDB' },
   { from: '2019-01', president: 'Bolsonaro', party: 'PSL' },
-  { from: '2019-11', president: 'Bolsonaro', party: 'sem partido' },
-  { from: '2021-11', president: 'Bolsonaro', party: 'PL' },
   { from: '2023-01', president: 'Lula', party: 'PT' },
 ];
 // Brazilian events, and global ones that reached Brazil, that help explain moves in the IPCA

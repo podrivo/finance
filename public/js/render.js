@@ -1,4 +1,4 @@
-import { MIN_SPAN } from './constants.js';
+import { BUFFER, MIN_SPAN } from './constants.js';
 import { canvas, chart, controls, ctx, labels, legend } from './dom.js';
 import { hover } from './hover.js';
 import { DURATION, FADE, INTRO, Y_EASE, easeInOut, reduceMotion } from './motion.js';
@@ -168,13 +168,47 @@ function draw(now) {
   }
   ctx.fill();
 
+  const [start, end] = [toX(BUFFER), toX(n - 1 - BUFFER)];
+  for (const [x0, x1, alpha] of [[start, end, 1], [0, start, 0.2], [end, box.width, 0.2]]) {
+    if (x1 <= x0) continue;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x0, 0, x1 - x0, box.height);
+    ctx.clip();
+    drawLines(alpha);
+    ctx.restore();
+  }
+  ctx.globalAlpha = 1;
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  for (const { tick, o, el } of fades.values()) {
+    const s = shown(tick);
+    const rise = (1 - s) * 6;
+    if (tick.axis === 'y') {
+      const y = toY(tick.v);
+      el.style.opacity = y < 0 || y > box.height ? 0 : o * s;
+      el.style.transform = `translate(8px, calc(${y + rise}px - 100% - 4px))`;
+    } else {
+      const x = toX(tick.i);
+      el.style.opacity = x < 0 || x > box.width ? 0 : o * s;
+      el.style.transform = `translate(${x + 4}px, calc(${box.height - 8 + rise}px - 100%))`;
+    }
+  }
+
+  if (state.pointerX !== null) hover();
+  return fading || !!intro;
+}
+
+function drawLines(alpha) {
+  const { view, lines, n, palette } = state;
   const a = Math.max(0, Math.floor(view.x0) - 1);
   const b = Math.min(n - 1, Math.ceil(view.x1) + 1);
   ctx.lineWidth = 1.5;
   ctx.lineJoin = 'round';
   for (const { key, values, step, dash = [], o } of lines.toReversed()) {
     if (o === 0) continue;
-    ctx.globalAlpha = o;
+    ctx.globalAlpha = o * alpha;
     ctx.strokeStyle = palette[key];
     ctx.setLineDash(dash);
     ctx.beginPath();
@@ -198,25 +232,6 @@ function draw(now) {
     }
     ctx.stroke();
   }
-  ctx.globalAlpha = 1;
-  ctx.restore();
-
-  for (const { tick, o, el } of fades.values()) {
-    const s = shown(tick);
-    const rise = (1 - s) * 6;
-    if (tick.axis === 'y') {
-      const y = toY(tick.v);
-      el.style.opacity = y < 0 || y > box.height ? 0 : o * s;
-      el.style.transform = `translate(8px, calc(${y + rise}px - 100% - 4px))`;
-    } else {
-      const x = toX(tick.i);
-      el.style.opacity = x < 0 || x > box.width ? 0 : o * s;
-      el.style.transform = `translate(${x + 4}px, calc(${box.height - 8 + rise}px - 100%))`;
-    }
-  }
-
-  if (state.pointerX !== null) hover();
-  return fading || !!intro;
 }
 
 export function animateTo(next) {
