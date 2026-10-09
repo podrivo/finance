@@ -26,7 +26,7 @@ function retryDelay(err, attempt) {
 export async function getJSON(url, retries) {
   for (let attempt = 0; ; attempt++) {
     try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(20000) });
+      const res = await fetch(url, { signal: AbortSignal.timeout(60000) });
       if (!res.ok) throw new HttpError(url, res);
       return await res.json();
     } catch (err) {
