@@ -3,7 +3,7 @@ export const state = {
   series: [], // one { date } per month, across all lines
   lines: [], // LINES entries plus values (plotted) and shown (tooltip), aligned to series, null where a line has no data
   n: 0,
-  elections: [], // month indices of election months
+  elections: [], // month indices of the January after each election
   view: null, // the currently displayed window, possibly mid-animation
   box: null, // chart bounds
   controlsBox: null,

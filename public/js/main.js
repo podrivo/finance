@@ -19,7 +19,8 @@ function init(loaded) {
     const field = (key) => dates.map((d) => byDate.get(d)?.[key] ?? null);
     return { ...line, values: field('monthly'), shown: field(tooltip), hidden: false, o: 1 };
   });
-  state.elections = state.series.flatMap((p, i) => (ELECTIONS.includes(p.date) ? [i] : []));
+  const terms = ELECTIONS.map((d) => `${+d.slice(0, 4) + 1}-01`);
+  state.elections = state.series.flatMap((p, i) => (terms.includes(p.date) ? [i] : []));
 
   for (const line of state.lines) {
     const dot = Object.assign(document.createElement('div'), { className: `dot ${line.key}` });

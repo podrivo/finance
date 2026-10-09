@@ -15,19 +15,24 @@ export function bindInput() {
   );
 
   // A mouse drag either selects a range to zoom into or pans, depending on the mode.
-  let pan = false;
+  let pan = true;
   let panX = null;
   const applyMode = () => {
     chart.classList.toggle('pan', pan);
     const label = pan ? 'Switch to drag to select a range' : 'Switch to drag to pan';
-    modeButton.title = label;
+    modeButton.querySelector('.tip span').textContent = label;
     modeButton.setAttribute('aria-label', label);
     modeButton.querySelectorAll('svg').forEach((svg) => (svg.style.display = (svg.dataset.icon === 'pan') === pan ? '' : 'none'));
   };
-  applyMode();
-  modeButton.addEventListener('click', () => {
+  const toggleMode = () => {
     pan = !pan;
     applyMode();
+  };
+  applyMode();
+  modeButton.addEventListener('click', toggleMode);
+  addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() !== 'h' || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    toggleMode();
   });
 
   canvas.addEventListener('mousedown', (e) => {
