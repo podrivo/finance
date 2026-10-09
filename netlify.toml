@@ -1,4 +1,5 @@
 [build]
+  command = "cp -r data public/data"
   publish = "public"
 
 [[redirects]]
