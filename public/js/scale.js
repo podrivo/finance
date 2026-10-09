@@ -11,12 +11,19 @@ export function indexAt(clientX) {
   return Math.max(BUFFER, Math.min(state.n - 1 - BUFFER, visible));
 }
 
-// Visible window over months a..b, with the vertical range fitted to every line in that slice.
+// Visible window over months a..b, with the vertical range fitted to every visible line in that slice.
 export function windowFor(a, b) {
-  const slice = state.lines.flatMap((l) => l.values.slice(Math.floor(a), Math.ceil(b) + 1)).filter((v) => v !== null);
+  const slice = state.lines
+    .filter((l) => !l.hidden)
+    .flatMap((l) => l.values.slice(Math.floor(a), Math.ceil(b) + 1))
+    .filter((v) => v !== null);
+  if (!slice.length) {
+    const { yMin = -1, yMax = 1 } = state.view ?? {};
+    return { x0: a, x1: b, yMin, yMax };
+  }
   const lo = Math.min(0, ...slice);
   const hi = Math.max(...slice);
-  const range = hi - lo;
+  const range = hi - lo || 1;
   return { x0: a, x1: b, yMin: lo - range * 0.06, yMax: hi + range * 0.04 };
 }
 

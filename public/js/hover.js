@@ -32,7 +32,8 @@ export function queueHover() {
 // The nearest month, or an event's month when the pointer is close to its marker,
 // since zoomed out a month can be narrower than a pixel.
 function monthAt(clientX) {
-  const { view, box, events } = state;
+  const { view, box, events, info } = state;
+  if (info.hidden) return indexAt(clientX);
   const gap = (e) => Math.abs(toX(e.i) - (clientX - box.left));
   const near = events.filter((e) => e.i >= view.x0 && e.i <= view.x1 && gap(e) <= EVENT_SNAP);
   return near.length ? near.reduce((a, b) => (gap(b) < gap(a) ? b : a)).i : indexAt(clientX);
@@ -42,7 +43,7 @@ function monthAt(clientX) {
 // so hovering never repaints the canvas.
 // The tooltip sits beside the mouse; the crosshair and dots snap to the nearest month.
 export function hover() {
-  const { series, lines, events, view, shown, dragStart, box, n } = state;
+  const { series, lines, events, info, view, shown, dragStart, box, n } = state;
   const x0 = state.pointerX - box.left;
   if (x0 < toX(BUFFER - 0.5) || x0 > toX(n - 1 - BUFFER + 0.5)) {
     state.shown = { i: -1, view: null };
@@ -58,11 +59,12 @@ export function hover() {
       .filter((l) => !l.hidden && l.shown[i] !== null)
       .map((l) => {
         const row = el('row');
-        row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', `${percent.format(l.shown[i])}%`));
+        const value = l.percent === false ? percent.format(l.shown[i]) : `${percent.format(l.shown[i])}%`;
+        row.append(el(`swatch ${l.key}`), el('name', l.label), el('value', value));
         return row;
       });
     const notes = events
-      .filter((e) => e.i === i)
+      .filter((e) => !info.hidden && e.i === i)
       .flatMap(({ label, note }) => [el('event', label), ...(note ? [el('note', note)] : [])]);
     tooltip.replaceChildren(el('date', `${MESES[month - 1]}, ${year}`), ...notes, ...rows);
   }

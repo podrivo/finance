@@ -8,6 +8,7 @@
   --guide: light-dark(#cbcbd2, #3a3a44);
   /* Matches PALETTES in constants.js. */
   --ipca: light-dark(#f0541f, #ff6534);
+  --ipca-monthly: light-dark(#f08a5c, #ff9a70);
   --selic: #6665ff;
 }
 :root[data-theme='light'] {

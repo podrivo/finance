@@ -45,6 +45,12 @@
 #tooltip .swatch.ipca {
   background: var(--ipca);
 }
+#tooltip .swatch.ipcaMonthly {
+  background: var(--ipca-monthly);
+}
+#tooltip .swatch.ipcaIndex {
+  box-shadow: inset 0 0 0 1.5px var(--ipca);
+}
 #tooltip .swatch.selic {
   background: var(--selic);
 }

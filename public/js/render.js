@@ -69,7 +69,7 @@ function render(now) {
 // Ticks fade in and out on their own clock as the view crosses scale thresholds.
 // Returns true while any fade or the intro is still running.
 function draw(now) {
-  const { view, box, lines, n, palette, elections, events, governments } = state;
+  const { view, box, lines, n, palette, elections, events, governments, info } = state;
   const dt = reduceMotion.matches ? 1 : Math.min(now - lastDraw, 34) / FADE;
   lastDraw = now;
   const wanted = new Map([...valueTicks(), ...timeTicks()].map((t) => [t.key, t]));
@@ -96,6 +96,9 @@ function draw(now) {
     line.o = goal ? Math.min(1, line.o + dt) : Math.max(0, line.o - dt);
     if (line.o !== goal) fading = true;
   }
+  const infoGoal = info.hidden ? 0 : 1;
+  info.o = infoGoal ? Math.min(1, info.o + dt) : Math.max(0, info.o - dt);
+  if (info.o !== infoGoal) fading = true;
 
   let p = 1;
   if (intro) {
@@ -117,6 +120,7 @@ function draw(now) {
   ctx.rect(0, 0, head, box.height);
   ctx.clip();
   ctx.fillStyle = palette.band;
+  ctx.globalAlpha = info.o;
   governments.forEach(({ i0, i1 }, k) => {
     if (k % 2) ctx.fillRect(toX(i0), 0, toX(i1) - toX(i0), box.height);
   });
@@ -126,7 +130,7 @@ function draw(now) {
   for (const g of governments) {
     const [x0, x1] = [Math.max(0, toX(g.i0)), Math.min(box.width, toX(g.i1))];
     const k = g.ws.findIndex((w) => w + 16 <= x1 - x0);
-    g.el.style.opacity = k < 0 ? 0 : Math.max(0, Math.min(1, (head - x0) / 60));
+    g.el.style.opacity = k < 0 ? 0 : info.o * Math.max(0, Math.min(1, (head - x0) / 60));
     if (k < 0) continue;
     if (k !== g.shown) g.el.textContent = g.texts[(g.shown = k)];
     g.el.style.transform = `translate(${x0 + 8}px, ${state.bannerTop}px)`;
@@ -164,6 +168,7 @@ function draw(now) {
   }
   ctx.stroke();
 
+  ctx.globalAlpha = info.o;
   ctx.fillStyle = palette.event;
   ctx.beginPath();
   for (const { i } of events) {
@@ -172,6 +177,7 @@ function draw(now) {
     ctx.arc(x, box.height - 4, 2.5, 0, 2 * Math.PI);
   }
   ctx.fill();
+  ctx.globalAlpha = 1;
 
   const [start, end] = [toX(BUFFER), toX(n - 1 - BUFFER)];
   for (const [x0, x1, alpha] of [[start, end, 1], [0, start, 0.2], [end, box.width, 0.2]]) {
@@ -249,6 +255,16 @@ export function animateTo(next) {
   } else {
     anim = { from: state.view, to: next, start: performance.now() };
   }
+  invalidate();
+}
+
+// Refits the vertical range to the currently visible lines, easing toward it.
+export function refitY() {
+  const { view } = state;
+  const fit = windowFor(view.x0, view.x1);
+  anim = null;
+  if (!yGoal) lastFrame = performance.now();
+  yGoal = { yMin: fit.yMin, yMax: fit.yMax };
   invalidate();
 }
 

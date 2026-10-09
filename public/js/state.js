@@ -7,6 +7,7 @@ export const state = {
   governments: [], // { president, party, i0, i1, texts, ws, el, shown } per presidential term, from GOVERNMENTS
   bannerTop: 0, // px from the chart top to the banners, below the legend and controls
   events: [], // { i, label, note } for each of EVENTS and ELECTIONS within the series
+  info: { hidden: false, o: 1 }, // whether governments and events are toggled off, and their fade
   view: null, // the currently displayed window, possibly mid-animation
   box: null, // chart bounds
   controlsBox: null,

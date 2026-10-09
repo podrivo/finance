@@ -3,11 +3,16 @@ import { BUFFER, ELECTIONS, EVENTS, GOVERNMENTS, LINES } from './constants.js';
 import { chart, crosshair, labels, legend } from './dom.js';
 import { bindInput } from './input.js';
 import { restore, setActive } from './ranges.js';
-import { invalidate, playIntro, resize } from './render.js';
+import { invalidate, playIntro, refitY, resize } from './render.js';
 import { windowFor } from './scale.js';
 import { state } from './state.js';
 
 const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : r.text().then((t) => Promise.reject(new Error(t)))));
+const inflight = new Map();
+const loadJSON = (url) => {
+  if (!inflight.has(url)) inflight.set(url, getJSON(url));
+  return inflight.get(url);
+};
 
 const addMonths = (date, k) => {
   const [year, month] = date.split('-').map(Number);
@@ -35,10 +40,10 @@ function init(loaded) {
   ];
   state.series = dates.map((date) => ({ date }));
   state.n = dates.length;
-  state.lines = loaded.map(({ data, url, tooltip = 'monthly', ...line }) => {
+  state.lines = loaded.map(({ data, url, field = 'monthly', tooltip, ...line }) => {
     const byDate = new Map(data.series.map((p) => [p.date, p]));
-    const field = (key) => real.map((d) => byDate.get(d)?.[key] ?? null);
-    return { ...line, values: extend(field('monthly')), shown: pad(field(tooltip)), hidden: false, o: 1 };
+    const col = (key) => real.map((d) => byDate.get(d)?.[key] ?? null);
+    return { ...line, values: extend(col(field)), shown: pad(col(tooltip ?? field)), hidden: false, o: 1 };
   });
   const terms = ELECTIONS.map(({ date, term }) => term ?? `${+date.slice(0, 4) + 1}-01`);
   const index = (date) => (real.includes(date) ? [BUFFER + real.indexOf(date)] : []);
@@ -65,7 +70,7 @@ function init(loaded) {
       line.hidden = !line.hidden;
       item.setAttribute('aria-pressed', String(!line.hidden));
       state.shown = { i: -1, view: null };
-      invalidate();
+      refitY();
     });
     crosshair.append(dot);
     legend.append(item);
@@ -83,8 +88,11 @@ function init(loaded) {
 // IPCA is required; any other line that fails to load is left out.
 Promise.all(
   LINES.map((line, i) =>
-    getJSON(line.url).then(
-      (data) => ({ ...line, data: { ...data, series: data.series.filter((p) => p.monthly !== null) } }),
+    loadJSON(line.url).then(
+      (data) => {
+        const field = line.field ?? 'monthly';
+        return { ...line, data: { ...data, series: data.series.filter((p) => p[field] !== null) } };
+      },
       (err) => (i === 0 ? Promise.reject(err) : null)
     )
   )

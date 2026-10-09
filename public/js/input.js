@@ -1,10 +1,12 @@
 import { DOUBLE_TAP, HOLD, TAP_SLOP } from './constants.js';
-import { canvas, chart, modeButton, rangeButtons, selection } from './dom.js';
+import { canvas, chart, infoButton, modeButton, rangeButtons, selection } from './dom.js';
 import { hideHover, queueHover } from './hover.js';
 import { RANGES, setActive } from './ranges.js';
-import { animateTo, zoom } from './render.js';
+import { animateTo, invalidate, zoom } from './render.js';
 import { indexAt, windowFor } from './scale.js';
 import { state } from './state.js';
+
+const INFO_KEY = 'ipca:info';
 
 export function bindInput() {
   rangeButtons.forEach((b) =>
@@ -32,6 +34,28 @@ export function bindInput() {
   addEventListener('keydown', (e) => {
     if (e.key.toLowerCase() !== 'h' || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
     toggleMode();
+  });
+
+  const { info } = state;
+  try {
+    info.hidden = localStorage.getItem(INFO_KEY) === 'hidden';
+  } catch {}
+  info.o = info.hidden ? 0 : 1;
+  infoButton.setAttribute('aria-pressed', String(!info.hidden));
+  const toggleInfo = () => {
+    info.hidden = !info.hidden;
+    infoButton.setAttribute('aria-pressed', String(!info.hidden));
+    try {
+      if (info.hidden) localStorage.setItem(INFO_KEY, 'hidden');
+      else localStorage.removeItem(INFO_KEY);
+    } catch {}
+    state.shown = { i: -1, view: null };
+    invalidate();
+  };
+  infoButton.addEventListener('click', toggleInfo);
+  addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() !== 'i' || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    toggleInfo();
   });
 
   canvas.addEventListener('mousedown', (e) => {

@@ -85,15 +85,17 @@ export const TAP_SLOP = 8; // px a finger can drift and still count as still
 export const DOUBLE_TAP = 300; // ms
 
 // In tooltip order; drawn in reverse so IPCA stays on top.
-// Every line is plotted from its `monthly` field; `tooltip` names the field the tooltip shows instead.
+// `field` is plotted (default `monthly`); `tooltip` names the field the tooltip shows instead (default: `field`).
 // `step` lines only change at discrete decisions, so they're drawn as steps instead of curves.
 export const LINES = [
-  { key: 'ipca', label: 'IPCA', url: '/api/ipca' },
+  { key: 'ipca', label: 'IPCA', url: '/api/ipca', field: 'twelveMonths' },
+  { key: 'ipcaMonthly', label: 'IPCA mensal', url: '/api/ipca', field: 'monthly' },
+  { key: 'ipcaIndex', label: 'Índice IPCA', url: '/api/ipca', field: 'index', dash: [4, 4], percent: false },
   { key: 'selic', label: 'Selic', url: '/api/selic' },
   { key: 'selicTarget', label: 'Meta Selic', url: '/api/selic-target', tooltip: 'target', step: true, dash: [4, 4] },
 ];
 
 export const PALETTES = {
-  light: { ipca: '#f0541f', selic: '#6665ff', selicTarget: '#6665ff', zero: '#cbcbd2', election: '#e6e6eb', event: '#a3a2ab', band: '#efeff3', year: '#dddde3', month: '#ededf1' },
-  dark: { ipca: '#ff6534', selic: '#6665ff', selicTarget: '#6665ff', zero: '#34343d', election: '#141419', event: '#5e5d66', band: '#0a0a0d', year: '#1c1c23', month: '#0f0f13' },
+  light: { ipca: '#f0541f', ipcaMonthly: '#f08a5c', ipcaIndex: '#f0541f', selic: '#6665ff', selicTarget: '#6665ff', zero: '#cbcbd2', election: '#e6e6eb', event: '#a3a2ab', band: '#efeff3', year: '#dddde3', month: '#ededf1' },
+  dark: { ipca: '#ff6534', ipcaMonthly: '#ff9a70', ipcaIndex: '#ff6534', selic: '#6665ff', selicTarget: '#6665ff', zero: '#34343d', election: '#141419', event: '#5e5d66', band: '#0a0a0d', year: '#1c1c23', month: '#0f0f13' },
 };

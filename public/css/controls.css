@@ -42,8 +42,11 @@
 #controls #mode {
   animation-delay: 700ms;
 }
-#controls #theme {
+#controls #info {
   animation-delay: 800ms;
+}
+#controls #theme {
+  animation-delay: 900ms;
 }
 @keyframes controls-in {
   from {
@@ -108,6 +111,12 @@
 #legend .ipca::before {
   background: var(--ipca);
 }
+#legend .ipcaMonthly::before {
+  background: var(--ipca-monthly);
+}
+#legend .ipcaIndex::before {
+  background: repeating-linear-gradient(to right, var(--ipca) 0 4px, transparent 4px 7px);
+}
 #legend .selic::before {
   background: var(--selic);
 }
@@ -160,6 +169,7 @@
   color: var(--fg);
 }
 #controls #mode,
+#controls #info,
 #controls #theme {
   display: grid;
   place-items: center;
@@ -167,13 +177,18 @@
   padding: 0;
 }
 #mode svg,
+#info svg,
 #theme svg {
   width: 16px;
   height: 16px;
 }
 #mode,
+#info,
 #theme {
   position: relative;
+}
+#info[aria-pressed='false'] svg {
+  opacity: 0.4;
 }
 /* Right-aligned to the button, since the controls sit at the right edge. */
 #controls .tip {
