@@ -1,6 +1,6 @@
 {
   "source": "BCB SGS",
-  "fetchedAt": "2026-10-08T23:34:34.000Z",
+  "fetchedAt": "2026-11-01T18:22:32.223Z",
   "series": [
     {
       "date": "1986-08",
@@ -3375,6 +3375,13 @@
       "ytd": 10.5,
       "twelveMonths": 14.47,
       "annualized": 13.78
+    },
+    {
+      "date": "2026-10",
+      "monthly": 1.07,
+      "ytd": 11.68,
+      "twelveMonths": 14.23,
+      "annualized": 13.65
     }
   ]
 }
